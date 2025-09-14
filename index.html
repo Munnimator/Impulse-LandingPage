@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImpulseLog - Turn Your Impulse Buying Into Intentional Saving</title>
+    <meta name="description" content="The gamified app that helps neurodivergent minds build better spending habits. Track impulses, save money, level up.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="ImpulseLog - Stop Impulse Buying, Start Saving">
+    <meta property="og:description" content="The gamified app designed for ADHD minds to build better spending habits.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://impulselog.com">
+    
+    <!-- Apple Smart App Banner -->
+    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/icons/site.webmanifest">
+    <meta name="theme-color" content="#8B5CF6">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <span class="logo-icon">💰</span>
+                    <span class="logo-text">ImpulseLog</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#download" class="btn btn-primary btn-small">Download</a>
+                </div>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#download" class="btn btn-primary">Download App</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Turn Your Impulse Buying Into 
+                        <span class="gradient-text">Intentional Saving</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        The gamified app that helps neurodivergent minds build better spending habits. 
+                        Track impulses, unlock achievements, and watch your savings grow.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="https://apps.apple.com/app/impulselog" class="btn btn-primary btn-large">
+                            <svg class="apple-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                            </svg>
+                            Download on App Store
+                        </a>
+                        <button class="btn btn-secondary btn-large" onclick="scrollToSection('how-it-works')">
+                            See How It Works
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-value">$47,392</span>
+                            <span class="stat-label">Saved this month</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">2.3M</span>
+                            <span class="stat-label">Impulses avoided</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">10K+</span>
+                            <span class="stat-label">Active users</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="phone-mockup">
+                        <img src="assets/images/dashboard.png" alt="ImpulseLog Dashboard - Track savings, challenges, and level progress">
+                        <div class="phone-notch"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Props Section -->
+    <section class="value-props" id="features">
+        <div class="container">
+            <h2 class="section-title">Built for ADHD & Neurodivergent Minds</h2>
+            <p class="section-subtitle">We understand the unique challenges you face with impulse control</p>
+            
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-icon">🧠</div>
+                    <h3>Dopamine-Friendly Design</h3>
+                    <p>Gamification that works with your brain, not against it. Earn XP, unlock achievements, and level up with every impulse you avoid.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <h3>Quick Logging</h3>
+                    <p>Log an avoided impulse in under 5 seconds. No complex forms or categories to slow you down when you need it most.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤖</div>
+                    <h3>AI Mood Insights</h3>
+                    <p>Understand your spending triggers with GPT-4 powered mood analysis. Discover patterns between emotions and impulses.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">📊</div>
+                    <h3>Visual Progress</h3>
+                    <p>See your progress in colorful charts and graphs. Perfect for visual learners who need to see their success.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🏆</div>
+                    <h3>23 Achievements</h3>
+                    <p>From "First Save" to "Impulse Master" - unlock meaningful milestones that celebrate your journey.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>Daily Challenges</h3>
+                    <p>Fresh challenges every day to keep you engaged and motivated. Build streaks and earn bonus rewards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Screenshots Showcase -->
+    <section class="screenshots-showcase">
+        <div class="container">
+            <h2 class="section-title">See ImpulseLog in Action</h2>
+            <p class="section-subtitle">Real screenshots from our iOS app</p>
+            
+            <div class="screenshots-carousel">
+                <div class="screenshot-container">
+                    <div class="screenshot-wrapper active" data-screen="1">
+                        <div class="iphone-frame">
+                            <img src="assets/images/dashboard.png" alt="Dashboard - Track your savings and daily challenges" loading="eager">
+                            <div class="screen-label">Track Progress & Challenges</div>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-wrapper" data-screen="2">
+                        <div class="iphone-frame">
+                            <img src="assets/images/mood-ai.png" alt="AI Insights - Get personalized financial wellness insights" loading="lazy">
+                            <div class="screen-label">AI-Powered Insights</div>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-wrapper" data-screen="3">
+                        <div class="iphone-frame">
+                            <img src="assets/images/mood-insights.png" alt="Mood Patterns - Track emotional spending triggers" loading="lazy">
+                            <div class="screen-label">Mood Pattern Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-wrapper" data-screen="4">
+                        <div class="iphone-frame">
+                            <img src="assets/images/piggybanks.png" alt="Piggy Banks - Visual savings goals" loading="lazy">
+                            <div class="screen-label">Savings Goals</div>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-wrapper" data-screen="5">
+                        <div class="iphone-frame">
+                            <img src="assets/images/piggybanks-2.png" alt="Piggy Banks - Track progress and deposits" loading="lazy">
+                            <div class="screen-label">Goal Progress</div>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-wrapper" data-screen="6">
+                        <div class="iphone-frame">
+                            <img src="assets/images/analytics.png" alt="Analytics - Track savings over time and by category" loading="lazy">
+                            <div class="screen-label">Detailed Analytics</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="screenshot-nav">
+                    <button class="nav-dot active" data-screen="1" aria-label="View dashboard screen"></button>
+                    <button class="nav-dot" data-screen="2" aria-label="View AI insights screen"></button>
+                    <button class="nav-dot" data-screen="3" aria-label="View mood patterns screen"></button>
+                    <button class="nav-dot" data-screen="4" aria-label="View savings goals screen"></button>
+                    <button class="nav-dot" data-screen="5" aria-label="View goal progress screen"></button>
+                    <button class="nav-dot" data-screen="6" aria-label="View analytics screen"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How ImpulseLog Works</h2>
+            <p class="section-subtitle">Three simple steps to transform your spending habits</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Feel an Impulse</h3>
+                    <p>When you feel the urge to make an impulse purchase, open ImpulseLog instead of the shopping app.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Log & Reflect</h3>
+                    <p>Quickly log what you wanted to buy and how much you're saving. Optionally add your mood for AI insights.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Level Up</h3>
+                    <p>Watch your savings grow, earn XP, unlock achievements, and see real-time progress toward your goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Calculator -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-card">
+                <h2>See Your Potential Savings</h2>
+                <p>Calculate how much you could save by tracking your impulses</p>
+                
+                <div class="calculator">
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label for="impulses-per-week">Impulses per week</label>
+                            <input type="number" id="impulses-per-week" value="3" min="1" max="50">
+                        </div>
+                        <div class="input-group">
+                            <label for="average-amount">Average amount</label>
+                            <div class="input-with-prefix">
+                                <span>$</span>
+                                <input type="number" id="average-amount" value="25" min="1" max="1000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="calc-results">
+                        <div class="result-item">
+                            <span class="result-label">Monthly Savings</span>
+                            <span class="result-value" id="monthly-savings">$300</span>
+                        </div>
+                        <div class="result-item highlight">
+                            <span class="result-label">Yearly Savings</span>
+                            <span class="result-value" id="yearly-savings">$3,600</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#download" class="btn btn-primary btn-large">Start Saving Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Comparison -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Choose Your Plan</h2>
+            <p class="section-subtitle">Start free, upgrade when you're ready</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">
+                        <span class="amount">$0</span>
+                        <span class="period">forever</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>✓ Impulse tracking</li>
+                        <li>✓ Basic achievements</li>
+                        <li>✓ Savings goals</li>
+                        <li>✓ Community challenges</li>
+                        <li>✓ 7-day streaks</li>
+                    </ul>
+                    <a href="#download" class="btn btn-secondary">Get Started</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="badge">Most Popular</div>
+                    <h3>Essential</h3>
+                    <div class="price">
+                        <span class="amount">$4.99</span>
+                        <span class="period">per month</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>✓ Everything in Free</li>
+                        <li>✓ Advanced analytics</li>
+                        <li>✓ Unlimited streaks</li>
+                        <li>✓ All 23 achievements</li>
+                        <li>✓ Priority support</li>
+                    </ul>
+                    <a href="#download" class="btn btn-primary">Get Started</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Premium</h3>
+                    <div class="price">
+                        <span class="amount">$8.99</span>
+                        <span class="period">per month</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>✓ Everything in Essential</li>
+                        <li>✓ AI mood insights</li>
+                        <li>✓ Predictive analytics</li>
+                        <li>✓ Data export</li>
+                        <li>✓ Custom categories</li>
+                    </ul>
+                    <a href="#download" class="btn btn-secondary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Is this just another budget app?</h3>
+                    <p>No! ImpulseLog is specifically designed for impulse control, not general budgeting. We focus on the psychology of impulse buying and use gamification to make saving fun and rewarding.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>How does the mood tracking work?</h3>
+                    <p>You can optionally log your mood when recording an avoided impulse. Our AI analyzes patterns between your emotions and spending urges, helping you understand your triggers.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Is my financial data secure?</h3>
+                    <p>Absolutely. We use bank-level encryption, your data is stored securely in Firebase, and we never share or sell your information. You can export or delete your data anytime.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What makes this different from Mint or YNAB?</h3>
+                    <p>ImpulseLog is built specifically for neurodivergent minds with features like quick logging, visual progress, and dopamine-friendly gamification. We're not a full budget app - we're your impulse control companion.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Can I use this with my partner?</h3>
+                    <p>Each person needs their own account to track individual progress and achievements. However, you can share victories and compete in community challenges together!</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust">
+        <div class="container">
+            <h2 class="section-title">Your Privacy & Security Matter</h2>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">🔒</div>
+                    <h3>Bank-Level Encryption</h3>
+                    <p>Your data is encrypted in transit and at rest</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🚫</div>
+                    <h3>No Ads, Ever</h3>
+                    <p>We make money from subscriptions, not your attention</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🛡️</div>
+                    <h3>Your Data, Your Control</h3>
+                    <p>Export or delete your data anytime</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">✋</div>
+                    <h3>Never Sold</h3>
+                    <p>We never sell or share your personal information</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="download">
+        <div class="container">
+            <div class="cta-card">
+                <h2>Ready to Take Control of Your Impulses?</h2>
+                <p>Join thousands of people building better spending habits</p>
+                
+                <div class="download-options">
+                    <div class="ios-download">
+                        <a href="https://apps.apple.com/app/impulselog" class="btn btn-primary btn-large">
+                            <svg class="apple-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                            </svg>
+                            Download on App Store
+                        </a>
+                        <p class="download-note">Available for iPhone & iPad</p>
+                    </div>
+                    
+                    <div class="qr-download">
+                        <div class="qr-code" id="qr-code"></div>
+                        <p class="qr-note">Scan with your iPhone</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-icon">💰</span>
+                        <span class="logo-text">ImpulseLog</span>
+                    </div>
+                    <p>Building better spending habits, one impulse at a time.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#pricing">Pricing</a>
+                        <a href="#download">Download</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Company</h4>
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/terms">Terms of Service</a>
+                        <a href="mailto:support@impulselog.com">Contact</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Connect</h4>
+                        <a href="mailto:support@impulselog.com">support@impulselog.com</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 ImpulseLog. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Download Button (appears on scroll) -->
+    <div class="floating-cta" id="floating-cta">
+        <a href="https://apps.apple.com/app/impulselog" class="btn btn-primary">
+            Download App
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
