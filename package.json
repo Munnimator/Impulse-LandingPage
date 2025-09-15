@@ -1,0 +1,13 @@
+{
+  "name": "impulselog-landing",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Landing page for ImpulseLog iOS app",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "serve": "npx serve -p 3001"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
