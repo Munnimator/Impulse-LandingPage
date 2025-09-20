@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://impulselog.com">
     
     <!-- Apple Smart App Banner -->
-    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
+    <meta name="apple-itunes-app" content="app-id=6747727094">
     
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
@@ -29,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
     <!-- Navigation -->
@@ -56,7 +56,7 @@
                     <a href="#how-it-works">How It Works</a>
                     <a href="#pricing">Pricing</a>
                     <a href="#faq">FAQ</a>
-                    <a href="#download" class="btn btn-primary btn-small" style="color: white;">Download</a>
+                    <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary btn-small" style="color: white;">Download</a>
                 </div>
                 <button class="mobile-menu-toggle" aria-label="Toggle menu">
                     <span></span>
@@ -73,7 +73,7 @@
         <a href="#how-it-works">How It Works</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
-        <a href="#download" class="btn btn-primary" style="color: white;">Download App</a>
+        <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Download App</a>
     </div>
 
     <!-- Hero Section -->
@@ -90,7 +90,7 @@
                         Track impulses, unlock achievements, and watch your savings grow.
                     </p>
                     <div class="hero-cta">
-                        <a href="https://apps.apple.com/app/impulselog" class="btn btn-primary btn-large" style="color: white;">
+                        <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary btn-large" style="color: white;">
                             <svg class="apple-icon" viewBox="0 0 24 24" fill="white">
                                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                             </svg>
@@ -118,7 +118,6 @@
                 <div class="hero-image">
                     <div class="phone-mockup">
                         <img src="assets/images/dashboard.png" alt="ImpulseLog Dashboard - Track savings, challenges, and level progress">
-                        <div class="phone-notch"></div>
                     </div>
                 </div>
             </div>
@@ -223,8 +222,13 @@
                                     <stop offset="50%" stop-color="#F59E0B"/>
                                     <stop offset="100%" stop-color="#D97706"/>
                                 </linearGradient>
+                                <linearGradient id="starInner" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#8B5CF6"/>
+                                    <stop offset="100%" stop-color="#3B82F6"/>
+                                </linearGradient>
                             </defs>
                             <path d="M12 2L15.09 8.26L22 9L17 13.74L18.18 20.74L12 17.77L5.82 20.74L7 13.74L2 9L8.91 8.26L12 2Z" fill="url(#starGradient)" stroke="#D97706" stroke-width="1"/>
+                            <circle cx="12" cy="12" r="4" fill="url(#starInner)" stroke="#FFFFFF" stroke-width="1.5"/>
                             <text x="12" y="16" text-anchor="middle" fill="#FFFFFF" font-size="8" font-weight="bold">23</text>
                         </svg>
                     </div>
@@ -244,23 +248,12 @@
                                     <stop offset="0%" stop-color="#F59E0B"/>
                                     <stop offset="100%" stop-color="#EF4444"/>
                                 </linearGradient>
-                                <linearGradient id="mountainShadow" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#047857"/>
-                                    <stop offset="100%" stop-color="#065F46"/>
-                                </linearGradient>
                             </defs>
-                            <!-- Main mountain range -->
-                            <path d="M2 20L6 12L9 15L12 8L15 12L18 6L22 20H2Z" fill="url(#mountainGradient)" stroke="#047857" stroke-width="1"/>
-                            <!-- Mountain peaks detail -->
-                            <path d="M6 12L9 15L12 8L15 12L18 6" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
-                            <!-- Shadow/depth on mountain -->
-                            <path d="M9 15L12 8L15 12L18 6L22 20L18 20L15 12L12 8L9 15Z" fill="url(#mountainShadow)" opacity="0.3"/>
-                            <!-- Flag pole integrated into peak -->
-                            <path d="M12 8L12 4" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
-                            <!-- Flag -->
-                            <path d="M12 4L16 5.5L12 7Z" fill="url(#flagGradient)" stroke="#D97706" stroke-width="0.5"/>
-                            <!-- Flag pole base -->
-                            <circle cx="12" cy="8" r="1" fill="#8B4513"/>
+                            <path d="M3 20L8 10L12 15L16 8L21 20H3Z" fill="url(#mountainGradient)" stroke="#047857" stroke-width="1"/>
+                            <path d="M8 10L12 6L16 8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="6" r="2.5" fill="url(#flagGradient)" stroke="#FFFFFF" stroke-width="1"/>
+                            <path d="M12 3L12 8" stroke="#6B7280" stroke-width="1.5"/>
+                            <polygon points="12,3 16,4 12,5" fill="url(#flagGradient)"/>
                         </svg>
                     </div>
                     <h3>Daily Challenges</h3>
@@ -392,7 +385,7 @@
                         </div>
                     </div>
                     
-                    <a href="#download" class="btn btn-primary btn-large" style="color: white;">Start Saving Now</a>
+                    <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary btn-large" style="color: white;">Start Saving Now</a>
                 </div>
             </div>
         </div>
@@ -418,7 +411,7 @@
                         <li>✓ Community challenges</li>
                         <li>✓ 7-day streaks</li>
                     </ul>
-                    <a href="#download" class="btn btn-secondary">Get Started</a>
+                    <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-secondary">Get Started</a>
                 </div>
                 
                 <div class="pricing-card featured">
@@ -435,7 +428,7 @@
                         <li>✓ All 23 achievements</li>
                         <li>✓ Priority support</li>
                     </ul>
-                    <a href="#download" class="btn btn-primary" style="color: white;">Get Started</a>
+                    <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
                 </div>
                 
                 <div class="pricing-card">
@@ -451,7 +444,7 @@
                         <li>✓ Data export</li>
                         <li>✓ Custom categories</li>
                     </ul>
-                    <a href="#download" class="btn btn-secondary">Get Started</a>
+                    <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-secondary">Get Started</a>
                 </div>
             </div>
         </div>
@@ -577,7 +570,7 @@
                 
                 <div class="download-options">
                     <div class="ios-download">
-                        <a href="https://apps.apple.com/app/impulselog" class="btn btn-primary btn-large" style="color: white;">
+                        <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary btn-large" style="color: white;">
                             <svg class="apple-icon" viewBox="0 0 24 24" fill="white">
                                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                             </svg>
@@ -649,7 +642,7 @@
 
     <!-- Floating Download Button (appears on scroll) -->
     <div class="floating-cta" id="floating-cta">
-        <a href="https://apps.apple.com/app/impulselog" class="btn btn-primary" style="color: white;">
+        <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">
             Download App
         </a>
     </div>

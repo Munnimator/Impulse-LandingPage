@@ -319,17 +319,6 @@ p {
     background: white;
 }
 
-.phone-notch {
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    height: 28px;
-    background: #1a1a1a;
-    border-radius: 0 0 20px 20px;
-    z-index: 10;
-}
 
 /* Screenshots Showcase */
 .screenshots-showcase {
@@ -378,18 +367,6 @@ p {
     overflow: hidden;
 }
 
-.iphone-frame::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    height: 30px;
-    background: #1a1a1a;
-    border-radius: 0 0 20px 20px;
-    z-index: 10;
-}
 
 .iphone-frame img {
     width: 100%;
@@ -886,72 +863,18 @@ p {
         display: flex;
     }
     
-    .mobile-menu {
-        box-shadow: var(--shadow-lg);
-    }
-    
-    .mobile-menu a {
-        padding: var(--space-md);
-        border-bottom: 1px solid var(--border);
-        font-size: var(--font-size-lg);
-    }
-    
-    .mobile-menu a:last-child {
-        border-bottom: none;
-    }
-    
     /* Hero */
-    .hero {
-        padding: calc(72px + var(--space-2xl)) 0 var(--space-2xl);
-    }
-    
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
-        gap: var(--space-2xl);
-    }
-    
-    .hero-subtitle {
-        font-size: var(--font-size-lg);
-        margin-bottom: var(--space-2xl);
     }
     
     .hero-cta {
         flex-direction: column;
-        gap: var(--space-md);
-        margin-bottom: var(--space-2xl);
-    }
-    
-    .hero-cta .btn {
-        width: 100%;
-        min-height: 54px;
-        font-size: var(--font-size-lg);
     }
     
     .hero-stats {
-        justify-content: space-between;
-        gap: var(--space-md);
-        margin: 0 var(--space-md);
-    }
-    
-    .stat {
-        flex: 1;
-        text-align: center;
-        padding: var(--space-sm);
-        background: rgba(139, 92, 246, 0.05);
-        border-radius: var(--radius);
-        border: 1px solid rgba(139, 92, 246, 0.1);
-    }
-    
-    .stat-value {
-        font-size: var(--font-size-xl);
-        display: block;
-        margin-bottom: var(--space-xs);
-    }
-    
-    .stat-label {
-        font-size: var(--font-size-xs);
-        line-height: 1.4;
+        justify-content: center;
     }
     
     .hero-image {
@@ -964,159 +887,53 @@ p {
     }
     
     /* Value Props */
-    .value-props {
-        padding: var(--space-2xl) 0;
-    }
-    
     .value-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-xl);
-    }
-    
-    .value-card {
-        padding: var(--space-2xl);
-        margin: 0 var(--space-sm);
-    }
-    
-    .value-icon {
-        margin-bottom: var(--space-lg);
-    }
-    
-    .value-card h3 {
-        font-size: var(--font-size-xl);
-        margin-bottom: var(--space-md);
-    }
-    
-    .value-card p {
-        font-size: var(--font-size-base);
-        line-height: 1.7;
     }
     
     /* How It Works */
     .steps {
         grid-template-columns: 1fr;
-        gap: var(--space-2xl);
-    }
-    
-    .step {
-        padding: var(--space-lg);
-        background: white;
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow);
-        margin: 0 var(--space-sm);
+        gap: var(--space-xl);
     }
     
     /* Calculator */
-    .calculator-section {
-        padding: var(--space-2xl) 0;
-    }
-    
-    .calculator-card {
-        padding: var(--space-2xl);
-        margin: 0 var(--space-sm);
-    }
-    
     .calc-inputs {
         grid-template-columns: 1fr;
-        gap: var(--space-lg);
-    }
-    
-    .calc-results {
-        gap: var(--space-md);
-        margin-bottom: var(--space-2xl);
-    }
-    
-    .result-item {
-        padding: var(--space-lg);
-        text-align: center;
-    }
-    
-    .result-value {
-        font-size: var(--font-size-2xl);
-    }
-    
-    .calculator .btn {
-        width: 100%;
-        min-height: 54px;
-        font-size: var(--font-size-lg);
     }
     
     /* Pricing */
     .pricing-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-lg);
-    }
-    
-    .pricing-card {
-        margin: 0 var(--space-sm);
-        padding: var(--space-2xl);
     }
     
     .pricing-card.featured {
         transform: none;
-        box-shadow: var(--shadow-lg);
-    }
-    
-    .pricing-card .btn {
-        width: 100%;
-        min-height: 50px;
     }
     
     /* FAQ */
     .faq-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-xl);
-    }
-    
-    .faq-item {
-        padding: var(--space-lg);
-        background: white;
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow);
-        margin: 0 var(--space-sm);
     }
     
     /* Trust */
     .trust-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-lg);
-    }
-    
-    .trust-item {
-        padding: var(--space-lg);
-    }
-    
-    .trust-icon {
-        margin-bottom: var(--space-md);
+        grid-template-columns: 1fr;
     }
     
     /* Footer */
     .footer-content {
         grid-template-columns: 1fr;
-        gap: var(--space-2xl);
     }
     
     .footer-links {
         grid-template-columns: 1fr;
-        gap: var(--space-2xl);
     }
     
     /* Download Options */
     .download-options {
         flex-direction: column;
         align-items: center;
-        gap: var(--space-2xl);
-    }
-    
-    .ios-download .btn {
-        width: 100%;
-        min-height: 54px;
-        font-size: var(--font-size-lg);
-    }
-    
-    .qr-code {
-        width: 180px;
-        height: 180px;
     }
     
     /* Screenshots */
@@ -1129,20 +946,6 @@ p {
         min-height: 650px;
     }
     
-    .screenshot-nav {
-        gap: var(--space-md);
-        margin-top: var(--space-2xl);
-    }
-    
-    .nav-dot {
-        width: 16px;
-        height: 16px;
-    }
-    
-    .nav-dot.active {
-        width: 50px;
-    }
-    
     /* Floating CTA */
     .floating-cta {
         left: var(--space-md);
@@ -1152,192 +955,6 @@ p {
     
     .floating-cta .btn {
         width: 100%;
-        min-height: 54px;
-    }
-}
-
-/* Mobile Small - 480px and below */
-@media (max-width: 480px) {
-    .container {
-        padding: 0 var(--space-sm);
-    }
-    
-    /* Typography */
-    h1, .hero-title {
-        font-size: var(--font-size-2xl);
-        line-height: 1.2;
-    }
-    
-    h2 {
-        font-size: var(--font-size-xl);
-    }
-    
-    .hero-subtitle {
-        font-size: var(--font-size-base);
-    }
-    
-    .section-subtitle {
-        font-size: var(--font-size-base);
-    }
-    
-    /* Hero */
-    .hero {
-        padding: calc(72px + var(--space-lg)) 0 var(--space-lg);
-    }
-    
-    .hero-stats {
-        flex-direction: column;
-        gap: var(--space-sm);
-        margin: 0;
-    }
-    
-    .stat {
-        padding: var(--space-md);
-    }
-    
-    .phone-mockup {
-        width: 240px;
-        height: 480px;
-    }
-    
-    /* Sections */
-    .value-props,
-    .how-it-works,
-    .calculator-section,
-    .pricing,
-    .faq,
-    .trust,
-    .final-cta {
-        padding: var(--space-xl) 0;
-    }
-    
-    .value-card,
-    .step,
-    .calculator-card,
-    .pricing-card,
-    .faq-item {
-        margin: 0;
-        padding: var(--space-lg);
-    }
-    
-    /* Screenshots */
-    .iphone-frame {
-        width: 260px;
-        height: 520px;
-    }
-    
-    .screenshot-container {
-        min-height: 570px;
-    }
-    
-    /* Trust Grid - Single column on very small screens */
-    .trust-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-    }
-    
-    .trust-item {
-        padding: var(--space-md);
-    }
-    
-    /* QR Code */
-    .qr-code {
-        width: 150px;
-        height: 150px;
-    }
-    
-    /* Result values smaller on small screens */
-    .result-value {
-        font-size: var(--font-size-xl);
-    }
-    
-    /* Navigation improvements */
-    .nav-wrapper {
-        height: 64px;
-    }
-    
-    .hero {
-        padding: calc(64px + var(--space-lg)) 0 var(--space-lg);
-    }
-    
-    .mobile-menu {
-        top: 64px;
-    }
-}
-
-/* Mobile Extra Small - 375px and below */
-@media (max-width: 375px) {
-    .container {
-        padding: 0 var(--space-xs);
-    }
-    
-    /* Typography */
-    h1, .hero-title {
-        font-size: var(--font-size-xl);
-    }
-    
-    h2 {
-        font-size: var(--font-size-lg);
-    }
-    
-    .hero-subtitle,
-    .section-subtitle {
-        font-size: var(--font-size-sm);
-    }
-    
-    /* Hero */
-    .hero-cta {
-        gap: var(--space-sm);
-    }
-    
-    .phone-mockup {
-        width: 220px;
-        height: 440px;
-    }
-    
-    /* Sections */
-    .value-card,
-    .step,
-    .calculator-card,
-    .pricing-card,
-    .faq-item {
-        padding: var(--space-md);
-    }
-    
-    /* Screenshots */
-    .iphone-frame {
-        width: 240px;
-        height: 480px;
-    }
-    
-    .screenshot-container {
-        min-height: 530px;
-    }
-    
-    /* QR Code */
-    .qr-code {
-        width: 130px;
-        height: 130px;
-    }
-    
-    /* Stats layout adjustment */
-    .stat-value {
-        font-size: var(--font-size-lg);
-    }
-    
-    .stat-label {
-        font-size: 0.7rem;
-    }
-    
-    /* Button adjustments */
-    .btn {
-        padding: var(--space-sm) var(--space-md);
-        font-size: var(--font-size-sm);
-        min-height: 48px;
-    }
-    
-    .btn-large {
-        min-height: 52px;
     }
 }
 
