@@ -60,26 +60,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Floating CTA on Scroll
 const floatingCta = document.getElementById('floating-cta');
-let lastScrollTop = 0;
 
 window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
+
     // Show floating CTA after scrolling past hero
     if (scrollTop > 600) {
         floatingCta.classList.add('visible');
     } else {
         floatingCta.classList.remove('visible');
     }
-    
-    // Hide on scroll up, show on scroll down
-    if (scrollTop > lastScrollTop && scrollTop > 600) {
-        floatingCta.style.transform = 'translateY(100px)';
-    } else if (scrollTop < lastScrollTop) {
-        floatingCta.style.transform = 'translateY(0)';
-    }
-    
-    lastScrollTop = scrollTop;
 });
 
 // Interactive Calculator
