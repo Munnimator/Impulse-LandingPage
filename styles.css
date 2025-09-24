@@ -716,19 +716,48 @@ p {
 
 .cta-card p {
     color: rgba(255, 255, 255, 0.9);
-    margin-bottom: var(--space-xl);
+    margin-bottom: 3rem;
 }
 
 .download-options {
     display: flex;
     justify-content: center;
-    gap: var(--space-3xl);
-    margin-bottom: var(--space-xl);
+    gap: 4rem;
+    margin-bottom: 2.5rem;
 }
 
 .download-note, .qr-note {
     font-size: var(--font-size-sm);
     margin-top: var(--space-sm);
+}
+
+.cta-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.cta-logo {
+    width: 350px;
+    height: 120px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+}
+
+.cta-logo:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.qr-download {
+    display: none;
 }
 
 .qr-code {
@@ -934,6 +963,13 @@ p {
     .download-options {
         flex-direction: column;
         align-items: center;
+        gap: 2rem;
+    }
+    
+    /* Logo */
+    .cta-logo {
+        width: 280px;
+        height: 90px;
     }
     
     /* Screenshots */
