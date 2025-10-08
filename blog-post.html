@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Blog Post - ImpulseLog</title>
+    <meta name="description" id="page-description" content="Read our latest insights on impulse control and financial wellness.">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" id="og-title" content="Blog Post - ImpulseLog">
+    <meta property="og:description" id="og-description" content="Read our latest insights on impulse control and financial wellness.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" id="og-url" content="https://www.impulselog.com/blog">
+    <meta property="og:image" id="og-image" content="https://www.impulselog.com/assets/images/social-preview.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" id="twitter-title" content="Blog Post - ImpulseLog">
+    <meta name="twitter:description" id="twitter-description" content="Read our latest insights on impulse control and financial wellness.">
+    <meta name="twitter:image" id="twitter-image" content="https://www.impulselog.com/assets/images/social-preview.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" id="canonical-url" href="https://www.impulselog.com/blog">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <meta name="theme-color" content="#8B5CF6">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css?v=3">
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWRYLR73CY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZWRYLR73CY');
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        /* Blog post specific styles */
+        .post-header {
+            padding: 2rem 0;
+            background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+            color: white;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .post-container {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 3rem;
+            padding: 3rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .post-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .post-body {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: #374151;
+        }
+
+        .post-body h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            color: #111827;
+        }
+
+        .post-body h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: #111827;
+        }
+
+        .post-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-body ul, .post-body ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .post-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .post-body a {
+            color: #8B5CF6;
+            text-decoration: underline;
+        }
+
+        .post-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .tag {
+            background: #F3F4F6;
+            color: #6B7280;
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .tag:hover {
+            background: #E5E7EB;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .sidebar-post {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E5E7EB;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .sidebar-post:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .sidebar-post:hover h4 {
+            color: #8B5CF6;
+        }
+
+        .sidebar-post-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+        }
+
+        .sidebar-post-content {
+            flex: 1;
+        }
+
+        .sidebar-post h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            transition: color 0.2s;
+        }
+
+        .sidebar-post-date {
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            color: #8B5CF6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .loading-state, .error-state {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #F3F4F6;
+            border-top-color: #8B5CF6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .post-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .post-title {
+                font-size: 1.75rem;
+            }
+
+            .post-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="/" style="display: flex; align-items: center; text-decoration: none;">
+                        <span class="logo-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#8B5CF6"/>
+                                        <stop offset="100%" stop-color="#3B82F6"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M12 2C13.1 2 14 2.9 14 4V5H16C17.1 5 18 5.9 18 7V19C18 20.1 17.1 21 16 21H8C6.9 21 6 20.1 6 19V7C6 5.9 6.9 5 8 5H10V4C10 2.9 10.9 2 12 2ZM12 4V5H12V4ZM8 7V19H16V7H8ZM9 9H15V11H9V9ZM9 12H15V14H9V12Z" fill="url(#logoGradient)"/>
+                                <circle cx="12" cy="16" r="1.5" fill="#F59E0B"/>
+                            </svg>
+                        </span>
+                        <span class="logo-text">ImpulseLog</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="/#features">Features</a>
+                    <a href="/#how-it-works">How It Works</a>
+                    <a href="/#pricing">Pricing</a>
+                    <a href="/blog" class="active">Blog</a>
+                    <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary btn-small" style="color: white;">Download</a>
+                </div>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="/#features">Features</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/blog" class="active">Blog</a>
+        <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Download App</a>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading-state" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading blog post...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="error-state" style="display: none;">
+        <h2>Post Not Found</h2>
+        <p>Sorry, we couldn't find this blog post.</p>
+        <a href="/blog" class="btn btn-primary" style="color: white; margin-top: 1rem;">Back to Blog</a>
+    </div>
+
+    <!-- Post Content (hidden until loaded) -->
+    <div id="post-wrapper" style="display: none;">
+        <!-- Post Header -->
+        <section class="post-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> / <a href="/blog">Blog</a> / <span id="breadcrumb-title">Post</span>
+                </div>
+                <h1 class="post-title" id="post-title-main"></h1>
+                <div class="post-meta">
+                    <span id="post-date"></span>
+                    <span id="post-author"></span>
+                    <span id="post-reading-time"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Post Container -->
+        <section class="container">
+            <a href="/blog" class="back-link">
+                ← Back to Blog
+            </a>
+            <div class="post-container">
+                <!-- Main Content -->
+                <article class="post-content">
+                    <div id="featured-image-container"></div>
+                    <div class="post-body" id="post-body"></div>
+                    <div class="post-tags" id="post-tags"></div>
+                </article>
+
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <h3>Recent Posts</h3>
+                        <div id="recent-posts"></div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#8B5CF6"/>
+                                        <stop offset="100%" stop-color="#3B82F6"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M12 2C13.1 2 14 2.9 14 4V5H16C17.1 5 18 5.9 18 7V19C18 20.1 17.1 21 16 21H8C6.9 21 6 20.1 6 19V7C6 5.9 6.9 5 8 5H10V4C10 2.9 10.9 2 12 2ZM12 4V5H12V4ZM8 7V19H16V7H8ZM9 9H15V11H9V9ZM9 12H15V14H9V12Z" fill="url(#footerLogoGradient)"/>
+                                <circle cx="12" cy="16" r="1.5" fill="#F59E0B"/>
+                            </svg>
+                        </span>
+                        <span class="logo-text">ImpulseLog</span>
+                    </div>
+                    <p>Building better spending habits, one impulse at a time.</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Product</h4>
+                        <a href="/#features">Features</a>
+                        <a href="/#pricing">Pricing</a>
+                        <a href="/#download">Download</a>
+                    </div>
+
+                    <div class="link-group">
+                        <h4>Company</h4>
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/terms">Terms of Service</a>
+                        <a href="mailto:support@impulselog.com">Contact</a>
+                    </div>
+
+                    <div class="link-group">
+                        <h4>Connect</h4>
+                        <a href="mailto:support@impulselog.com">support@impulselog.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 ImpulseLog. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="assets/js/firebase-blog.js"></script>
+    <script>
+        // Get slug from URL
+        function getSlugFromURL() {
+            const pathParts = window.location.pathname.split('/');
+            return pathParts[pathParts.length - 1] || new URLSearchParams(window.location.search).get('slug');
+        }
+
+        // Update meta tags dynamically
+        function updateMetaTags(post) {
+            const baseUrl = 'https://www.impulselog.com';
+            const postUrl = `${baseUrl}/blog/${post.slug}`;
+            const ogImage = post.featuredImage || `${baseUrl}/assets/images/social-preview.png`;
+            const title = post.seoTitle || post.title;
+            const description = post.seoDescription || post.excerpt;
+
+            document.getElementById('page-title').textContent = `${title} - ImpulseLog`;
+            document.getElementById('page-description').setAttribute('content', description);
+            document.getElementById('og-title').setAttribute('content', title);
+            document.getElementById('og-description').setAttribute('content', description);
+            document.getElementById('og-url').setAttribute('content', postUrl);
+            document.getElementById('og-image').setAttribute('content', ogImage);
+            document.getElementById('twitter-title').setAttribute('content', title);
+            document.getElementById('twitter-description').setAttribute('content', description);
+            document.getElementById('twitter-image').setAttribute('content', ogImage);
+            document.getElementById('canonical-url').setAttribute('href', postUrl);
+        }
+
+        // Load and display blog post
+        async function loadBlogPost() {
+            const slug = getSlugFromURL();
+
+            if (!slug) {
+                showError();
+                return;
+            }
+
+            try {
+                const post = await getBlogPostBySlug(slug);
+
+                if (!post) {
+                    showError();
+                    return;
+                }
+
+                // Update meta tags
+                updateMetaTags(post);
+
+                // Display post
+                document.getElementById('breadcrumb-title').textContent = truncateText(post.title, 30);
+                document.getElementById('post-title-main').textContent = post.title;
+                document.getElementById('post-date').textContent = formatDate(post.publishedAt);
+                document.getElementById('post-author').textContent = `By ${post.author?.name || 'ImpulseLog Team'}`;
+                document.getElementById('post-reading-time').textContent = `${post.readingTime || 5} min read`;
+
+                // Featured image
+                if (post.featuredImage) {
+                    const imgContainer = document.getElementById('featured-image-container');
+                    imgContainer.innerHTML = `<img src="${post.featuredImage}" alt="${post.title}" class="post-featured-image">`;
+                }
+
+                // Post content
+                document.getElementById('post-body').innerHTML = post.content;
+
+                // Tags
+                if (post.tags && post.tags.length > 0) {
+                    const tagsContainer = document.getElementById('post-tags');
+                    tagsContainer.innerHTML = post.tags.map(tag =>
+                        `<a href="/blog?tag=${encodeURIComponent(tag)}" class="tag">${tag}</a>`
+                    ).join('');
+                }
+
+                // Load recent posts
+                loadRecentPosts(slug);
+
+                // Show post
+                document.getElementById('loading-state').style.display = 'none';
+                document.getElementById('post-wrapper').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error loading blog post:', error);
+                showError();
+            }
+        }
+
+        async function loadRecentPosts(currentSlug) {
+            try {
+                const posts = await getRecentBlogPosts(3, currentSlug);
+                const container = document.getElementById('recent-posts');
+
+                if (posts.length === 0) {
+                    container.innerHTML = '<p style="color: #6B7280; font-size: 0.875rem;">No recent posts available.</p>';
+                    return;
+                }
+
+                container.innerHTML = posts.map(post => {
+                    const imageUrl = post.featuredImage || '';
+                    const imageHtml = imageUrl
+                        ? `<img src="${imageUrl}" alt="${post.title}" class="sidebar-post-image">`
+                        : `<div class="sidebar-post-image"></div>`;
+
+                    return `
+                        <a href="/blog/${post.slug}" class="sidebar-post">
+                            ${imageHtml}
+                            <div class="sidebar-post-content">
+                                <h4>${truncateText(post.title, 60)}</h4>
+                                <div class="sidebar-post-date">${formatRelativeDate(post.publishedAt)}</div>
+                            </div>
+                        </a>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error('Error loading recent posts:', error);
+            }
+        }
+
+        function showError() {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('error-state').style.display = 'block';
+        }
+
+        // Load post when page loads
+        document.addEventListener('DOMContentLoaded', loadBlogPost);
+    </script>
+</body>
+</html>

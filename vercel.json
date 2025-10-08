@@ -5,8 +5,16 @@
       "destination": "/privacy.html"
     },
     {
-      "source": "/terms", 
+      "source": "/terms",
       "destination": "/terms.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blog-post.html"
     }
   ],
   "headers": [
