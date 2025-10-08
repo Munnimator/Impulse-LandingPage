@@ -1,7 +1,7 @@
 // Vercel Serverless Function - SEObot Blog Webhook
 // This endpoint receives blog post data from SEObot and saves it to Firebase
 
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
 
 // Initialize Firebase Admin SDK
 if (!admin.apps.length) {
@@ -42,7 +42,7 @@ function generateSlug(title) {
 /**
  * Main webhook handler
  */
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -145,4 +145,4 @@ module.exports = async (req, res) => {
       details: error.message,
     });
   }
-};
+}
