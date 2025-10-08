@@ -3,13 +3,40 @@
 
 import admin from 'firebase-admin';
 
+/**
+ * Format private key to handle both single-line (Vercel) and \n formats
+ */
+function formatPrivateKey(key) {
+  if (!key) return key;
+
+  // If key already has newlines, return as-is
+  if (key.includes('\n')) return key;
+
+  // If key has \n as text, replace with actual newlines
+  if (key.includes('\\n')) {
+    return key.replace(/\\n/g, '\n');
+  }
+
+  // If key is one long line, add newlines in proper PEM format
+  // Extract the base64 content between BEGIN and END
+  const match = key.match(/-----BEGIN PRIVATE KEY-----(.*?)-----END PRIVATE KEY-----/);
+  if (match) {
+    const base64 = match[1];
+    // Split base64 into 64-character lines
+    const formatted = base64.match(/.{1,64}/g)?.join('\n') || base64;
+    return `-----BEGIN PRIVATE KEY-----\n${formatted}\n-----END PRIVATE KEY-----`;
+  }
+
+  return key;
+}
+
 // Initialize Firebase Admin SDK
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert({
       projectId: 'impulsebuy-a64e2',
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      privateKey: formatPrivateKey(process.env.FIREBASE_PRIVATE_KEY),
     }),
     databaseURL: 'https://impulsebuy-a64e2.firebaseio.com'
   });
