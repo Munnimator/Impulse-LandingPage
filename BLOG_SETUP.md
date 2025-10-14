@@ -88,31 +88,51 @@ Add one custom header:
 
 ### Field Mapping:
 
-Map your SEObot fields to these JSON keys:
+The webhook accepts **seobot's native data format** (recommended) or a custom format for backward compatibility.
 
-- **Title** → `title` (required)
-- **Content** → `content` (required)
-- **Excerpt** → `excerpt` (optional)
-- **Featured Image** → `featuredImage` (optional)
-- **Tags** → `tags` (array, optional)
-- **Category** → `category` (optional)
-- **SEO Title** → `seoTitle` (optional)
-- **SEO Description** → `seoDescription` (optional)
-- **Published** → `published` (boolean, optional - defaults to true)
+#### SEObot Native Format (Recommended):
+- **headline** → Post title (required)
+- **html** → Post content in HTML (required)
+- **markdown** → Post content in Markdown (optional, stored for future use)
+- **metaDescription** → Post excerpt/summary (optional)
+- **image** → Featured image URL (optional)
+- **tags** → Array of tag objects with `title` property (optional)
+- **category** → Category object with `title` property (optional)
+- **published** → Boolean (optional, defaults to true)
+- **publishedAt** → ISO timestamp (optional, defaults to current time)
+- **readingTime** → Number in minutes (optional, auto-calculated if not provided)
+- **metaKeywords** → SEO keywords (optional)
+- **outline** → Post outline/structure (optional)
 
-### Example Webhook Payload:
+#### Custom Format (Backward Compatible):
+- **title** → Post title (required)
+- **content** → Post content in HTML (required)
+- **excerpt** → Post excerpt/summary (optional)
+- **featuredImage** → Featured image URL (optional)
+- **tags** → Array of strings (optional)
+- **category** → Category string (optional)
+- **published** → Boolean (optional, defaults to true)
+
+### Example Webhook Payload (SEObot Format):
 
 ```json
 {
-  "title": "5 Tips to Control Impulse Buying with ADHD",
-  "content": "<p>Your HTML content here...</p>",
-  "excerpt": "Learn how to manage impulse buying if you have ADHD with these practical tips.",
-  "featuredImage": "https://example.com/image.jpg",
-  "tags": ["ADHD", "impulse-control", "money-management"],
-  "category": "Financial Wellness",
+  "headline": "5 Tips to Control Impulse Buying with ADHD",
+  "html": "<p>Your HTML content here...</p>",
+  "markdown": "# 5 Tips to Control Impulse Buying with ADHD\n\nYour markdown content here...",
+  "metaDescription": "Learn how to manage impulse buying if you have ADHD with these practical tips.",
+  "image": "https://example.com/image.jpg",
+  "tags": [
+    { "id": "1", "title": "ADHD", "slug": "adhd" },
+    { "id": "2", "title": "impulse-control", "slug": "impulse-control" },
+    { "id": "3", "title": "money-management", "slug": "money-management" }
+  ],
+  "category": { "id": "1", "title": "Financial Wellness", "slug": "financial-wellness" },
   "published": true,
-  "seoTitle": "5 ADHD Impulse Buying Tips | ImpulseLog",
-  "seoDescription": "Practical strategies to control impulse spending when you have ADHD."
+  "publishedAt": "2025-10-14T10:30:00Z",
+  "readingTime": 5,
+  "metaKeywords": "ADHD, impulse buying, financial wellness",
+  "outline": "Introduction, Tip 1, Tip 2, Tip 3, Tip 4, Tip 5, Conclusion"
 }
 ```
 
@@ -127,6 +147,7 @@ blogPosts/
       ├── slug: string (auto-generated from title)
       ├── excerpt: string
       ├── content: string (HTML)
+      ├── markdown: string | null (Markdown version from seobot)
       ├── featuredImage: string | null
       ├── author: { name: string, avatar: string | null }
       ├── tags: string[]
@@ -137,12 +158,30 @@ blogPosts/
       ├── updatedAt: Timestamp
       ├── seoTitle: string
       ├── seoDescription: string
-      └── readingTime: number (auto-calculated)
+      ├── readingTime: number (from seobot or auto-calculated)
+      ├── metaKeywords: string | null (optional SEO keywords)
+      └── outline: string | null (optional post outline)
 ```
 
 ## Testing the Webhook
 
-Test with curl:
+### Test with seobot format (recommended):
+
+```bash
+curl -X POST https://www.impulselog.com/api/blog-webhook \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: a6d118e9-7e6f-4770-b8aa-350c1a047a9e" \
+  -d '{
+    "headline": "Test Blog Post",
+    "html": "<p>This is a test blog post.</p>",
+    "markdown": "# Test Blog Post\n\nThis is a test blog post.",
+    "metaDescription": "A test excerpt",
+    "tags": [{"title": "test"}],
+    "published": true
+  }'
+```
+
+### Test with custom format (backward compatible):
 
 ```bash
 curl -X POST https://www.impulselog.com/api/blog-webhook \
@@ -157,7 +196,7 @@ curl -X POST https://www.impulselog.com/api/blog-webhook \
   }'
 ```
 
-Expected response:
+### Expected response (both formats):
 ```json
 {
   "success": true,

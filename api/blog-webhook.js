@@ -94,40 +94,81 @@ export default async function handler(req, res) {
 
     const body = req.body;
 
-    // Validate required fields
-    if (!body.title || !body.content) {
+    // Map seobot field names to internal format (with backward compatibility)
+    const title = body.headline || body.title;
+    const content = body.html || body.content;
+    const excerpt = body.metaDescription || body.excerpt;
+    const featuredImage = body.image || body.featuredImage;
+    const markdown = body.markdown || null;
+
+    // Validate required fields (accept either format)
+    if (!title || !content) {
       return res.status(400).json({
         error: 'Missing required fields',
-        details: 'Title and content are required'
+        details: 'Title/headline and content/html are required'
       });
     }
 
     // Generate slug from title if not provided
-    const slug = body.slug || generateSlug(body.title);
+    const slug = body.slug || generateSlug(title);
 
-    // Calculate reading time
-    const readingTime = calculateReadingTime(body.content);
+    // Use seobot's readingTime if provided, otherwise calculate it
+    const readingTime = body.readingTime || calculateReadingTime(content);
+
+    // Handle tags - seobot sends array of objects with title property
+    let tags = [];
+    if (Array.isArray(body.tags)) {
+      tags = body.tags.map(tag => {
+        // If tag is an object with title property (seobot format), extract title
+        if (typeof tag === 'object' && tag.title) {
+          return tag.title;
+        }
+        // Otherwise use tag as-is (string format)
+        return tag;
+      });
+    }
+
+    // Handle category - seobot sends object with title property
+    let category = body.category;
+    if (category && typeof category === 'object' && category.title) {
+      category = category.title;
+    }
+
+    // Handle publishedAt - use seobot's timestamp if provided
+    let publishedAt;
+    if (body.publishedAt) {
+      // Convert seobot's ISO string to Firestore Timestamp
+      publishedAt = admin.firestore.Timestamp.fromDate(new Date(body.publishedAt));
+    } else if (body.published !== false) {
+      publishedAt = admin.firestore.Timestamp.now();
+    } else {
+      publishedAt = null;
+    }
 
     // Prepare blog post data
     const postData = {
-      title: body.title,
+      title,
       slug,
-      excerpt: body.excerpt || body.content.replace(/<[^>]*>/g, '').substring(0, 200) + '...',
-      content: body.content,
-      featuredImage: body.featuredImage || null,
+      excerpt: excerpt || content.replace(/<[^>]*>/g, '').substring(0, 200) + '...',
+      content,
+      markdown, // Store markdown version if provided by seobot
+      featuredImage: featuredImage || null,
       author: {
         name: body.author?.name || 'ImpulseLog Team',
         avatar: body.author?.avatar || null,
       },
-      tags: Array.isArray(body.tags) ? body.tags : [],
-      category: body.category || null,
+      tags,
+      category: category || null,
       published: body.published !== undefined ? body.published : true,
-      publishedAt: body.published !== false ? admin.firestore.Timestamp.now() : null,
+      publishedAt,
       createdAt: admin.firestore.Timestamp.now(),
       updatedAt: admin.firestore.Timestamp.now(),
-      seoTitle: body.seoTitle || body.title,
-      seoDescription: body.seoDescription || (body.excerpt || body.content.replace(/<[^>]*>/g, '').substring(0, 160)),
+      seoTitle: body.seoTitle || body.metaKeywords || title,
+      seoDescription: body.seoDescription || excerpt || content.replace(/<[^>]*>/g, '').substring(0, 160),
       readingTime,
+      // Store seobot-specific metadata if available
+      ...(body.metaKeywords && { metaKeywords: body.metaKeywords }),
+      ...(body.outline && { outline: body.outline }),
     };
 
     // Check if post with this slug already exists (update vs create)
