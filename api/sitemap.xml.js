@@ -49,25 +49,25 @@ const BASE_URL = 'https://www.impulselog.com';
  */
 const STATIC_PAGES = [
   {
-    url: '/',
+    url: `${BASE_URL}/`,
     lastmod: '2025-10-21',
     changefreq: 'weekly',
     priority: '1.0'
   },
   {
-    url: '/blog',
+    url: `${BASE_URL}/blog`,
     lastmod: '2025-10-14',
     changefreq: 'daily',
     priority: '0.9'
   },
   {
-    url: '/privacy',
+    url: `${BASE_URL}/privacy`,
     lastmod: '2025-10-05',
     changefreq: 'monthly',
     priority: '0.3'
   },
   {
-    url: '/terms',
+    url: `${BASE_URL}/terms`,
     lastmod: '2025-10-05',
     changefreq: 'monthly',
     priority: '0.3'
