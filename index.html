@@ -80,7 +80,7 @@
           "offers": {
             "@type": "AggregateOffer",
             "lowPrice": "0",
-            "highPrice": "8.99",
+            "highPrice": "99.99",
             "priceCurrency": "USD",
             "offerCount": "3",
             "offers": [
@@ -89,21 +89,21 @@
                 "name": "Free Plan",
                 "price": "0",
                 "priceCurrency": "USD",
-                "description": "Basic impulse tracking, achievements, savings goals"
+                "description": "Basic impulse tracking, 3 savings goals, basic mood tracking"
               },
               {
                 "@type": "Offer",
-                "name": "Essential Plan",
-                "price": "4.99",
+                "name": "Premium Plan - Monthly",
+                "price": "14.99",
                 "priceCurrency": "USD",
-                "description": "Advanced analytics, unlimited streaks, all achievements"
+                "description": "Unlimited goals, full AI insights, advanced analytics, mood-spending correlation, data export"
               },
               {
                 "@type": "Offer",
-                "name": "Premium Plan",
-                "price": "8.99",
+                "name": "Premium Plan - Annual",
+                "price": "99.99",
                 "priceCurrency": "USD",
-                "description": "AI mood insights, predictive analytics, data export"
+                "description": "All premium features with annual billing - Save 44%"
               }
             ]
           },
@@ -614,9 +614,9 @@
     <section class="pricing" id="pricing" aria-label="Pricing plans" itemscope itemtype="https://schema.org/OfferCatalog">
         <div class="container">
             <h2 class="section-title">Choose Your Plan</h2>
-            <p class="section-subtitle">Start free, upgrade when you're ready</p>
-            
-            <div class="pricing-grid">
+            <p class="section-subtitle">Start free, upgrade to unlock premium features</p>
+
+            <div class="pricing-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 900px; margin: 0 auto;">
                 <div class="pricing-card">
                     <h3>Free</h3>
                     <div class="price">
@@ -624,46 +624,36 @@
                         <span class="period">forever</span>
                     </div>
                     <ul class="features-list">
-                        <li>✓ Impulse tracking</li>
-                        <li>✓ Basic achievements</li>
-                        <li>✓ Savings goals</li>
+                        <li>✓ Basic impulse tracking</li>
+                        <li>✓ 3 savings goals</li>
+                        <li>✓ Basic mood tracking</li>
+                        <li>✓ Dashboard AI insights</li>
                         <li>✓ Community challenges</li>
-                        <li>✓ 7-day streaks</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-secondary">Get Started</a>
                 </div>
-                
+
                 <div class="pricing-card featured">
                     <div class="badge">Most Popular</div>
-                    <h3>Essential</h3>
+                    <h3>Premium</h3>
                     <div class="price">
-                        <span class="amount">$4.99</span>
+                        <span class="amount">$14.99</span>
                         <span class="period">per month</span>
+                    </div>
+                    <div style="margin-top: 10px; margin-bottom: 15px;">
+                        <div style="background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%); color: white; padding: 8px 16px; border-radius: 8px; display: inline-block; font-size: 14px; font-weight: 600;">
+                            $99/year - Save 44%
+                        </div>
                     </div>
                     <ul class="features-list">
                         <li>✓ Everything in Free</li>
-                        <li>✓ Advanced analytics</li>
-                        <li>✓ Unlimited streaks</li>
-                        <li>✓ All 23 achievements</li>
-                        <li>✓ Priority support</li>
+                        <li>✓ Unlimited savings goals</li>
+                        <li>✓ Full AI insights suite</li>
+                        <li>✓ Advanced analytics & patterns</li>
+                        <li>✓ Mood-spending correlation</li>
+                        <li>✓ Export data & priority support</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3>Premium</h3>
-                    <div class="price">
-                        <span class="amount">$8.99</span>
-                        <span class="period">per month</span>
-                    </div>
-                    <ul class="features-list">
-                        <li>✓ Everything in Essential</li>
-                        <li>✓ AI mood insights</li>
-                        <li>✓ Predictive analytics</li>
-                        <li>✓ Data export</li>
-                        <li>✓ Custom categories</li>
-                    </ul>
-                    <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-secondary">Get Started</a>
                 </div>
             </div>
         </div>
