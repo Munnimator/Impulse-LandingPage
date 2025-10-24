@@ -1,11 +1,9 @@
-import { NextResponse } from 'next/server';
-
 /**
- * Vercel Edge Middleware
+ * Vercel Edge Middleware (Standard Web APIs)
  * Dynamically injects correct canonical and OG:URL tags for blog posts
  * This fixes X/Twitter and Google indexing issues caused by hardcoded canonical tags
  */
-export async function middleware(request) {
+export default async function middleware(request) {
   const url = new URL(request.url);
 
   // Only process blog post routes (not the main /blog listing page)
@@ -17,7 +15,7 @@ export async function middleware(request) {
 
       if (!response.ok) {
         console.error('Failed to fetch blog-post.html:', response.status);
-        return NextResponse.next();
+        return; // Continue to normal response
       }
 
       let html = await response.text();
@@ -37,8 +35,8 @@ export async function middleware(request) {
         `<meta property="og:url" id="og-url" content="${canonicalUrl}">`
       );
 
-      // Return modified HTML with proper headers
-      return new NextResponse(html, {
+      // Return modified HTML with proper headers using standard Response API
+      return new Response(html, {
         status: 200,
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
@@ -52,8 +50,8 @@ export async function middleware(request) {
     }
   }
 
-  // For all other routes, continue normally
-  return NextResponse.next();
+  // For all other routes, continue normally (return undefined = passthrough)
+  return;
 }
 
 /**
