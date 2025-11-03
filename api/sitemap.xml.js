@@ -50,13 +50,13 @@ const BASE_URL = 'https://www.impulselog.com';
 const STATIC_PAGES = [
   {
     url: `${BASE_URL}/`,
-    lastmod: '2025-10-21',
+    lastmod: '2025-10-27',
     changefreq: 'weekly',
     priority: '1.0'
   },
   {
     url: `${BASE_URL}/blog`,
-    lastmod: '2025-10-14',
+    lastmod: '2025-10-27',
     changefreq: 'daily',
     priority: '0.9'
   },
@@ -113,12 +113,14 @@ export default async function handler(req, res) {
       .get();
 
     // Map blog posts to sitemap entries
+    // Using current date for all posts to trigger Google re-crawl after canonical fix
+    const currentDate = new Date().toISOString().split('T')[0];
     const blogPages = [];
     snapshot.forEach(doc => {
       const post = doc.data();
       blogPages.push({
         url: `${BASE_URL}/blog/${post.slug}`,
-        lastmod: formatDate(post.updatedAt || post.publishedAt || post.createdAt),
+        lastmod: currentDate, // Force current date to trigger re-crawl
         changefreq: 'monthly',
         priority: '0.7'
       });
