@@ -10,7 +10,7 @@
     <meta property="og:title" id="og-title" content="Blog Post - ImpulseLog">
     <meta property="og:description" id="og-description" content="Read our latest insights on impulse control and financial wellness.">
     <meta property="og:type" content="article">
-    <meta property="og:url" id="og-url" content="https://www.impulselog.com/blog">
+    <meta property="og:url" id="og-url" content="">
     <meta property="og:image" id="og-image" content="https://www.impulselog.com/assets/images/social-preview.png">
 
     <!-- Twitter Card -->
@@ -20,12 +20,13 @@
     <meta name="twitter:image" id="twitter-image" content="https://www.impulselog.com/assets/images/social-preview.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" id="canonical-url" href="https://www.impulselog.com/blog">
+    <link rel="canonical" id="canonical-url" href="">
 
     <!-- Immediate canonical/og:url fallback (runs before any content loads) -->
     <script>
         (function() {
-            const currentUrl = window.location.href;
+            // Use origin + pathname to exclude query parameters (e.g., utm_source)
+            const currentUrl = window.location.origin + window.location.pathname;
             document.getElementById('canonical-url').setAttribute('href', currentUrl);
             document.getElementById('og-url').setAttribute('content', currentUrl);
         })();

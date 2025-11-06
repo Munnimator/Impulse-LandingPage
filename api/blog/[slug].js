@@ -21,6 +21,75 @@ export const config = {
   runtime: 'edge',
 };
 
+// Firebase configuration
+const FIREBASE_PROJECT_ID = 'impulsebuy-a64e2';
+const FIREBASE_API_KEY = 'AIzaSyBUwxb5rdXEy8nIcVJAP9J9BpsN-BLmAXA';
+const BLOG_COLLECTION = 'blogPosts';
+
+/**
+ * Check if a blog post exists in Firestore by slug
+ * Uses Firestore REST API since Edge Runtime doesn't support Firebase SDK
+ */
+async function checkPostExists(slug) {
+  try {
+    // Construct Firestore REST API query URL
+    // Query the blogPosts collection for documents where slug equals the requested slug
+    const queryUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents:runQuery`;
+
+    const queryBody = {
+      structuredQuery: {
+        from: [{ collectionId: BLOG_COLLECTION }],
+        where: {
+          compositeFilter: {
+            op: 'AND',
+            filters: [
+              {
+                fieldFilter: {
+                  field: { fieldPath: 'slug' },
+                  op: 'EQUAL',
+                  value: { stringValue: slug }
+                }
+              },
+              {
+                fieldFilter: {
+                  field: { fieldPath: 'published' },
+                  op: 'EQUAL',
+                  value: { booleanValue: true }
+                }
+              }
+            ]
+          }
+        },
+        limit: 1
+      }
+    };
+
+    const response = await fetch(`${queryUrl}?key=${FIREBASE_API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(queryBody),
+    });
+
+    if (!response.ok) {
+      console.error('Firestore query failed:', response.status);
+      return false;
+    }
+
+    const data = await response.json();
+
+    // Check if any documents were returned
+    // Firestore returns an array with a 'document' field if found, empty array if not found
+    return data && data.length > 0 && data[0].document;
+
+  } catch (error) {
+    console.error('Error checking post existence:', error);
+    // Return true on error to fail gracefully (allow the page to load and show "Post Not Found" client-side)
+    return true;
+  }
+}
+
 /**
  * Main Edge Function handler
  */
@@ -36,6 +105,22 @@ export default async function handler(request) {
     if (!slug || slug === 'blog') {
       // If no slug or just /blog, pass through to normal handling
       return fetch(new URL('/blog.html', url.origin));
+    }
+
+    // Check if the blog post exists in Firestore
+    const postExists = await checkPostExists(slug);
+
+    if (!postExists) {
+      // Return 404 if post doesn't exist
+      // This prevents Google from indexing non-existent pages
+      return new Response('Blog post not found', {
+        status: 404,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'X-Edge-Function': 'blog-post',
+          'X-Post-Status': 'not-found',
+        },
+      });
     }
 
     // Fetch the blog-post.html template
@@ -86,6 +171,7 @@ export default async function handler(request) {
         'Cache-Control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
         'X-Edge-Function': 'blog-post', // Debug header to verify Edge Function ran
         'X-Canonical-Injected': canonicalUrl, // Debug header showing the injected canonical
+        'X-Post-Status': 'validated', // Indicates post existence was validated
       },
     });
 
