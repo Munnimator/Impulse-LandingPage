@@ -602,6 +602,9 @@ p {
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-lg);
     margin-top: var(--space-3xl);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .pricing-card {
@@ -635,6 +638,19 @@ p {
     border-radius: var(--radius-full);
     font-size: var(--font-size-sm);
     font-weight: 600;
+}
+
+.savings-badge {
+    background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+    color: white;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-align: center;
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+    display: block;
 }
 
 .price {
@@ -870,6 +886,20 @@ p {
     
     .trust-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablet: 2-column layout for pricing */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pricing-card.featured {
+        grid-column: 1 / -1;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
