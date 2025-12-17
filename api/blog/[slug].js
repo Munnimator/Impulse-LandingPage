@@ -2,18 +2,19 @@
  * Vercel Edge Function for Blog Posts
  *
  * This function intercepts all /blog/:slug requests and dynamically injects
- * the correct canonical and og:url tags into the HTML BEFORE it reaches crawlers.
+ * ALL SEO metadata into the HTML BEFORE it reaches crawlers.
  *
  * This fixes:
- * - X/Twitter "potentially harmful" blocking
- * - Google "Alternate page with proper canonical tag" errors
- * - All SEO issues related to duplicate canonicals
+ * - Google "Duplicate, Google chose different canonical" errors
+ * - Unique title/description per post for proper indexing
+ * - Structured data (JSON-LD) for rich search results
+ * - X/Twitter and social media sharing metadata
  *
  * Architecture:
  * - Runs at Vercel's edge network (server-side)
- * - Processes requests before HTML reaches crawlers
- * - Maintains the SPA architecture (blog-post.html + Firebase)
- * - Works for all current and future blog posts automatically
+ * - Fetches blog post data from Firestore REST API
+ * - Injects all SEO metadata server-side before crawlers see HTML
+ * - Maintains the SPA architecture for client-side interactivity
  */
 
 // Configure this function to run on Vercel's Edge Runtime
@@ -27,13 +28,123 @@ const FIREBASE_API_KEY = 'AIzaSyBUwxb5rdXEy8nIcVJAP9J9BpsN-BLmAXA';
 const BLOG_COLLECTION = 'blogPosts';
 
 /**
- * Check if a blog post exists in Firestore by slug
- * Uses Firestore REST API since Edge Runtime doesn't support Firebase SDK
+ * Parse Firestore document fields into plain JavaScript object
+ * Firestore REST API returns typed values: {stringValue: "..."}, {integerValue: "..."}, etc.
  */
-async function checkPostExists(slug) {
+function parseFirestoreDocument(doc) {
+  if (!doc || !doc.fields) return null;
+
+  const fields = doc.fields;
+  const result = {};
+
+  for (const [key, value] of Object.entries(fields)) {
+    result[key] = parseFirestoreValue(value);
+  }
+
+  return result;
+}
+
+/**
+ * Parse individual Firestore field value
+ */
+function parseFirestoreValue(value) {
+  if (value.stringValue !== undefined) return value.stringValue;
+  if (value.integerValue !== undefined) return parseInt(value.integerValue, 10);
+  if (value.doubleValue !== undefined) return value.doubleValue;
+  if (value.booleanValue !== undefined) return value.booleanValue;
+  if (value.nullValue !== undefined) return null;
+  if (value.timestampValue !== undefined) return value.timestampValue;
+  if (value.arrayValue !== undefined) {
+    return (value.arrayValue.values || []).map(parseFirestoreValue);
+  }
+  if (value.mapValue !== undefined) {
+    const map = {};
+    for (const [k, v] of Object.entries(value.mapValue.fields || {})) {
+      map[k] = parseFirestoreValue(v);
+    }
+    return map;
+  }
+  return null;
+}
+
+/**
+ * Escape HTML special characters to prevent XSS
+ */
+function escapeHtml(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
+/**
+ * Escape for JSON-LD (escape quotes and control characters)
+ */
+function escapeJsonLd(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')
+    .replace(/\t/g, '\\t');
+}
+
+/**
+ * Generate Article JSON-LD structured data
+ */
+function generateArticleJsonLd(post, canonicalUrl) {
+  const title = escapeJsonLd(post.seoTitle || post.title || '');
+  const description = escapeJsonLd(post.seoDescription || post.excerpt || '');
+  const image = post.featuredImage || 'https://www.impulselog.com/assets/images/social-preview.png';
+
+  let datePublished = new Date().toISOString();
+  if (post.publishedAt) {
+    datePublished = post.publishedAt;
+  }
+
+  const authorName = escapeJsonLd(post.author?.name || 'ImpulseLog Team');
+
+  return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "${title}",
+  "description": "${description}",
+  "image": "${image}",
+  "url": "${canonicalUrl}",
+  "datePublished": "${datePublished}",
+  "dateModified": "${datePublished}",
+  "author": {
+    "@type": "Person",
+    "name": "${authorName}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ImpulseLog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.impulselog.com/assets/icons/logo.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "${canonicalUrl}"
+  }
+}
+</script>`;
+}
+
+/**
+ * Fetch blog post data from Firestore by slug
+ * Uses Firestore REST API since Edge Runtime doesn't support Firebase SDK
+ * Returns parsed post object or null if not found
+ */
+async function getBlogPostData(slug) {
   try {
-    // Construct Firestore REST API query URL
-    // Query the blogPosts collection for documents where slug equals the requested slug
     const queryUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents:runQuery`;
 
     const queryBody = {
@@ -74,19 +185,22 @@ async function checkPostExists(slug) {
 
     if (!response.ok) {
       console.error('Firestore query failed:', response.status);
-      return false;
+      return null;
     }
 
     const data = await response.json();
 
     // Check if any documents were returned
-    // Firestore returns an array with a 'document' field if found, empty array if not found
-    return data && data.length > 0 && data[0].document;
+    if (!data || data.length === 0 || !data[0].document) {
+      return null;
+    }
+
+    // Parse Firestore document format into plain object
+    return parseFirestoreDocument(data[0].document);
 
   } catch (error) {
-    console.error('Error checking post existence:', error);
-    // Return true on error to fail gracefully (allow the page to load and show "Post Not Found" client-side)
-    return true;
+    console.error('Error fetching blog post:', error);
+    return null;
   }
 }
 
@@ -98,21 +212,18 @@ export default async function handler(request) {
     const url = new URL(request.url);
 
     // Extract the slug from the URL path
-    // e.g., "/blog/understanding-the-psychology-of-impulse-buying" -> "understanding-the-psychology-of-impulse-buying"
     const pathParts = url.pathname.split('/').filter(Boolean);
     const slug = pathParts[pathParts.length - 1];
 
     if (!slug || slug === 'blog') {
-      // If no slug or just /blog, pass through to normal handling
       return fetch(new URL('/blog.html', url.origin));
     }
 
-    // Check if the blog post exists in Firestore
-    const postExists = await checkPostExists(slug);
+    // Fetch the full blog post data from Firestore
+    const post = await getBlogPostData(slug);
 
-    if (!postExists) {
+    if (!post) {
       // Return 404 if post doesn't exist
-      // This prevents Google from indexing non-existent pages
       return new Response('Blog post not found', {
         status: 404,
         headers: {
@@ -134,34 +245,65 @@ export default async function handler(request) {
 
     let html = await templateResponse.text();
 
-    // Construct the correct canonical URL for this specific blog post
+    // Construct URLs and metadata
     const canonicalUrl = `https://www.impulselog.com/blog/${slug}`;
+    const title = escapeHtml(post.seoTitle || post.title || 'Blog Post');
+    const description = escapeHtml(post.seoDescription || post.excerpt || '');
+    const ogImage = post.featuredImage || 'https://www.impulselog.com/assets/images/social-preview.png';
 
-    // Replace the hardcoded canonical tag with the correct one
-    // This regex matches the canonical link tag regardless of attribute order
+    // === INJECT TITLE TAG ===
+    html = html.replace(
+      /<title[^>]*>.*?<\/title>/i,
+      `<title>${title} - ImpulseLog</title>`
+    );
+
+    // === INJECT META DESCRIPTION ===
+    html = html.replace(
+      /<meta\s+name="description"[^>]*>/i,
+      `<meta name="description" content="${description}">`
+    );
+
+    // === INJECT CANONICAL URL ===
     html = html.replace(
       /<link\s+([^>]*?\s)?rel="canonical"([^>]*?)>/gi,
-      (match) => {
-        // Replace the href attribute value
-        return match.replace(
-          /href="[^"]*"/gi,
-          `href="${canonicalUrl}"`
-        );
-      }
+      `<link rel="canonical" href="${canonicalUrl}">`
     );
 
-    // Replace the hardcoded og:url meta tag with the correct one
-    // This regex matches the og:url meta tag regardless of attribute order
+    // === INJECT OG TAGS ===
     html = html.replace(
-      /<meta\s+([^>]*?\s)?property="og:url"([^>]*?)>/gi,
-      (match) => {
-        // Replace the content attribute value
-        return match.replace(
-          /content="[^"]*"/gi,
-          `content="${canonicalUrl}"`
-        );
-      }
+      /<meta\s+property="og:title"[^>]*>/i,
+      `<meta property="og:title" content="${title}">`
     );
+    html = html.replace(
+      /<meta\s+property="og:description"[^>]*>/i,
+      `<meta property="og:description" content="${description}">`
+    );
+    html = html.replace(
+      /<meta\s+property="og:url"[^>]*>/i,
+      `<meta property="og:url" content="${canonicalUrl}">`
+    );
+    html = html.replace(
+      /<meta\s+property="og:image"[^>]*>/i,
+      `<meta property="og:image" content="${ogImage}">`
+    );
+
+    // === INJECT TWITTER TAGS ===
+    html = html.replace(
+      /<meta\s+name="twitter:title"[^>]*>/i,
+      `<meta name="twitter:title" content="${title}">`
+    );
+    html = html.replace(
+      /<meta\s+name="twitter:description"[^>]*>/i,
+      `<meta name="twitter:description" content="${description}">`
+    );
+    html = html.replace(
+      /<meta\s+name="twitter:image"[^>]*>/i,
+      `<meta name="twitter:image" content="${ogImage}">`
+    );
+
+    // === INJECT JSON-LD STRUCTURED DATA ===
+    const jsonLd = generateArticleJsonLd(post, canonicalUrl);
+    html = html.replace('</head>', `${jsonLd}\n</head>`);
 
     // Return the modified HTML with proper headers
     return new Response(html, {
@@ -169,21 +311,36 @@ export default async function handler(request) {
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
         'Cache-Control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
-        'X-Edge-Function': 'blog-post', // Debug header to verify Edge Function ran
-        'X-Canonical-Injected': canonicalUrl, // Debug header showing the injected canonical
-        'X-Post-Status': 'validated', // Indicates post existence was validated
+        'X-Edge-Function': 'blog-post',
+        'X-Canonical-Injected': canonicalUrl,
+        'X-Post-Status': 'validated',
+        'X-Post-Title': title.substring(0, 50),
       },
     });
 
   } catch (error) {
     console.error('Edge Function error:', error);
 
-    // Return a generic error response
-    return new Response('Internal Server Error', {
-      status: 500,
-      headers: {
-        'Content-Type': 'text/plain',
-      },
-    });
+    // Fallback: return the original template without injection
+    try {
+      const url = new URL(request.url);
+      const fallbackResponse = await fetch(new URL('/blog-post.html', url.origin));
+      const fallbackHtml = await fallbackResponse.text();
+
+      return new Response(fallbackHtml, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'public, max-age=300',
+          'X-Edge-Function': 'blog-post',
+          'X-Post-Status': 'fallback-error',
+        },
+      });
+    } catch (fallbackError) {
+      return new Response('Internal Server Error', {
+        status: 500,
+        headers: { 'Content-Type': 'text/plain' },
+      });
+    }
   }
 }
