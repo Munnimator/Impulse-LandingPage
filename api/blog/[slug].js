@@ -260,45 +260,45 @@ export default async function handler(request) {
     // === INJECT META DESCRIPTION ===
     html = html.replace(
       /<meta\s+name="description"[^>]*>/i,
-      `<meta name="description" content="${description}">`
+      `<meta name="description" id="page-description" content="${description}">`
     );
 
     // === INJECT CANONICAL URL ===
     html = html.replace(
       /<link\s+([^>]*?\s)?rel="canonical"([^>]*?)>/gi,
-      `<link rel="canonical" href="${canonicalUrl}">`
+      `<link rel="canonical" id="canonical-url" href="${canonicalUrl}">`
     );
 
     // === INJECT OG TAGS ===
     html = html.replace(
       /<meta\s+property="og:title"[^>]*>/i,
-      `<meta property="og:title" content="${title}">`
+      `<meta property="og:title" id="og-title" content="${title}">`
     );
     html = html.replace(
       /<meta\s+property="og:description"[^>]*>/i,
-      `<meta property="og:description" content="${description}">`
+      `<meta property="og:description" id="og-description" content="${description}">`
     );
     html = html.replace(
       /<meta\s+property="og:url"[^>]*>/i,
-      `<meta property="og:url" content="${canonicalUrl}">`
+      `<meta property="og:url" id="og-url" content="${canonicalUrl}">`
     );
     html = html.replace(
       /<meta\s+property="og:image"[^>]*>/i,
-      `<meta property="og:image" content="${ogImage}">`
+      `<meta property="og:image" id="og-image" content="${ogImage}">`
     );
 
     // === INJECT TWITTER TAGS ===
     html = html.replace(
       /<meta\s+name="twitter:title"[^>]*>/i,
-      `<meta name="twitter:title" content="${title}">`
+      `<meta name="twitter:title" id="twitter-title" content="${title}">`
     );
     html = html.replace(
       /<meta\s+name="twitter:description"[^>]*>/i,
-      `<meta name="twitter:description" content="${description}">`
+      `<meta name="twitter:description" id="twitter-description" content="${description}">`
     );
     html = html.replace(
       /<meta\s+name="twitter:image"[^>]*>/i,
-      `<meta name="twitter:image" content="${ogImage}">`
+      `<meta name="twitter:image" id="twitter-image" content="${ogImage}">`
     );
 
     // === INJECT JSON-LD STRUCTURED DATA ===
