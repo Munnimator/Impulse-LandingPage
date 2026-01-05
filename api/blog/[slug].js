@@ -254,7 +254,7 @@ export default async function handler(request) {
     // === INJECT TITLE TAG ===
     html = html.replace(
       /<title[^>]*>.*?<\/title>/i,
-      `<title>${title} - ImpulseLog</title>`
+      `<title id="page-title">${title} - ImpulseLog</title>`
     );
 
     // === INJECT META DESCRIPTION ===
