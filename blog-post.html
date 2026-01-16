@@ -34,9 +34,8 @@
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.svg">
+    <link rel="apple-touch-icon" href="/assets/icons/favicon.svg">
     <meta name="theme-color" content="#8B5CF6">
 
     <!-- Fonts -->
@@ -59,6 +58,9 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- DOMPurify for XSS protection -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
         /* Blog post specific styles */
@@ -519,14 +521,30 @@
                 document.getElementById('post-author').textContent = `By ${post.author?.name || 'ImpulseLog Team'}`;
                 document.getElementById('post-reading-time').textContent = `${post.readingTime || 5} min read`;
 
-                // Featured image
+                // Featured image - validate URL before rendering
                 if (post.featuredImage) {
                     const imgContainer = document.getElementById('featured-image-container');
-                    imgContainer.innerHTML = `<img src="${post.featuredImage}" alt="${post.title}" class="post-featured-image">`;
+                    // Only allow https URLs or relative paths for images
+                    const isValidImageUrl = post.featuredImage.startsWith('https://') ||
+                                           post.featuredImage.startsWith('/') ||
+                                           post.featuredImage.startsWith('data:image/');
+                    if (isValidImageUrl) {
+                        const img = document.createElement('img');
+                        img.src = post.featuredImage;
+                        img.alt = DOMPurify.sanitize(post.title, { ALLOWED_TAGS: [] });
+                        img.className = 'post-featured-image';
+                        imgContainer.appendChild(img);
+                    }
                 }
 
-                // Post content
-                document.getElementById('post-body').innerHTML = post.content;
+                // Post content - sanitize HTML to prevent XSS
+                // Allow YouTube/Vimeo iframes and common formatting tags
+                const cleanContent = DOMPurify.sanitize(post.content, {
+                    ADD_TAGS: ['iframe'],
+                    ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling', 'target'],
+                    ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|tel):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i
+                });
+                document.getElementById('post-body').innerHTML = cleanContent;
 
                 // Tags
                 if (post.tags && post.tags.length > 0) {

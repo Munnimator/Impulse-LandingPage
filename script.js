@@ -259,12 +259,24 @@ screenshotDots.forEach(dot => {
 
 // Auto-rotate screenshots every 5 seconds
 let currentScreen = 1;
-const totalScreens = 6;
+const totalScreens = screenshotWrappers.length || 6; // Dynamic count from DOM
 
-setInterval(() => {
+let carouselInterval = setInterval(() => {
     currentScreen = currentScreen >= totalScreens ? 1 : currentScreen + 1;
     showScreenshot(currentScreen);
 }, 5000);
+
+// Pause carousel when page is not visible (prevents memory leak)
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        clearInterval(carouselInterval);
+    } else {
+        carouselInterval = setInterval(() => {
+            currentScreen = currentScreen >= totalScreens ? 1 : currentScreen + 1;
+            showScreenshot(currentScreen);
+        }, 5000);
+    }
+});
 
 // Touch/swipe support for mobile
 let touchStartX = null;
