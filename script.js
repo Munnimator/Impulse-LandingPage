@@ -66,9 +66,9 @@ window.addEventListener('scroll', () => {
 
     // Show floating CTA after scrolling past hero
     if (scrollTop > 600) {
-        floatingCta.classList.add('visible');
+        floatingCta?.classList.add('visible');
     } else {
-        floatingCta.classList.remove('visible');
+        floatingCta?.classList.remove('visible');
     }
 });
 
