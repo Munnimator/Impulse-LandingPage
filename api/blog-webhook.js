@@ -86,10 +86,18 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Validate Content-Type
+  // Debug logging for webhook troubleshooting
+  console.log('Webhook received:', {
+    method: req.method,
+    contentType: req.headers['content-type'],
+    hasApiKey: !!req.headers['x-api-key'],
+    bodyKeys: req.body ? Object.keys(req.body) : 'no body'
+  });
+
+  // Log Content-Type but don't reject - webhooks often omit this header
   const contentType = req.headers['content-type'];
-  if (!contentType || !contentType.includes('application/json')) {
-    return res.status(415).json({ error: 'Unsupported Media Type. Expected application/json' });
+  if (contentType && !contentType.includes('application/json')) {
+    console.warn('Unexpected Content-Type received:', contentType);
   }
 
   try {
@@ -102,6 +110,7 @@ export default async function handler(req, res) {
     // Verify API key matches
     const apiKey = req.headers['x-api-key'];
     if (apiKey !== SEOBOT_API_KEY) {
+      console.error('API key mismatch - received key does not match configured key');
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
