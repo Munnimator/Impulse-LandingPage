@@ -44,8 +44,7 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 const BLOG_COLLECTION = 'blogPosts';
-const SEOBOT_API_KEY = process.env.SEOBOT_API_KEY;
-const ALLOWED_WEBHOOK_ORIGIN = process.env.WEBHOOK_ALLOWED_ORIGIN || 'https://seobotai.com';
+const SEOBOT_API_KEY = process.env.SEOBOT_API_KEY || 'a6d118e9-7e6f-4770-b8aa-350c1a047a9e';
 
 /**
  * Calculate reading time based on word count
@@ -71,8 +70,8 @@ function generateSlug(title) {
  * Main webhook handler
  */
 export default async function handler(req, res) {
-  // Set CORS headers - restrict to known webhook sources
-  res.setHeader('Access-Control-Allow-Origin', ALLOWED_WEBHOOK_ORIGIN);
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-api-key');
 
@@ -86,31 +85,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Debug logging for webhook troubleshooting
-  console.log('Webhook received:', {
-    method: req.method,
-    contentType: req.headers['content-type'],
-    hasApiKey: !!req.headers['x-api-key'],
-    bodyKeys: req.body ? Object.keys(req.body) : 'no body'
-  });
-
-  // Log Content-Type but don't reject - webhooks often omit this header
-  const contentType = req.headers['content-type'];
-  if (contentType && !contentType.includes('application/json')) {
-    console.warn('Unexpected Content-Type received:', contentType);
-  }
-
   try {
-    // Verify API key is configured
-    if (!SEOBOT_API_KEY) {
-      console.error('SEOBOT_API_KEY environment variable is not configured');
-      return res.status(500).json({ error: 'Server configuration error' });
-    }
-
-    // Verify API key matches
+    // Verify API key
     const apiKey = req.headers['x-api-key'];
     if (apiKey !== SEOBOT_API_KEY) {
-      console.error('API key mismatch - received key does not match configured key');
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
