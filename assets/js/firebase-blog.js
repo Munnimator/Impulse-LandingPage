@@ -12,12 +12,14 @@ const firebaseConfig = {
   measurementId: "G-J621K33YFR"
 };
 
-// Initialize Firebase (only if not already initialized)
-if (typeof firebase !== 'undefined' && !firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+// Initialize Firebase (only if available and not already initialized)
+let db = null;
+if (typeof firebase !== 'undefined') {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  db = firebase.firestore();
 }
-
-const db = firebase.firestore();
 const BLOG_COLLECTION = 'blogPosts';
 
 /**
@@ -54,138 +56,177 @@ function formatRelativeDate(timestamp) {
  * Fetch all published blog posts
  */
 async function getPublishedBlogPosts(limit = 50) {
-  try {
-    const snapshot = await db.collection(BLOG_COLLECTION)
-      .where('published', '==', true)
-      .orderBy('publishedAt', 'desc')
-      .limit(limit)
-      .get();
+  if (db) {
+    try {
+      const snapshot = await db.collection(BLOG_COLLECTION)
+        .where('published', '==', true)
+        .orderBy('publishedAt', 'desc')
+        .limit(limit)
+        .get();
 
-    const posts = [];
-    snapshot.forEach(doc => {
-      posts.push({
-        id: doc.id,
-        ...doc.data()
+      const posts = [];
+      snapshot.forEach(doc => {
+        posts.push({
+          id: doc.id,
+          ...doc.data()
+        });
       });
-    });
 
-    return posts;
-  } catch (error) {
-    console.error('Error fetching blog posts:', error);
-    throw error;
+      return posts;
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+    }
   }
+
+  return fetchBlogPostsFromApi({ limit });
 }
 
 /**
  * Fetch a single blog post by slug
  */
 async function getBlogPostBySlug(slug) {
-  try {
-    const snapshot = await db.collection(BLOG_COLLECTION)
-      .where('slug', '==', slug)
-      .where('published', '==', true)
-      .limit(1)
-      .get();
+  if (db) {
+    try {
+      const snapshot = await db.collection(BLOG_COLLECTION)
+        .where('slug', '==', slug)
+        .where('published', '==', true)
+        .limit(1)
+        .get();
 
-    if (snapshot.empty) {
-      return null;
+      if (snapshot.empty) {
+        return null;
+      }
+
+      const doc = snapshot.docs[0];
+      return {
+        id: doc.id,
+        ...doc.data()
+      };
+    } catch (error) {
+      console.error('Error fetching blog post:', error);
     }
-
-    const doc = snapshot.docs[0];
-    return {
-      id: doc.id,
-      ...doc.data()
-    };
-  } catch (error) {
-    console.error('Error fetching blog post:', error);
-    throw error;
   }
+
+  const data = await fetchBlogPostsFromApi({ slug });
+  return data?.post || null;
 }
 
 /**
  * Fetch recent blog posts (for sidebar/related posts)
  */
 async function getRecentBlogPosts(count = 3, excludeSlug = null) {
-  try {
-    let query = db.collection(BLOG_COLLECTION)
-      .where('published', '==', true)
-      .orderBy('publishedAt', 'desc')
-      .limit(count + (excludeSlug ? 1 : 0));
+  if (db) {
+    try {
+      let query = db.collection(BLOG_COLLECTION)
+        .where('published', '==', true)
+        .orderBy('publishedAt', 'desc')
+        .limit(count + (excludeSlug ? 1 : 0));
 
-    const snapshot = await query.get();
+      const snapshot = await query.get();
 
-    const posts = [];
-    snapshot.forEach(doc => {
-      const post = {
-        id: doc.id,
-        ...doc.data()
-      };
+      const posts = [];
+      snapshot.forEach(doc => {
+        const post = {
+          id: doc.id,
+          ...doc.data()
+        };
 
-      // Exclude current post if specified
-      if (!excludeSlug || post.slug !== excludeSlug) {
-        posts.push(post);
-      }
-    });
+        if (!excludeSlug || post.slug !== excludeSlug) {
+          posts.push(post);
+        }
+      });
 
-    return posts.slice(0, count);
-  } catch (error) {
-    console.error('Error fetching recent posts:', error);
-    throw error;
+      return posts.slice(0, count);
+    } catch (error) {
+      console.error('Error fetching recent posts:', error);
+    }
   }
+
+  const data = await fetchBlogPostsFromApi({ limit: count, exclude: excludeSlug });
+  return data?.posts || [];
 }
 
 /**
  * Fetch blog posts by tag
  */
 async function getBlogPostsByTag(tag, limit = 20) {
-  try {
-    const snapshot = await db.collection(BLOG_COLLECTION)
-      .where('published', '==', true)
-      .where('tags', 'array-contains', tag)
-      .orderBy('publishedAt', 'desc')
-      .limit(limit)
-      .get();
+  if (db) {
+    try {
+      const snapshot = await db.collection(BLOG_COLLECTION)
+        .where('published', '==', true)
+        .where('tags', 'array-contains', tag)
+        .orderBy('publishedAt', 'desc')
+        .limit(limit)
+        .get();
 
-    const posts = [];
-    snapshot.forEach(doc => {
-      posts.push({
-        id: doc.id,
-        ...doc.data()
+      const posts = [];
+      snapshot.forEach(doc => {
+        posts.push({
+          id: doc.id,
+          ...doc.data()
+        });
       });
-    });
 
-    return posts;
-  } catch (error) {
-    console.error('Error fetching posts by tag:', error);
-    throw error;
+      return posts;
+    } catch (error) {
+      console.error('Error fetching posts by tag:', error);
+    }
   }
+
+  const data = await fetchBlogPostsFromApi({ tag, limit });
+  return data?.posts || [];
 }
 
 /**
  * Fetch blog posts by category
  */
 async function getBlogPostsByCategory(category, limit = 20) {
-  try {
-    const snapshot = await db.collection(BLOG_COLLECTION)
-      .where('published', '==', true)
-      .where('category', '==', category)
-      .orderBy('publishedAt', 'desc')
-      .limit(limit)
-      .get();
+  if (db) {
+    try {
+      const snapshot = await db.collection(BLOG_COLLECTION)
+        .where('published', '==', true)
+        .where('category', '==', category)
+        .orderBy('publishedAt', 'desc')
+        .limit(limit)
+        .get();
 
-    const posts = [];
-    snapshot.forEach(doc => {
-      posts.push({
-        id: doc.id,
-        ...doc.data()
+      const posts = [];
+      snapshot.forEach(doc => {
+        posts.push({
+          id: doc.id,
+          ...doc.data()
+        });
       });
-    });
 
-    return posts;
-  } catch (error) {
-    console.error('Error fetching posts by category:', error);
+      return posts;
+    } catch (error) {
+      console.error('Error fetching posts by category:', error);
+    }
+  }
+
+  const data = await fetchBlogPostsFromApi({ category, limit });
+  return data?.posts || [];
+}
+
+async function fetchBlogPostsFromApi(params = {}) {
+  const url = new URL('/api/blog-posts', window.location.origin);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== null && value !== undefined && value !== '') {
+      url.searchParams.set(key, value);
+    }
+  });
+
+  const response = await fetch(url.toString(), {
+    headers: { 'Accept': 'application/json' }
+  });
+
+  if (!response.ok) {
+    const error = new Error(`Blog API error: ${response.status}`);
+    error.status = response.status;
     throw error;
   }
+
+  return response.json();
 }
 
 /**
