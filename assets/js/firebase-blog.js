@@ -78,7 +78,8 @@ async function getPublishedBlogPosts(limit = 50) {
     }
   }
 
-  return fetchBlogPostsFromApi({ limit });
+  const data = await fetchBlogPostsFromApi({ limit });
+  return data?.posts || [];
 }
 
 /**
