@@ -12,7 +12,7 @@
  *
  * Architecture:
  * - Runs at Vercel's edge network (server-side)
- * - Fetches blog post data from Firestore REST API
+ * - Fetches blog post data from the shared server API
  * - Injects all SEO metadata server-side before crawlers see HTML
  * - Maintains the SPA architecture for client-side interactivity
  */
@@ -21,51 +21,6 @@
 export const config = {
   runtime: 'edge',
 };
-
-// Firebase configuration
-const FIREBASE_PROJECT_ID = 'impulsebuy-a64e2';
-const FIREBASE_API_KEY = 'AIzaSyBUwxb5rdXEy8nIcVJAP9J9BpsN-BLmAXA';
-const BLOG_COLLECTION = 'blogPosts';
-
-/**
- * Parse Firestore document fields into plain JavaScript object
- * Firestore REST API returns typed values: {stringValue: "..."}, {integerValue: "..."}, etc.
- */
-function parseFirestoreDocument(doc) {
-  if (!doc || !doc.fields) return null;
-
-  const fields = doc.fields;
-  const result = {};
-
-  for (const [key, value] of Object.entries(fields)) {
-    result[key] = parseFirestoreValue(value);
-  }
-
-  return result;
-}
-
-/**
- * Parse individual Firestore field value
- */
-function parseFirestoreValue(value) {
-  if (value.stringValue !== undefined) return value.stringValue;
-  if (value.integerValue !== undefined) return parseInt(value.integerValue, 10);
-  if (value.doubleValue !== undefined) return value.doubleValue;
-  if (value.booleanValue !== undefined) return value.booleanValue;
-  if (value.nullValue !== undefined) return null;
-  if (value.timestampValue !== undefined) return value.timestampValue;
-  if (value.arrayValue !== undefined) {
-    return (value.arrayValue.values || []).map(parseFirestoreValue);
-  }
-  if (value.mapValue !== undefined) {
-    const map = {};
-    for (const [k, v] of Object.entries(value.mapValue.fields || {})) {
-      map[k] = parseFirestoreValue(v);
-    }
-    return map;
-  }
-  return null;
-}
 
 /**
  * Escape HTML special characters to prevent XSS
@@ -139,68 +94,36 @@ function generateArticleJsonLd(post, canonicalUrl) {
 }
 
 /**
- * Fetch blog post data from Firestore by slug
- * Uses Firestore REST API since Edge Runtime doesn't support Firebase SDK
+ * Fetch blog post data from the server API by slug
+ * This keeps the edge route aligned with the same data source used by
+ * the sitemap and the client-side blog listing.
  * Returns parsed post object or null if not found
  */
-async function getBlogPostData(slug) {
+async function getBlogPostData(origin, slug) {
   try {
-    const queryUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents:runQuery`;
+    const apiUrl = new URL('/api/blog-posts', origin);
+    apiUrl.searchParams.set('slug', slug);
 
-    const queryBody = {
-      structuredQuery: {
-        from: [{ collectionId: BLOG_COLLECTION }],
-        where: {
-          compositeFilter: {
-            op: 'AND',
-            filters: [
-              {
-                fieldFilter: {
-                  field: { fieldPath: 'slug' },
-                  op: 'EQUAL',
-                  value: { stringValue: slug }
-                }
-              },
-              {
-                fieldFilter: {
-                  field: { fieldPath: 'published' },
-                  op: 'EQUAL',
-                  value: { booleanValue: true }
-                }
-              }
-            ]
-          }
-        },
-        limit: 1
-      }
-    };
-
-    const response = await fetch(`${queryUrl}?key=${FIREBASE_API_KEY}`, {
-      method: 'POST',
+    const response = await fetch(apiUrl.toString(), {
       headers: {
-        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
-      body: JSON.stringify(queryBody),
     });
 
-    if (!response.ok) {
-      console.error('Firestore query failed:', response.status);
+    if (response.status === 404) {
       return null;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Blog API query failed: ${response.status}`);
     }
 
     const data = await response.json();
-
-    // Check if any documents were returned
-    if (!data || data.length === 0 || !data[0].document) {
-      return null;
-    }
-
-    // Parse Firestore document format into plain object
-    return parseFirestoreDocument(data[0].document);
+    return data?.post || null;
 
   } catch (error) {
     console.error('Error fetching blog post:', error);
-    return null;
+    throw error;
   }
 }
 
@@ -219,8 +142,8 @@ export default async function handler(request) {
       return fetch(new URL('/blog.html', url.origin));
     }
 
-    // Fetch the full blog post data from Firestore
-    const post = await getBlogPostData(slug);
+    // Fetch the full blog post data from the shared blog API
+    const post = await getBlogPostData(url.origin, slug);
 
     if (!post) {
       // Return 404 if post doesn't exist
