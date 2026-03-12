@@ -30,11 +30,27 @@ function normalizeSeoTitle(data) {
   return seoTitle;
 }
 
+function normalizeMarketingCopy(text) {
+  if (typeof text !== 'string' || text === '') return text;
+
+  return text
+    .replace(
+      /With over 10,000 active users[^.]*2\.3 million[^.]*\$47,392[^.]*\./gi,
+      'ImpulseLog helps users track resisted purchases, build streaks, and better understand their spending habits over time.'
+    )
+    .replace(/GPT-4/gi, 'gpt-5-mini')
+    .replace(/community challenges/gi, 'daily challenges')
+    .replace(/bank-level encryption/gi, 'encrypted connections and secure data handling');
+}
+
 function serializePost(doc) {
   const data = doc.data();
   return {
     id: doc.id,
     ...data,
+    excerpt: normalizeMarketingCopy(data.excerpt),
+    content: normalizeMarketingCopy(data.content),
+    seoDescription: normalizeMarketingCopy(data.seoDescription),
     seoTitle: normalizeSeoTitle(data),
     publishedAt: serializeTimestamp(data.publishedAt),
     createdAt: serializeTimestamp(data.createdAt),

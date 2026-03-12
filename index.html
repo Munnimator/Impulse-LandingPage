@@ -72,10 +72,9 @@
           "@type": "MobileApplication",
           "@id": "https://www.impulselog.com/#app",
           "name": "ImpulseLog",
-          "applicationCategory": "FinanceApplication",
-          "applicationSubCategory": "Personal Finance",
+          "applicationCategory": "LifestyleApplication",
           "operatingSystem": "iOS 15.0 or later",
-          "description": "ImpulseLog is a gamified iOS app specifically designed for adults with ADHD and neurodivergent individuals to manage impulse buying behaviors. It transforms the challenge of controlling spending impulses into an engaging game with achievements, levels, and rewards.",
+          "description": "ImpulseLog helps you log resisted purchases, use wait timers, spot mood and context patterns, and build streaks that make saving feel rewarding.",
           "offers": {
             "@type": "AggregateOffer",
             "lowPrice": "0",
@@ -88,21 +87,21 @@
                 "name": "Free Plan",
                 "price": "0",
                 "priceCurrency": "USD",
-                "description": "Basic impulse tracking, 3 savings goals, basic mood tracking"
+                "description": "Core logging, goals, streaks, daily ritual, and basic insights"
               },
               {
                 "@type": "Offer",
                 "name": "Premium Plan - Monthly",
                 "price": "4.99",
                 "priceCurrency": "USD",
-                "description": "Unlimited goals, full AI insights, advanced analytics, mood-spending correlation, data export"
+                "description": "Optional Premium AI insights with weekly summaries, pattern detection, mood correlations, and practical recommendations"
               },
               {
                 "@type": "Offer",
                 "name": "Premium Plan - Annual",
                 "price": "29.99",
                 "priceCurrency": "USD",
-                "description": "All premium features with annual billing - Save 50%"
+                "description": "Optional Premium AI insights billed annually"
               }
             ]
           },
@@ -112,28 +111,21 @@
             "https://www.impulselog.com/assets/images/analytics.png"
           ],
           "featureList": [
-            "Quick impulse logging in under 5 seconds",
-            "GPT-4 powered mood-spending correlation analysis",
-            "23 achievements to unlock",
-            "Daily challenges system",
-            "Visual progress tracking",
-            "Piggy bank savings goals",
-            "Streak tracking and rewards",
-            "Category-based spending insights",
-            "Export data for tax or therapy",
-            "Dark mode support"
+            "Impulse Ledger for resisted purchases and decisions",
+            "Wait timers for purchases you want to pause",
+            "Mood and context tracking for spending triggers",
+            "Up to 8 custom savings goals",
+            "Analytics and insights over time",
+            "Daily ritual check-ins",
+            "Works offline",
+            "Export your data",
+            "Achievements, streaks, and daily challenges",
+            "Optional gpt-5-mini powered Premium insights"
           ],
-          "softwareRequirements": "Requires iOS 15.0 or later. Compatible with iPhone and iPad.",
+          "softwareRequirements": "Requires iOS 15.0 or later. Designed for iPhone.",
           "provider": {
             "@type": "Organization",
             "@id": "https://www.impulselog.com/#organization"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "127",
-            "bestRating": "5",
-            "worstRating": "1"
           },
           "potentialAction": {
             "@type": "ViewAction",
@@ -166,7 +158,7 @@
               "name": "How does the mood tracking work?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "You can optionally log your mood when recording an avoided impulse. Our AI (powered by GPT-4) analyzes patterns between your emotions and spending urges, helping you understand your triggers and develop better coping strategies."
+                "text": "You can log mood and context alongside resisted purchases or pending decisions. Premium AI insights are currently powered by gpt-5-mini and help surface patterns, weekly summaries, and practical recommendations."
               }
             },
             {
@@ -182,7 +174,7 @@
               "name": "Is my financial data secure?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Absolutely. We use bank-level encryption, your data is stored securely in Firebase, and we never share or sell your information. You can export or delete your data anytime."
+                "text": "We use encrypted connections, Firebase-managed infrastructure, and privacy-focused handling practices. We do not sell your data, and you can export or delete your data from the app."
               }
             },
             {
@@ -190,7 +182,7 @@
               "name": "Can I use this with my partner?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Each person needs their own account to track individual progress and achievements. However, you can share victories and compete in community challenges together!"
+                "text": "Each person needs their own account to track their own impulses, goals, streaks, and insights. Many people still use ImpulseLog alongside a partner by comparing progress outside the app."
               }
             }
           ]
@@ -237,7 +229,7 @@
             {
               "@type": "CreativeWork",
               "name": "AI Mood Insights Engine",
-              "description": "GPT-4 powered analysis of mood and spending patterns"
+              "description": "gpt-5-mini powered analysis of mood and spending patterns"
             },
             {
               "@type": "CreativeWork",
@@ -312,8 +304,7 @@
                         <span class="gradient-text">Intentional Saving</span>
                     </h1>
                     <p class="hero-subtitle" itemprop="description">
-                        The gamified app that helps neurodivergent minds build better spending habits.
-                        Track impulses, unlock achievements, and watch your savings grow.
+                        Track resisted purchases, use wait timers, spot mood patterns, and build streaks that make saving feel rewarding.
                     </p>
                     <div class="hero-cta">
                         <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary btn-large" style="color: white;">
@@ -328,16 +319,16 @@
                     </div>
                     <div class="hero-stats">
                         <div class="stat">
-                            <span class="stat-value">$47,392</span>
-                            <span class="stat-label">Saved this month</span>
+                            <span class="stat-value">Free</span>
+                            <span class="stat-label">Start with core logging</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-value">2.3M</span>
-                            <span class="stat-label">Impulses avoided</span>
+                            <span class="stat-value">$4.99/mo</span>
+                            <span class="stat-label">Premium AI insights</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-value">10K+</span>
-                            <span class="stat-label">Active users</span>
+                            <span class="stat-value">iPhone</span>
+                            <span class="stat-label">Designed for iPhone</span>
                         </div>
                     </div>
 
@@ -402,7 +393,7 @@
                         </svg>
                     </div>
                     <h3>Quick Logging</h3>
-                    <p>Log an avoided impulse in under 5 seconds. No complex forms or categories to slow you down when you need it most.</p>
+                    <p>Log resisted purchases in seconds, then review them later in your Impulse Ledger with mood, context, and category details.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -421,7 +412,7 @@
                         </svg>
                     </div>
                     <h3>AI Mood Insights</h3>
-                    <p>Understand your spending triggers with GPT-4 powered mood analysis. Discover patterns between emotions and impulses.</p>
+                    <p>Premium AI insights, currently powered by gpt-5-mini, help you spot patterns between mood, context, and impulse decisions.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -462,8 +453,8 @@
                             <text x="12" y="16" text-anchor="middle" fill="#FFFFFF" font-size="8" font-weight="bold">23</text>
                         </svg>
                     </div>
-                    <h3>23 Achievements</h3>
-                    <p>From "First Save" to "Impulse Master" - unlock meaningful milestones that celebrate your journey.</p>
+                    <h3>Achievements & Streaks</h3>
+                    <p>Build momentum with streaks, achievements, and visible progress that reward consistency instead of perfection.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -486,7 +477,7 @@
                         </svg>
                     </div>
                     <h3>Daily Challenges</h3>
-                    <p>Fresh challenges every day to keep you engaged and motivated. Build streaks and earn bonus rewards.</p>
+                    <p>Get quick wins from daily challenges and a simple daily ritual that keeps your spending goals visible and doable.</p>
                 </div>
             </div>
         </div>
@@ -624,7 +615,7 @@
     <section class="pricing" id="pricing" aria-label="Pricing plans" itemscope itemtype="https://schema.org/OfferCatalog">
         <div class="container">
             <h2 class="section-title">Choose Your Plan</h2>
-            <p class="section-subtitle">Start free, upgrade to unlock premium features</p>
+            <p class="section-subtitle">Start free, upgrade for optional Premium AI insights</p>
 
             <div class="pricing-grid">
                 <div class="pricing-card">
@@ -634,11 +625,11 @@
                         <span class="period">forever</span>
                     </div>
                     <ul class="features-list">
-                        <li>✓ Basic impulse tracking</li>
-                        <li>✓ 3 savings goals</li>
-                        <li>✓ Basic mood tracking</li>
-                        <li>✓ Dashboard AI insights</li>
-                        <li>✓ Community challenges</li>
+                        <li>✓ Core logging and Impulse Ledger</li>
+                        <li>✓ Goals, streaks, and achievements</li>
+                        <li>✓ Daily ritual and daily challenges</li>
+                        <li>✓ Basic insights and analytics</li>
+                        <li>✓ Export data and offline logging</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-secondary">Get Started</a>
                 </div>
@@ -651,11 +642,11 @@
                     </div>
                     <ul class="features-list">
                         <li>✓ Everything in Free</li>
-                        <li>✓ Unlimited savings goals</li>
-                        <li>✓ Full AI insights suite</li>
-                        <li>✓ Advanced analytics & patterns</li>
-                        <li>✓ Mood-spending correlation</li>
-                        <li>✓ Export data & priority support</li>
+                        <li>✓ Personalized Premium AI insights</li>
+                        <li>✓ Weekly summaries and progress highlights</li>
+                        <li>✓ Pattern detection and trigger analysis</li>
+                        <li>✓ Mood and impulse correlations</li>
+                        <li>✓ Practical recommendations based on your logs</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
                 </div>
@@ -672,11 +663,11 @@
                     </div>
                     <ul class="features-list">
                         <li>✓ Everything in Free</li>
-                        <li>✓ Unlimited savings goals</li>
-                        <li>✓ Full AI insights suite</li>
-                        <li>✓ Advanced analytics & patterns</li>
-                        <li>✓ Mood-spending correlation</li>
-                        <li>✓ Export data & priority support</li>
+                        <li>✓ Personalized Premium AI insights</li>
+                        <li>✓ Weekly summaries and progress highlights</li>
+                        <li>✓ Pattern detection and trigger analysis</li>
+                        <li>✓ Mood and impulse correlations</li>
+                        <li>✓ Practical recommendations based on your logs</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
                 </div>
@@ -697,12 +688,12 @@
                 
                 <div class="faq-item">
                     <h3>How does the mood tracking work?</h3>
-                    <p>You can optionally log your mood when recording an avoided impulse. Our AI analyzes patterns between your emotions and spending urges, helping you understand your triggers.</p>
+                    <p>You can log mood and context with resisted purchases or pending decisions. Premium AI insights then help surface patterns, weekly summaries, and practical recommendations.</p>
                 </div>
                 
                 <div class="faq-item">
                     <h3>Is my financial data secure?</h3>
-                    <p>Absolutely. We use bank-level encryption, your data is stored securely in Firebase, and we never share or sell your information. You can export or delete your data anytime.</p>
+                    <p>We use encrypted connections, Firebase-managed infrastructure, and privacy-focused handling practices. We do not sell your data, and you can export or delete your data anytime.</p>
                 </div>
                 
                 <div class="faq-item">
@@ -712,7 +703,7 @@
                 
                 <div class="faq-item">
                     <h3>Can I use this with my partner?</h3>
-                    <p>Each person needs their own account to track individual progress and achievements. However, you can share victories and compete in community challenges together!</p>
+                    <p>Each person needs their own account to track their own impulses, goals, streaks, and insights. You can still compare progress with a partner outside the app.</p>
                 </div>
                 
             </div>
@@ -737,8 +728,8 @@
                             <path d="M9 12L11 14L15 10" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3>Bank-Level Encryption</h3>
-                    <p>Your data is encrypted in transit and at rest</p>
+                    <h3>Encrypted by Default</h3>
+                    <p>We use encrypted connections and secure storage practices for your app data</p>
                 </div>
                 <div class="trust-item">
                     <div class="trust-icon">
@@ -789,7 +780,7 @@
                         </svg>
                     </div>
                     <h3>Never Sold</h3>
-                    <p>We never sell or share your personal information</p>
+                    <p>We never sell your personal information</p>
                 </div>
             </div>
         </div>
@@ -800,7 +791,7 @@
         <div class="container">
             <div class="cta-card">
                 <h2>Ready to Take Control of Your Impulses?</h2>
-                <p>Join thousands of people building better spending habits</p>
+                <p>Start free and build better spending habits one resisted impulse at a time</p>
                 
                 <div class="download-options">
                     <div class="ios-download">
@@ -810,7 +801,7 @@
                             </svg>
                             Download on App Store
                         </a>
-                        <p class="download-note">Available for iPhone & iPad</p>
+                        <p class="download-note">Designed for iPhone</p>
                     </div>
                     
                     <div class="qr-download">
