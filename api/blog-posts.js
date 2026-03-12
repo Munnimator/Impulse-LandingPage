@@ -1,43 +1,8 @@
 // Vercel Serverless Function - Public Blog Posts API (Admin SDK)
 // Fetches published blog posts without requiring client Firestore access
 
-import admin from 'firebase-admin';
+import { getFirestore } from './_lib/firebase-admin.js';
 
-/**
- * Format private key to handle both single-line (Vercel) and \n formats
- */
-function formatPrivateKey(key) {
-  if (!key) return key;
-
-  if (key.includes('\n')) return key;
-
-  if (key.includes('\\n')) {
-    return key.replace(/\\n/g, '\n');
-  }
-
-  const match = key.match(/-----BEGIN PRIVATE KEY-----(.*?)-----END PRIVATE KEY-----/);
-  if (match) {
-    const base64 = match[1];
-    const formatted = base64.match(/.{1,64}/g)?.join('\n') || base64;
-    return `-----BEGIN PRIVATE KEY-----\n${formatted}\n-----END PRIVATE KEY-----`;
-  }
-
-  return key;
-}
-
-// Initialize Firebase Admin SDK (reuse if already initialized)
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: 'impulsebuy-a64e2',
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: formatPrivateKey(process.env.FIREBASE_PRIVATE_KEY),
-    }),
-    databaseURL: 'https://impulsebuy-a64e2.firebaseio.com'
-  });
-}
-
-const db = admin.firestore();
 const BLOG_COLLECTION = 'blogPosts';
 const MAX_LIMIT = 100;
 
@@ -55,11 +20,22 @@ function serializeTimestamp(value) {
   return value;
 }
 
+function normalizeSeoTitle(data) {
+  const title = typeof data.title === 'string' ? data.title.trim() : '';
+  const seoTitle = typeof data.seoTitle === 'string' ? data.seoTitle.trim() : '';
+  const metaKeywords = typeof data.metaKeywords === 'string' ? data.metaKeywords.trim() : '';
+
+  if (!seoTitle) return title;
+  if (metaKeywords && seoTitle === metaKeywords) return title;
+  return seoTitle;
+}
+
 function serializePost(doc) {
   const data = doc.data();
   return {
     id: doc.id,
     ...data,
+    seoTitle: normalizeSeoTitle(data),
     publishedAt: serializeTimestamp(data.publishedAt),
     createdAt: serializeTimestamp(data.createdAt),
     updatedAt: serializeTimestamp(data.updatedAt),
@@ -74,6 +50,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    const db = getFirestore();
     const { slug, tag, category, exclude, limit } = req.query;
     const queryLimit = clampLimit(limit, 50);
 

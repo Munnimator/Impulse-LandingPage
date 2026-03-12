@@ -34,7 +34,7 @@
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
-    <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/assets/icons/favicon.svg">
     <meta name="theme-color" content="#8B5CF6">
 
@@ -490,6 +490,14 @@
             document.getElementById('canonical-url').setAttribute('href', postUrl);
         }
 
+        function isSafeImageUrl(url) {
+            return typeof url === 'string' && (
+                url.startsWith('https://') ||
+                url.startsWith('/') ||
+                url.startsWith('data:image/')
+            );
+        }
+
         // Load and display blog post
         async function loadBlogPost() {
             const slug = getSlugFromURL();
@@ -520,11 +528,7 @@
                 // Featured image - validate URL before rendering
                 if (post.featuredImage) {
                     const imgContainer = document.getElementById('featured-image-container');
-                    // Only allow https URLs or relative paths for images
-                    const isValidImageUrl = post.featuredImage.startsWith('https://') ||
-                                           post.featuredImage.startsWith('/') ||
-                                           post.featuredImage.startsWith('data:image/');
-                    if (isValidImageUrl) {
+                    if (isSafeImageUrl(post.featuredImage)) {
                         const img = document.createElement('img');
                         img.src = post.featuredImage;
                         img.alt = DOMPurify.sanitize(post.title, { ALLOWED_TAGS: [] });
@@ -545,9 +549,14 @@
                 // Tags
                 if (post.tags && post.tags.length > 0) {
                     const tagsContainer = document.getElementById('post-tags');
-                    tagsContainer.innerHTML = post.tags.map(tag =>
-                        `<a href="/blog?tag=${encodeURIComponent(tag)}" class="tag">${tag}</a>`
-                    ).join('');
+                    tagsContainer.replaceChildren();
+                    post.tags.forEach((tagValue) => {
+                        const tag = document.createElement('a');
+                        tag.href = `/blog?tag=${encodeURIComponent(tagValue)}`;
+                        tag.className = 'tag';
+                        tag.textContent = tagValue;
+                        tagsContainer.appendChild(tag);
+                    });
                 }
 
                 // Load recent posts
@@ -573,22 +582,40 @@
                     return;
                 }
 
-                container.innerHTML = posts.map(post => {
-                    const imageUrl = post.featuredImage || '';
-                    const imageHtml = imageUrl
-                        ? `<img src="${imageUrl}" alt="${post.title}" class="sidebar-post-image">`
-                        : `<div class="sidebar-post-image"></div>`;
+                container.replaceChildren();
 
-                    return `
-                        <a href="/blog/${post.slug}" class="sidebar-post">
-                            ${imageHtml}
-                            <div class="sidebar-post-content">
-                                <h4>${truncateText(post.title, 60)}</h4>
-                                <div class="sidebar-post-date">${formatRelativeDate(post.publishedAt)}</div>
-                            </div>
-                        </a>
-                    `;
-                }).join('');
+                posts.forEach((post) => {
+                    const link = document.createElement('a');
+                    link.href = `/blog/${post.slug}`;
+                    link.className = 'sidebar-post';
+
+                    if (isSafeImageUrl(post.featuredImage)) {
+                        const image = document.createElement('img');
+                        image.src = post.featuredImage;
+                        image.alt = post.title;
+                        image.className = 'sidebar-post-image';
+                        link.appendChild(image);
+                    } else {
+                        const imagePlaceholder = document.createElement('div');
+                        imagePlaceholder.className = 'sidebar-post-image';
+                        link.appendChild(imagePlaceholder);
+                    }
+
+                    const content = document.createElement('div');
+                    content.className = 'sidebar-post-content';
+
+                    const title = document.createElement('h4');
+                    title.textContent = truncateText(post.title, 60);
+                    content.appendChild(title);
+
+                    const date = document.createElement('div');
+                    date.className = 'sidebar-post-date';
+                    date.textContent = formatRelativeDate(post.publishedAt);
+                    content.appendChild(date);
+
+                    link.appendChild(content);
+                    container.appendChild(link);
+                });
 
             } catch (error) {
                 console.error('Error loading recent posts:', error);

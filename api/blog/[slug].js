@@ -82,7 +82,7 @@ function generateArticleJsonLd(post, canonicalUrl) {
     "name": "ImpulseLog",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.impulselog.com/assets/icons/logo.svg"
+      "url": "https://www.impulselog.com/assets/images/ImpulseLog-logo.png"
     }
   },
   "mainEntityOfPage": {

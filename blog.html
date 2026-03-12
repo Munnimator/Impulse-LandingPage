@@ -24,7 +24,7 @@
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
-    <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/assets/icons/favicon.svg">
     <meta name="theme-color" content="#8B5CF6">
 
@@ -66,6 +66,13 @@
             opacity: 1;
             max-width: 600px;
             margin: 0 auto;
+        }
+
+        .filter-label {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
         }
 
         .blog-section {
@@ -260,6 +267,7 @@
         <div class="container">
             <h1>ImpulseLog Blog</h1>
             <p>Tips on impulse control, ADHD money management, and building better spending habits</p>
+            <p id="blog-filter-label" class="filter-label" style="display: none;"></p>
         </div>
     </section>
 
@@ -350,19 +358,70 @@
     <script src="/script.js"></script>
     <script src="/assets/js/firebase-blog.js"></script>
     <script>
+        function getBlogFilters() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                tag: params.get('tag'),
+                category: params.get('category'),
+            };
+        }
+
+        function isSafeImageUrl(url) {
+            return typeof url === 'string' && (
+                url.startsWith('https://') ||
+                url.startsWith('/')
+            );
+        }
+
+        function updateFilterLabel(filters) {
+            const label = document.getElementById('blog-filter-label');
+            if (!label) return;
+
+            if (filters.tag) {
+                label.textContent = `Showing posts tagged "${filters.tag}"`;
+                label.style.display = 'block';
+                return;
+            }
+
+            if (filters.category) {
+                label.textContent = `Showing posts in "${filters.category}"`;
+                label.style.display = 'block';
+                return;
+            }
+
+            label.textContent = '';
+            label.style.display = 'none';
+        }
+
         // Load and display blog posts
         async function loadBlogPosts() {
             const loadingState = document.getElementById('loading-state');
             const errorState = document.getElementById('error-state');
             const emptyState = document.getElementById('empty-state');
             const blogGrid = document.getElementById('blog-grid');
+            const filters = getBlogFilters();
 
             try {
-                const posts = await getPublishedBlogPosts();
+                let posts;
+                if (filters.tag) {
+                    posts = await getBlogPostsByTag(filters.tag);
+                } else if (filters.category) {
+                    posts = await getBlogPostsByCategory(filters.category);
+                } else {
+                    posts = await getPublishedBlogPosts();
+                }
+
+                updateFilterLabel(filters);
 
                 if (loadingState) loadingState.style.display = 'none';
 
                 if (posts.length === 0) {
+                    if (emptyState && (filters.tag || filters.category)) {
+                        const heading = emptyState.querySelector('h2');
+                        const body = emptyState.querySelector('p');
+                        if (heading) heading.textContent = 'No matching blog posts';
+                        if (body) body.textContent = 'Try another tag or category, or browse all posts from the main blog archive.';
+                    }
                     if (emptyState) emptyState.style.display = 'block';
                     return;
                 }
@@ -383,34 +442,84 @@
         }
 
         function createBlogCard(post) {
-            const card = document.createElement('div');
+            const card = document.createElement('article');
             card.className = 'blog-card';
             card.onclick = () => window.location.href = `/blog/${post.slug}`;
+            card.setAttribute('tabindex', '0');
+            card.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    window.location.href = `/blog/${post.slug}`;
+                }
+            });
 
-            const imageUrl = post.featuredImage || '';
-            const imageHtml = imageUrl
-                ? `<img src="${imageUrl}" alt="${post.title}" class="blog-card-image">`
-                : `<div class="blog-card-image"></div>`;
+            if (isSafeImageUrl(post.featuredImage)) {
+                const image = document.createElement('img');
+                image.src = post.featuredImage;
+                image.alt = post.title;
+                image.className = 'blog-card-image';
+                card.appendChild(image);
+            } else {
+                const imagePlaceholder = document.createElement('div');
+                imagePlaceholder.className = 'blog-card-image';
+                card.appendChild(imagePlaceholder);
+            }
 
-            const tagsHtml = post.tags && post.tags.length > 0
-                ? `<div class="blog-card-tags">${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
-                : '';
+            const content = document.createElement('div');
+            content.className = 'blog-card-content';
 
-            card.innerHTML = `
-                ${imageHtml}
-                <div class="blog-card-content">
-                    <div class="blog-card-meta">
-                        <span>${formatDate(post.publishedAt)}</span>
-                        ${post.author?.name ? `<span>•</span><span>${post.author.name}</span>` : ''}
-                    </div>
-                    <h3 class="blog-card-title">${post.title}</h3>
-                    <p class="blog-card-excerpt">${post.excerpt}</p>
-                    ${tagsHtml}
-                    <div class="blog-card-footer">
-                        <span class="read-time">${post.readingTime || 5} min read</span>
-                    </div>
-                </div>
-            `;
+            const meta = document.createElement('div');
+            meta.className = 'blog-card-meta';
+
+            const date = document.createElement('span');
+            date.textContent = formatDate(post.publishedAt);
+            meta.appendChild(date);
+
+            if (post.author?.name) {
+                const divider = document.createElement('span');
+                divider.textContent = '•';
+                meta.appendChild(divider);
+
+                const author = document.createElement('span');
+                author.textContent = post.author.name;
+                meta.appendChild(author);
+            }
+
+            const title = document.createElement('h3');
+            title.className = 'blog-card-title';
+            title.textContent = post.title;
+
+            const excerpt = document.createElement('p');
+            excerpt.className = 'blog-card-excerpt';
+            excerpt.textContent = post.excerpt;
+
+            content.appendChild(meta);
+            content.appendChild(title);
+            content.appendChild(excerpt);
+
+            if (Array.isArray(post.tags) && post.tags.length > 0) {
+                const tags = document.createElement('div');
+                tags.className = 'blog-card-tags';
+
+                post.tags.forEach((tagValue) => {
+                    const tag = document.createElement('span');
+                    tag.className = 'tag';
+                    tag.textContent = tagValue;
+                    tags.appendChild(tag);
+                });
+
+                content.appendChild(tags);
+            }
+
+            const footer = document.createElement('div');
+            footer.className = 'blog-card-footer';
+            const readTime = document.createElement('span');
+            readTime.className = 'read-time';
+            readTime.textContent = `${post.readingTime || 5} min read`;
+            footer.appendChild(readTime);
+
+            content.appendChild(footer);
+            card.appendChild(content);
 
             return card;
         }

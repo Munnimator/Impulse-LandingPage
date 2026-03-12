@@ -1,50 +1,11 @@
 // Vercel Serverless Function - SEObot Blog Webhook
 // This endpoint receives blog post data from SEObot and saves it to Firebase
 
-import admin from 'firebase-admin';
+import { requireEnv } from './_lib/env.js';
+import { getFirebaseAdmin, getFirestore } from './_lib/firebase-admin.js';
+import { enforceWebhookSecurity } from './_lib/webhook-security.js';
 
-/**
- * Format private key to handle both single-line (Vercel) and \n formats
- */
-function formatPrivateKey(key) {
-  if (!key) return key;
-
-  // If key already has newlines, return as-is
-  if (key.includes('\n')) return key;
-
-  // If key has \n as text, replace with actual newlines
-  if (key.includes('\\n')) {
-    return key.replace(/\\n/g, '\n');
-  }
-
-  // If key is one long line, add newlines in proper PEM format
-  // Extract the base64 content between BEGIN and END
-  const match = key.match(/-----BEGIN PRIVATE KEY-----(.*?)-----END PRIVATE KEY-----/);
-  if (match) {
-    const base64 = match[1];
-    // Split base64 into 64-character lines
-    const formatted = base64.match(/.{1,64}/g)?.join('\n') || base64;
-    return `-----BEGIN PRIVATE KEY-----\n${formatted}\n-----END PRIVATE KEY-----`;
-  }
-
-  return key;
-}
-
-// Initialize Firebase Admin SDK
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: 'impulsebuy-a64e2',
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: formatPrivateKey(process.env.FIREBASE_PRIVATE_KEY),
-    }),
-    databaseURL: 'https://impulsebuy-a64e2.firebaseio.com'
-  });
-}
-
-const db = admin.firestore();
 const BLOG_COLLECTION = 'blogPosts';
-const SEOBOT_API_KEY = process.env.SEOBOT_API_KEY || 'a6d118e9-7e6f-4770-b8aa-350c1a047a9e';
 
 /**
  * Calculate reading time based on word count
@@ -70,29 +31,23 @@ function generateSlug(title) {
  * Main webhook handler
  */
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-api-key');
-
-  // Handle OPTIONS preflight request
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
   // Only accept POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    // Verify API key
-    const apiKey = req.headers['x-api-key'];
-    if (apiKey !== SEOBOT_API_KEY) {
-      return res.status(401).json({ error: 'Unauthorized' });
+    const securityCheck = enforceWebhookSecurity(req, res, requireEnv('SEOBOT_API_KEY'));
+    if (!securityCheck.ok) {
+      return res.status(securityCheck.status).json(securityCheck.body);
     }
 
+    const db = getFirestore();
+    const firebaseAdmin = getFirebaseAdmin();
     const body = req.body;
+    if (!body || typeof body !== 'object') {
+      return res.status(400).json({ error: 'Invalid request body' });
+    }
 
     // Map seobot field names to internal format (with backward compatibility)
     const title = body.headline || body.title;
@@ -138,9 +93,9 @@ export default async function handler(req, res) {
     let publishedAt;
     if (body.publishedAt) {
       // Convert seobot's ISO string to Firestore Timestamp
-      publishedAt = admin.firestore.Timestamp.fromDate(new Date(body.publishedAt));
+      publishedAt = firebaseAdmin.firestore.Timestamp.fromDate(new Date(body.publishedAt));
     } else if (body.published !== false) {
-      publishedAt = admin.firestore.Timestamp.now();
+      publishedAt = firebaseAdmin.firestore.Timestamp.now();
     } else {
       publishedAt = null;
     }
@@ -161,9 +116,9 @@ export default async function handler(req, res) {
       category: category || null,
       published: body.published !== undefined ? body.published : true,
       publishedAt,
-      createdAt: admin.firestore.Timestamp.now(),
-      updatedAt: admin.firestore.Timestamp.now(),
-      seoTitle: body.seoTitle || body.metaKeywords || title,
+      createdAt: firebaseAdmin.firestore.Timestamp.now(),
+      updatedAt: firebaseAdmin.firestore.Timestamp.now(),
+      seoTitle: body.seoTitle || title,
       seoDescription: body.seoDescription || excerpt || content.replace(/<[^>]*>/g, '').substring(0, 160),
       readingTime,
       // Store seobot-specific metadata if available
@@ -208,9 +163,6 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Error processing blog post:', error);
-    return res.status(500).json({
-      error: 'Failed to process blog post',
-      details: error.message,
-    });
+    return res.status(500).json({ error: 'Failed to process blog post' });
   }
 }
