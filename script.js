@@ -127,7 +127,7 @@ calculateSavings();
 function generateQRCode() {
     const qrContainer = document.getElementById('qr-code');
     if (qrContainer) {
-        const appStoreUrl = 'https://apps.apple.com/app/impulselog';
+        const appStoreUrl = 'https://apps.apple.com/us/app/impulse-log/id6747727094';
         
         // Use Google Charts API to generate QR code
         const qrCodeUrl = `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${encodeURIComponent(appStoreUrl)}&choe=UTF-8&chld=M|2`;
@@ -176,50 +176,6 @@ document.querySelectorAll('.value-card, .pricing-card, .faq-item').forEach(card 
         this.style.transform = 'translateY(0)';
     });
 });
-
-// Stats Counter Animation
-function animateStats() {
-    const stats = [
-        { element: document.querySelector('.stat-value'), target: 47392, prefix: '$' },
-        { element: document.querySelectorAll('.stat-value')[1], target: 2.3, suffix: 'M' },
-        { element: document.querySelectorAll('.stat-value')[2], target: 10, suffix: 'K+' }
-    ];
-    
-    stats.forEach(stat => {
-        if (!stat.element) return;
-        
-        let current = 0;
-        const increment = stat.target / 50;
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= stat.target) {
-                current = stat.target;
-                clearInterval(timer);
-            }
-            
-            const value = current < 10 ? current.toFixed(1) : Math.round(current);
-            stat.element.textContent = 
-                (stat.prefix || '') + 
-                value.toLocaleString() + 
-                (stat.suffix || '');
-        }, 30);
-    });
-}
-
-// Trigger stats animation when visible
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateStats();
-            statsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-const heroStats = document.querySelector('.hero-stats');
-if (heroStats) {
-    statsObserver.observe(heroStats);
-}
 
 // Prevent form submission on demo calculator
 document.querySelectorAll('form').forEach(form => {

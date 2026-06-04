@@ -38,7 +38,7 @@ function normalizeMarketingCopy(text) {
       /With over 10,000 active users[^.]*2\.3 million[^.]*\$47,392[^.]*\./gi,
       'ImpulseLog helps users track resisted purchases, build streaks, and better understand their spending habits over time.'
     )
-    .replace(/GPT-4/gi, 'gpt-5-mini')
+    .replace(/GPT[- ]?4/gi, 'GPT')
     .replace(/community challenges/gi, 'daily challenges')
     .replace(/bank-level encryption/gi, 'encrypted connections and secure data handling');
 }

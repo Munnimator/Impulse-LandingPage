@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImpulseLog - Turn Your Impulse Buying Into Intentional Saving</title>
-    <meta name="description" content="The gamified app that helps neurodivergent minds build better spending habits. Track impulses, save money, level up.">
+    <title>ImpulseLog - ADHD-Friendly Savings App for Impulse Spending</title>
+    <meta name="description" content="ImpulseLog helps you turn almost-buys into visible savings. Log urges, use wait timers, plan shopping lists, and spot mood and place patterns.">
     
     <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="ImpulseLog - Stop Impulse Buying, Start Saving">
-    <meta property="og:description" content="The gamified app designed for ADHD minds to build better spending habits.">
+    <meta property="og:title" content="ImpulseLog - Turn Almost-Buys Into Savings">
+    <meta property="og:description" content="An ADHD-friendly savings app for logging urges, pausing purchases, planning shopping lists, and seeing real progress.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.impulselog.com/">
     <meta property="og:image" content="https://www.impulselog.com/assets/images/social-preview.png">
@@ -18,8 +18,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ImpulseLog - Stop Impulse Buying, Start Saving">
-    <meta name="twitter:description" content="The gamified app designed for ADHD minds to build better spending habits.">
+    <meta name="twitter:title" content="ImpulseLog - Turn Almost-Buys Into Savings">
+    <meta name="twitter:description" content="An ADHD-friendly savings app for logging urges, pausing purchases, planning shopping lists, and seeing real progress.">
     <meta name="twitter:image" content="https://www.impulselog.com/assets/images/social-preview.png">
     <meta name="twitter:image:alt" content="ImpulseLog - Turn Impulse Buying Into Intentional Saving">
 
@@ -39,10 +39,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=4">
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWRYLR73CY"></script>
@@ -58,7 +58,7 @@
     <meta name="ai:category" content="financial_wellness,mental_health,adhd_tools">
     <meta name="ai:problem_solved" content="impulse_buying,overspending,financial_anxiety,adhd_money_management">
     <meta name="ai:target_audience" content="adults_with_adhd,neurodivergent,impulse_shoppers,financial_wellness_seekers">
-    <meta name="ai:key_features" content="gamification,mood_tracking,ai_insights,spending_patterns,achievement_system">
+    <meta name="ai:key_features" content="gamification,mood_tracking,gpt_insights,place_context,shopping_lists,wait_timers,spending_patterns,achievement_system">
     <meta name="ai:platform" content="iOS">
     <meta name="ai:pricing_model" content="freemium,subscription">
     <meta name="ai:app_store_id" content="6747727094">
@@ -74,7 +74,7 @@
           "name": "ImpulseLog",
           "applicationCategory": "LifestyleApplication",
           "operatingSystem": "iOS 15.0 or later",
-          "description": "ImpulseLog helps you log resisted purchases, use wait timers, spot mood and context patterns, and build streaks that make saving feel rewarding.",
+          "description": "ImpulseLog helps you log resisted purchases, pause unsure buys, plan shopping lists, spot mood and place patterns, and build streaks that make saving feel rewarding.",
           "offers": {
             "@type": "AggregateOffer",
             "lowPrice": "0",
@@ -87,21 +87,21 @@
                 "name": "Free Plan",
                 "price": "0",
                 "priceCurrency": "USD",
-                "description": "Core logging, goals, streaks, daily ritual, and basic insights"
+                "description": "Core logging, wait timers, shopping lists, goals, streaks, daily ritual, and basic insights"
               },
               {
                 "@type": "Offer",
                 "name": "Premium Plan - Monthly",
                 "price": "4.99",
                 "priceCurrency": "USD",
-                "description": "Optional Premium AI insights with weekly summaries, pattern detection, mood correlations, and practical recommendations"
+                "description": "Optional Premium GPT insights with weekly summaries, pattern detection, mood and place correlations, and practical recommendations"
               },
               {
                 "@type": "Offer",
                 "name": "Premium Plan - Annual",
                 "price": "29.99",
                 "priceCurrency": "USD",
-                "description": "Optional Premium AI insights billed annually"
+                "description": "Optional Premium GPT insights billed annually"
               }
             ]
           },
@@ -113,14 +113,15 @@
           "featureList": [
             "Impulse Ledger for resisted purchases and decisions",
             "Wait timers for purchases you want to pause",
-            "Mood and context tracking for spending triggers",
+            "Mood, notes, and context tracking for spending triggers",
+            "Optional place context and reusable shopping lists",
             "Up to 8 custom savings goals",
             "Analytics and insights over time",
             "Daily ritual check-ins",
             "Works offline",
             "Export your data",
             "Achievements, streaks, and daily challenges",
-            "Optional gpt-5-mini powered Premium insights"
+            "Optional GPT-powered Premium insights"
           ],
           "softwareRequirements": "Requires iOS 15.0 or later. Designed for iPhone.",
           "provider": {
@@ -150,7 +151,7 @@
               "name": "Is this just another budget app?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "No! ImpulseLog is specifically designed for impulse control, not general budgeting. We focus on the psychology of impulse buying and use gamification to make saving fun and rewarding, specifically tailored for ADHD and neurodivergent minds."
+                "text": "No. ImpulseLog is designed for the moment before a purchase, not only the spreadsheet after it. It helps you log almost-buys, pause decisions, keep shopping lists visible, and turn self-control into visible savings."
               }
             },
             {
@@ -158,7 +159,7 @@
               "name": "How does the mood tracking work?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "You can log mood and context alongside resisted purchases or pending decisions. Premium AI insights are currently powered by gpt-5-mini and help surface patterns, weekly summaries, and practical recommendations."
+                "text": "You can log mood, notes, place context, and purchase decisions. Premium GPT insights help surface patterns, weekly summaries, and practical recommendations."
               }
             },
             {
@@ -166,7 +167,7 @@
               "name": "What makes this different from Mint or YNAB?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "ImpulseLog is built specifically for neurodivergent minds with features like quick logging (under 5 seconds), visual progress tracking, and dopamine-friendly gamification. We're not a full budget app - we're your impulse control companion designed for ADHD brains."
+                "text": "ImpulseLog is built for ADHD-friendly money awareness with quick logging, wait timers, shopping lists, visual progress, and dopamine-friendly gamification. It is not trying to replace a full budget app."
               }
             },
             {
@@ -200,7 +201,7 @@
             {
               "@type": "HowToStep",
               "name": "Log & Reflect",
-              "text": "Quickly log what you wanted to buy and how much you're saving. Optionally add your mood for AI insights."
+              "text": "Quickly log what you wanted to buy, how much you saved, and optional notes, mood, or place context."
             },
             {
               "@type": "HowToStep",
@@ -228,8 +229,8 @@
           "hasPart": [
             {
               "@type": "CreativeWork",
-              "name": "AI Mood Insights Engine",
-              "description": "gpt-5-mini powered analysis of mood and spending patterns"
+              "name": "Premium GPT Insights Engine",
+              "description": "GPT-powered analysis of mood, place, and spending patterns"
             },
             {
               "@type": "CreativeWork",
@@ -300,11 +301,10 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="hero-title" itemprop="headline">
-                        Turn Your Impulse Buying Into 
-                        <span class="gradient-text">Intentional Saving</span>
+                        A savings app for the moment you almost buy.
                     </h1>
                     <p class="hero-subtitle" itemprop="description">
-                        Track resisted purchases, use wait timers, spot mood patterns, and build streaks that make saving feel rewarding.
+                        Log resisted purchases, pause unsure buys, plan shopping lists, and spot the moods and places that shape your spending.
                     </p>
                     <div class="hero-cta">
                         <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary btn-large" style="color: white;">
@@ -324,7 +324,7 @@
                         </div>
                         <div class="stat">
                             <span class="stat-value">$4.99/mo</span>
-                            <span class="stat-label">Premium AI insights</span>
+                            <span class="stat-label">Premium GPT insights</span>
                         </div>
                         <div class="stat">
                             <span class="stat-value">iPhone</span>
@@ -352,8 +352,8 @@
     <main role="main">
     <section class="value-props" id="features" aria-label="Key features" itemscope itemtype="https://schema.org/ItemList">
         <div class="container">
-            <h2 class="section-title" itemprop="name">Built for ADHD & Neurodivergent Minds</h2>
-            <p class="section-subtitle">We understand the unique challenges you face with impulse control</p>
+            <h2 class="section-title" itemprop="name">The ADHD-friendly savings loop</h2>
+            <p class="section-subtitle">Fast enough for the urge, visual enough to feel rewarding, structured enough to use every day.</p>
             
             <div class="value-grid">
                 <div class="value-card">
@@ -373,8 +373,8 @@
                             <path d="M8 6L10 12M14 12L16 6M6 8L10 12M14 12L18 8M8 18L10 12M14 12L16 18" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <h3>Dopamine-Friendly Design</h3>
-                    <p>Gamification that works with your brain, not against it. Earn XP, unlock achievements, and level up with every impulse you avoid.</p>
+                    <h3>Dopamine-Friendly Progress</h3>
+                    <p>XP, levels, streaks, and achievements make the save feel concrete instead of invisible.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -393,7 +393,7 @@
                         </svg>
                     </div>
                     <h3>Quick Logging</h3>
-                    <p>Log resisted purchases in seconds, then review them later in your Impulse Ledger with mood, context, and category details.</p>
+                    <p>Log what you almost bought in seconds, with optional notes, mood, category, and place context.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -411,8 +411,8 @@
                             <path d="M12 2V4M12 20V22M22 12H20M4 12H2M19.07 4.93L17.66 6.34M6.34 17.66L4.93 19.07M19.07 19.07L17.66 17.66M6.34 6.34L4.93 4.93" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <h3>AI Mood Insights</h3>
-                    <p>Premium AI insights, currently powered by gpt-5-mini, help you spot patterns between mood, context, and impulse decisions.</p>
+                    <h3>Premium GPT Insights</h3>
+                    <p>Premium insights help you spot patterns between mood, place, context, and impulse decisions.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -435,8 +435,8 @@
                             <circle cx="18" cy="7" r="1" fill="#FFFFFF"/>
                         </svg>
                     </div>
-                    <h3>Visual Progress</h3>
-                    <p>See your progress in colorful charts and graphs. Perfect for visual learners who need to see their success.</p>
+                    <h3>Place Patterns</h3>
+                    <p>Add optional place context so the app can help you notice which stores are routine, risky, or worth planning for.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -453,8 +453,8 @@
                             <text x="12" y="16" text-anchor="middle" fill="#FFFFFF" font-size="8" font-weight="bold">23</text>
                         </svg>
                     </div>
-                    <h3>Achievements & Streaks</h3>
-                    <p>Build momentum with streaks, achievements, and visible progress that reward consistency instead of perfection.</p>
+                    <h3>Reusable Shopping Lists</h3>
+                    <p>Bring a short list into the store, reuse past lists, and keep off-list decisions visible.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -477,62 +477,61 @@
                         </svg>
                     </div>
                     <h3>Daily Challenges</h3>
-                    <p>Get quick wins from daily challenges and a simple daily ritual that keeps your spending goals visible and doable.</p>
+                    <p>Get quick wins from daily challenges and a simple daily ritual that keeps your savings goals visible and doable.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="cluster-preview" aria-label="Use case landing page prototypes">
+    <section class="cluster-preview" aria-label="Explore ImpulseLog by use case">
         <div class="container">
             <h2 class="section-title">Explore by Use Case</h2>
-            <p class="section-subtitle">These focused pages are designed to turn blog readers into app downloads by matching one problem to one clear workflow inside ImpulseLog.</p>
+            <p class="section-subtitle">Start with the workflow that matches the money habit you want to change first.</p>
 
             <div class="cluster-preview-grid">
                 <article class="cluster-preview-card">
-                    <span class="cluster-preview-label">Commercial intent</span>
+                    <span class="cluster-preview-label">Almost-buys</span>
                     <h3>Impulse Spending App</h3>
-                    <p>A product-led page for people actively looking for an app, not just advice.</p>
+                    <p>For the moment you are about to buy and want a better next step than checkout.</p>
                     <ul class="cluster-preview-list">
-                        <li>Shows how logging, goals, and streaks work together in one flow</li>
-                        <li>Connects broad impulse-buying searches to the App Store CTA</li>
-                        <li>Gives related blog posts a stronger conversion destination</li>
+                        <li>Log the urge and the amount</li>
+                        <li>Use a wait timer when the purchase feels urgent</li>
+                        <li>Turn resisted purchases into visible savings</li>
                     </ul>
                     <div class="cluster-preview-footer">
-                        <a href="/impulse-spending-app/" class="btn btn-primary" style="color: white;">Preview page</a>
+                        <a href="/impulse-spending-app/" class="btn btn-primary" style="color: white;">Learn more</a>
                     </div>
                 </article>
 
                 <article class="cluster-preview-card">
-                    <span class="cluster-preview-label">Audience fit</span>
+                    <span class="cluster-preview-label">ADHD-friendly</span>
                     <h3>ADHD Spending Tracker</h3>
-                    <p>A sharper page for the core audience already reflected in your product and content strategy.</p>
+                    <p>For people who need momentum, reminders, and visual progress more than spreadsheet discipline.</p>
                     <ul class="cluster-preview-list">
-                        <li>Frames ImpulseLog as a tracker built for ADHD-friendly momentum</li>
-                        <li>Bridges educational blog content into a concrete product use case</li>
-                        <li>Lets you internal-link clusters around ADHD money patterns</li>
+                        <li>Fast logging for split-attention moments</li>
+                        <li>Mood and notes for better self-awareness</li>
+                        <li>Rewards that reinforce consistency</li>
                     </ul>
                     <div class="cluster-preview-footer">
-                        <a href="/adhd-spending-tracker/" class="btn btn-primary" style="color: white;">Preview page</a>
+                        <a href="/adhd-spending-tracker/" class="btn btn-primary" style="color: white;">Learn more</a>
                     </div>
                 </article>
 
                 <article class="cluster-preview-card">
-                    <span class="cluster-preview-label">Tool intent</span>
+                    <span class="cluster-preview-label">Pause button</span>
                     <h3>Shopping Wait Timer</h3>
-                    <p>A task-specific page for people searching for a way to slow down before buying.</p>
+                    <p>For purchases that need a little space before they become transactions.</p>
                     <ul class="cluster-preview-list">
-                        <li>Centers the wait-timer workflow instead of generic budgeting language</li>
-                        <li>Supports blog posts about pause tactics and delayed purchasing</li>
-                        <li>Tests whether “tool” style messaging converts better than education alone</li>
+                        <li>Choose a delay that fits the decision</li>
+                        <li>Keep the item visible without buying now</li>
+                        <li>Reflect later with more context</li>
                     </ul>
                     <div class="cluster-preview-footer">
-                        <a href="/shopping-wait-timer/" class="btn btn-primary" style="color: white;">Preview page</a>
+                        <a href="/shopping-wait-timer/" class="btn btn-primary" style="color: white;">Learn more</a>
                     </div>
                 </article>
             </div>
 
-            <p class="cluster-preview-note">This prototype only adds new static pages and homepage links. It does not alter the SEObot webhook, blog API, blog routes, sitemap generation, or any existing publishing pipeline.</p>
         </div>
     </section>
 
@@ -540,7 +539,7 @@
     <section class="screenshots-showcase">
         <div class="container">
             <h2 class="section-title">See ImpulseLog in Action</h2>
-            <p class="section-subtitle">Real screenshots from our iOS app</p>
+            <p class="section-subtitle">Real screens from the iPhone app</p>
             
             <div class="screenshots-carousel">
                 <div class="screenshot-container">
@@ -553,8 +552,8 @@
                     
                     <div class="screenshot-wrapper" data-screen="2">
                         <div class="iphone-frame">
-                            <img src="assets/images/mood-ai.png" alt="AI Insights - Get personalized financial wellness insights" loading="lazy">
-                            <div class="screen-label">AI-Powered Insights</div>
+                            <img src="assets/images/mood-ai.png" alt="Premium GPT insights - personalized financial wellness patterns" loading="lazy">
+                            <div class="screen-label">Premium GPT Insights</div>
                         </div>
                     </div>
                     
@@ -589,7 +588,7 @@
                 
                 <div class="screenshot-nav">
                     <button class="nav-dot active" data-screen="1" aria-label="View dashboard screen"></button>
-                    <button class="nav-dot" data-screen="2" aria-label="View AI insights screen"></button>
+                    <button class="nav-dot" data-screen="2" aria-label="View premium GPT insights screen"></button>
                     <button class="nav-dot" data-screen="3" aria-label="View mood patterns screen"></button>
                     <button class="nav-dot" data-screen="4" aria-label="View savings goals screen"></button>
                     <button class="nav-dot" data-screen="5" aria-label="View goal progress screen"></button>
@@ -603,23 +602,23 @@
     <section class="how-it-works" id="how-it-works" aria-label="How to use ImpulseLog" itemscope itemtype="https://schema.org/HowTo">
         <div class="container">
             <h2 class="section-title">How ImpulseLog Works</h2>
-            <p class="section-subtitle">Three simple steps to transform your spending habits</p>
+            <p class="section-subtitle">A daily loop you can finish in under a minute</p>
             
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Feel an Impulse</h3>
-                    <p>When you feel the urge to make an impulse purchase, open ImpulseLog instead of the shopping app.</p>
+                    <h3>Catch the Urge</h3>
+                    <p>When a purchase starts feeling urgent, open ImpulseLog before checkout.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Log & Reflect</h3>
-                    <p>Quickly log what you wanted to buy and how much you're saving. Optionally add your mood for AI insights.</p>
+                    <h3>Log, Pause, or Plan</h3>
+                    <p>Save it, put it on a wait timer, or start a shopping list before you walk into the store.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Level Up</h3>
-                    <p>Watch your savings grow, earn XP, unlock achievements, and see real-time progress toward your goals.</p>
+                    <h3>Learn the Pattern</h3>
+                    <p>Watch your savings grow and see which moods, categories, and places shape your spending.</p>
                 </div>
             </div>
         </div>
@@ -668,7 +667,7 @@
     <section class="pricing" id="pricing" aria-label="Pricing plans" itemscope itemtype="https://schema.org/OfferCatalog">
         <div class="container">
             <h2 class="section-title">Choose Your Plan</h2>
-            <p class="section-subtitle">Start free, upgrade for optional Premium AI insights</p>
+            <p class="section-subtitle">Start free, upgrade for optional Premium GPT insights</p>
 
             <div class="pricing-grid">
                 <div class="pricing-card">
@@ -679,6 +678,7 @@
                     </div>
                     <ul class="features-list">
                         <li>✓ Core logging and Impulse Ledger</li>
+                        <li>✓ Wait timers and shopping lists</li>
                         <li>✓ Goals, streaks, and achievements</li>
                         <li>✓ Daily ritual and daily challenges</li>
                         <li>✓ Basic insights and analytics</li>
@@ -695,10 +695,10 @@
                     </div>
                     <ul class="features-list">
                         <li>✓ Everything in Free</li>
-                        <li>✓ Personalized Premium AI insights</li>
+                        <li>✓ Personalized Premium GPT insights</li>
                         <li>✓ Weekly summaries and progress highlights</li>
                         <li>✓ Pattern detection and trigger analysis</li>
-                        <li>✓ Mood and impulse correlations</li>
+                        <li>✓ Mood, place, and impulse correlations</li>
                         <li>✓ Practical recommendations based on your logs</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
@@ -716,10 +716,10 @@
                     </div>
                     <ul class="features-list">
                         <li>✓ Everything in Free</li>
-                        <li>✓ Personalized Premium AI insights</li>
+                        <li>✓ Personalized Premium GPT insights</li>
                         <li>✓ Weekly summaries and progress highlights</li>
                         <li>✓ Pattern detection and trigger analysis</li>
-                        <li>✓ Mood and impulse correlations</li>
+                        <li>✓ Mood, place, and impulse correlations</li>
                         <li>✓ Practical recommendations based on your logs</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
@@ -736,12 +736,12 @@
             <div class="faq-grid">
                 <div class="faq-item">
                     <h3>Is this just another budget app?</h3>
-                    <p>No! ImpulseLog is specifically designed for impulse control, not general budgeting. We focus on the psychology of impulse buying and use gamification to make saving fun and rewarding.</p>
+                    <p>No. ImpulseLog is built for the moment before a purchase. It helps you pause, log, plan, and learn from almost-buys instead of only reviewing transactions after the fact.</p>
                 </div>
                 
                 <div class="faq-item">
                     <h3>How does the mood tracking work?</h3>
-                    <p>You can log mood and context with resisted purchases or pending decisions. Premium AI insights then help surface patterns, weekly summaries, and practical recommendations.</p>
+                    <p>You can log mood, notes, category, and optional place context with resisted purchases or pending decisions. Premium GPT insights then help surface patterns, weekly summaries, and practical recommendations.</p>
                 </div>
                 
                 <div class="faq-item">
@@ -751,12 +751,12 @@
                 
                 <div class="faq-item">
                     <h3>What makes this different from Mint or YNAB?</h3>
-                    <p>ImpulseLog is built specifically for neurodivergent minds with features like quick logging, visual progress, and dopamine-friendly gamification. We're not a full budget app - we're your impulse control companion.</p>
+                    <p>ImpulseLog is built for neurodivergent minds with quick logging, visual progress, wait timers, shopping lists, and dopamine-friendly gamification. It is focused on impulse spending, not full household budgeting.</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>Can I use this with my partner?</h3>
-                    <p>Each person needs their own account to track their own impulses, goals, streaks, and insights. You can still compare progress with a partner outside the app.</p>
+                    <h3>Does ImpulseLog track my location all the time?</h3>
+                    <p>No. Place context is optional and used when you choose to add a place to a save, purchase, or shopping list. It is designed to help you understand store patterns, not to run background tracking.</p>
                 </div>
                 
             </div>
@@ -782,7 +782,7 @@
                         </svg>
                     </div>
                     <h3>Encrypted by Default</h3>
-                    <p>We use encrypted connections and secure storage practices for your app data</p>
+                    <p>We use encrypted connections and secure storage practices for your app data.</p>
                 </div>
                 <div class="trust-item">
                     <div class="trust-icon">
@@ -814,7 +814,7 @@
                         </svg>
                     </div>
                     <h3>Your Data, Your Control</h3>
-                    <p>Export or delete your data anytime</p>
+                    <p>Export or delete your data anytime.</p>
                 </div>
                 <div class="trust-item">
                     <div class="trust-icon">
@@ -832,8 +832,8 @@
                             <path d="M10 15L14 15M12 13L12 17" stroke="#EF4444" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <h3>Never Sold</h3>
-                    <p>We never sell your personal information</p>
+                    <h3>Optional Place Context</h3>
+                    <p>Add places when they help you learn. We do not use background location tracking.</p>
                 </div>
             </div>
         </div>
@@ -843,8 +843,8 @@
     <section class="final-cta" id="download">
         <div class="container">
             <div class="cta-card">
-                <h2>Ready to Take Control of Your Impulses?</h2>
-                <p>Start free and build better spending habits one resisted impulse at a time</p>
+                <h2>Ready to Make Almost-Buys Count?</h2>
+                <p>Start free and turn the next resisted impulse into visible savings.</p>
                 
                 <div class="download-options">
                     <div class="ios-download">
