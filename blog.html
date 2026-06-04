@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - ImpulseLog | Financial Wellness Tips & ADHD Money Management</title>
-    <meta name="description" content="Read our latest tips on impulse control, financial wellness for ADHD, and neurodivergent money management strategies.">
+    <title>ImpulseLog Blog | ADHD Spending, Almost-Buys, and Savings Habits</title>
+    <meta name="description" content="Practical guides for ADHD impulse spending, almost-buys, pause timers, shopping lists, and turning resisted purchases into visible savings.">
 
     <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="ImpulseLog Blog - Financial Wellness Tips">
-    <meta property="og:description" content="Tips on impulse control, ADHD money management, and building better spending habits.">
+    <meta property="og:title" content="ImpulseLog Blog - ADHD Spending and Almost-Buy Guides">
+    <meta property="og:description" content="Practical guides for ADHD impulse spending, pause timers, shopping lists, and turning resisted purchases into visible savings.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.impulselog.com/blog">
     <meta property="og:image" content="https://www.impulselog.com/assets/images/social-preview.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ImpulseLog Blog - Financial Wellness Tips">
-    <meta name="twitter:description" content="Tips on impulse control, ADHD money management, and building better spending habits.">
+    <meta name="twitter:title" content="ImpulseLog Blog - ADHD Spending and Almost-Buy Guides">
+    <meta name="twitter:description" content="Practical guides for ADHD impulse spending, pause timers, shopping lists, and turning resisted purchases into visible savings.">
     <meta name="twitter:image" content="https://www.impulselog.com/assets/images/social-preview.png">
 
     <!-- Canonical URL -->
@@ -73,6 +73,56 @@
             font-size: 0.95rem;
             font-weight: 600;
             letter-spacing: 0.01em;
+        }
+
+        .blog-start-here {
+            padding: 3rem 0 1rem;
+            background: #F9FAFB;
+        }
+
+        .blog-start-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .blog-start-card {
+            display: block;
+            padding: 1.5rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            background: white;
+            color: inherit;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .blog-start-card:hover {
+            transform: translateY(-3px);
+            border-color: #8B5CF6;
+        }
+
+        .blog-start-card span {
+            display: inline-block;
+            margin-bottom: 0.75rem;
+            color: #8B5CF6;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .blog-start-card h2 {
+            margin-bottom: 0.5rem;
+            color: #111827;
+            font-size: 1.35rem;
+        }
+
+        .blog-start-card p {
+            color: #4B5563;
+            line-height: 1.6;
         }
 
         .blog-section {
@@ -212,6 +262,10 @@
             .blog-grid {
                 grid-template-columns: 1fr;
             }
+
+            .blog-start-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -266,8 +320,32 @@
     <section class="blog-hero">
         <div class="container">
             <h1>ImpulseLog Blog</h1>
-            <p>Tips on impulse control, ADHD money management, and building better spending habits</p>
+            <p>Practical guides for ADHD impulse spending, almost-buys, wait timers, shopping lists, and daily savings habits.</p>
             <p id="blog-filter-label" class="filter-label" style="display: none;"></p>
+        </div>
+    </section>
+
+    <section class="blog-start-here" aria-label="Start with a focused ImpulseLog guide">
+        <div class="container">
+            <h2 class="section-title">Start With the Problem You Want to Solve</h2>
+            <p class="section-subtitle">These focused guides turn the blog archive into clear next steps inside the app.</p>
+            <div class="blog-start-grid">
+                <a href="/impulse-spending-app/" class="blog-start-card">
+                    <span>Almost-buys</span>
+                    <h2>Stop impulse buys before checkout</h2>
+                    <p>Use the pause-and-log workflow when the cart is open and the urge is loud.</p>
+                </a>
+                <a href="/adhd-spending-tracker/" class="blog-start-card">
+                    <span>ADHD money</span>
+                    <h2>Track spending patterns without shame</h2>
+                    <p>Connect urges to mood, notes, places, and visible progress that keeps you coming back.</p>
+                </a>
+                <a href="/shopping-wait-timer/" class="blog-start-card">
+                    <span>Wait timers</span>
+                    <h2>Add a pause button to shopping</h2>
+                    <p>Delay unsure purchases, save your notes, and decide later with a cooler head.</p>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -332,6 +410,9 @@
                         <a href="/#features">Features</a>
                         <a href="/#pricing">Pricing</a>
                         <a href="/#download">Download</a>
+                        <a href="/impulse-spending-app/">Impulse Spending App</a>
+                        <a href="/adhd-spending-tracker/">ADHD Spending Tracker</a>
+                        <a href="/shopping-wait-timer/">Shopping Wait Timer</a>
                     </div>
 
                     <div class="link-group">

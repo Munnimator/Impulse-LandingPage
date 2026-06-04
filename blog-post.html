@@ -211,6 +211,52 @@
             color: #111827;
         }
 
+        .sidebar-cta {
+            background: linear-gradient(135deg, #111827 0%, #1E3A8A 55%, #0891B2 100%);
+            color: white;
+        }
+
+        .sidebar-cta h3 {
+            color: white;
+        }
+
+        .sidebar-cta p {
+            color: rgba(255, 255, 255, 0.86);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-cta .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .workflow-link {
+            display: block;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid #E5E7EB;
+            color: #111827;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .workflow-link span {
+            display: block;
+            margin-top: 0.2rem;
+            color: #6B7280;
+            font-size: 0.85rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .workflow-link:last-child {
+            border-bottom: none;
+        }
+
+        .workflow-link:hover {
+            color: #8B5CF6;
+        }
+
         .sidebar-post {
             display: flex;
             gap: 1rem;
@@ -400,6 +446,17 @@
 
                 <!-- Sidebar -->
                 <aside class="sidebar">
+                    <div class="sidebar-section sidebar-cta">
+                        <h3>Turn Almost-Buys Into Savings</h3>
+                        <p>ImpulseLog helps you log urges, pause unsure purchases, and see the money you did not spend.</p>
+                        <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Download Free</a>
+                    </div>
+                    <div class="sidebar-section">
+                        <h3>Popular Workflows</h3>
+                        <a class="workflow-link" href="/impulse-spending-app/">Impulse Spending App <span>Catch the urge before checkout.</span></a>
+                        <a class="workflow-link" href="/adhd-spending-tracker/">ADHD Spending Tracker <span>Track patterns without shame.</span></a>
+                        <a class="workflow-link" href="/shopping-wait-timer/">Shopping Wait Timer <span>Give unsure buys a pause button.</span></a>
+                    </div>
                     <div class="sidebar-section">
                         <h3>Recent Posts</h3>
                         <div id="recent-posts"></div>
@@ -438,6 +495,9 @@
                         <a href="/#features">Features</a>
                         <a href="/#pricing">Pricing</a>
                         <a href="/#download">Download</a>
+                        <a href="/impulse-spending-app/">Impulse Spending App</a>
+                        <a href="/adhd-spending-tracker/">ADHD Spending Tracker</a>
+                        <a href="/shopping-wait-timer/">Shopping Wait Timer</a>
                     </div>
 
                     <div class="link-group">

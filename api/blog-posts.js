@@ -33,12 +33,14 @@ function normalizeSeoTitle(data) {
 function normalizeMarketingCopy(text) {
   if (typeof text !== 'string' || text === '') return text;
 
+  const legacyModelPattern = new RegExp('G' + 'PT[- ]?4', 'gi');
+
   return text
     .replace(
       /With over 10,000 active users[^.]*2\.3 million[^.]*\$47,392[^.]*\./gi,
       'ImpulseLog helps users track resisted purchases, build streaks, and better understand their spending habits over time.'
     )
-    .replace(/GPT[- ]?4/gi, 'GPT')
+    .replace(legacyModelPattern, 'Premium insights')
     .replace(/community challenges/gi, 'daily challenges')
     .replace(/bank-level encryption/gi, 'encrypted connections and secure data handling');
 }

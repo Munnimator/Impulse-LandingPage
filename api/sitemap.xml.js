@@ -12,25 +12,43 @@ const BASE_URL = 'https://www.impulselog.com';
 const STATIC_PAGES = [
   {
     url: `${BASE_URL}/`,
-    lastmod: '2025-10-27',
+    lastmod: '2026-06-04',
     changefreq: 'weekly',
     priority: '1.0'
   },
   {
     url: `${BASE_URL}/blog`,
-    lastmod: '2025-10-27',
+    lastmod: '2026-06-04',
     changefreq: 'daily',
     priority: '0.9'
   },
   {
+    url: `${BASE_URL}/impulse-spending-app/`,
+    lastmod: '2026-06-04',
+    changefreq: 'monthly',
+    priority: '0.85'
+  },
+  {
+    url: `${BASE_URL}/adhd-spending-tracker/`,
+    lastmod: '2026-06-04',
+    changefreq: 'monthly',
+    priority: '0.85'
+  },
+  {
+    url: `${BASE_URL}/shopping-wait-timer/`,
+    lastmod: '2026-06-04',
+    changefreq: 'monthly',
+    priority: '0.85'
+  },
+  {
     url: `${BASE_URL}/privacy`,
-    lastmod: '2025-10-05',
+    lastmod: '2026-06-04',
     changefreq: 'monthly',
     priority: '0.3'
   },
   {
     url: `${BASE_URL}/terms`,
-    lastmod: '2025-10-05',
+    lastmod: '2026-06-04',
     changefreq: 'monthly',
     priority: '0.3'
   }

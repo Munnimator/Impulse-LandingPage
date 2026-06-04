@@ -24,16 +24,3 @@ Allow: /
 
 User-agent: LinkedInBot
 Allow: /
-
-# AI crawlers (optional - for AI training/search)
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
