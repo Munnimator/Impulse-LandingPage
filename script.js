@@ -58,6 +58,77 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+const APP_STORE_BASE_URL = 'https://apps.apple.com/us/app/impulse-log/id6747727094';
+const APP_STORE_PROVIDER_TOKEN = '';
+
+function sanitizeCampaignToken(value) {
+    return String(value || 'website')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '')
+        .slice(0, 40) || 'website';
+}
+
+function getPageCampaign() {
+    const path = window.location.pathname.replace(/^\/|\/$/g, '');
+    return sanitizeCampaignToken(path || 'homepage');
+}
+
+function buildCampaignToken(ctaLocation) {
+    const pagePart = getPageCampaign().slice(0, 22);
+    const ctaPart = sanitizeCampaignToken(ctaLocation).slice(0, 17);
+    return sanitizeCampaignToken(`${pagePart}_${ctaPart}`);
+}
+
+function buildTrackedAppStoreUrl(campaign) {
+    const url = new URL(APP_STORE_BASE_URL);
+    url.searchParams.set('ct', sanitizeCampaignToken(campaign));
+    url.searchParams.set('mt', '8');
+
+    if (APP_STORE_PROVIDER_TOKEN) {
+        url.searchParams.set('pt', APP_STORE_PROVIDER_TOKEN);
+    }
+
+    return url.toString();
+}
+
+function describeCtaLocation(link, index) {
+    if (link.dataset.appCta) {
+        return link.dataset.appCta;
+    }
+
+    const section = link.closest('section[id], section[class], nav, footer, .mobile-menu, .floating-cta, .sidebar');
+    const sectionName = section?.id || section?.className || section?.tagName || 'page';
+    const linkText = link.textContent.trim() || 'app_store';
+    return `${sectionName}_${linkText}_${index + 1}`;
+}
+
+function instrumentAppStoreLinks() {
+    const appStoreLinks = document.querySelectorAll(`a[href*="${APP_STORE_BASE_URL}"]`);
+
+    appStoreLinks.forEach((link, index) => {
+        const ctaLocation = describeCtaLocation(link, index);
+        const campaign = buildCampaignToken(ctaLocation);
+        link.href = buildTrackedAppStoreUrl(campaign);
+        link.dataset.appStoreCampaign = campaign;
+
+        link.addEventListener('click', () => {
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'app_store_click', {
+                    event_category: 'conversion',
+                    event_label: campaign,
+                    page_path: window.location.pathname,
+                    link_text: link.textContent.trim(),
+                    cta_location: ctaLocation,
+                    transport_type: 'beacon'
+                });
+            }
+        });
+    });
+}
+
+instrumentAppStoreLinks();
+
 // Floating CTA on Scroll
 const floatingCta = document.getElementById('floating-cta');
 
@@ -127,7 +198,7 @@ calculateSavings();
 function generateQRCode() {
     const qrContainer = document.getElementById('qr-code');
     if (qrContainer) {
-        const appStoreUrl = 'https://apps.apple.com/us/app/impulse-log/id6747727094';
+        const appStoreUrl = buildTrackedAppStoreUrl(`${getPageCampaign()}_qr_code`);
         
         // Use Google Charts API to generate QR code
         const qrCodeUrl = `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${encodeURIComponent(appStoreUrl)}&choe=UTF-8&chld=M|2`;

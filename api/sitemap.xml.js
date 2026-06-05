@@ -12,7 +12,7 @@ const BASE_URL = 'https://www.impulselog.com';
 const STATIC_PAGES = [
   {
     url: `${BASE_URL}/`,
-    lastmod: '2026-06-04',
+    lastmod: '2026-06-05',
     changefreq: 'weekly',
     priority: '1.0'
   },
@@ -36,9 +36,15 @@ const STATIC_PAGES = [
   },
   {
     url: `${BASE_URL}/shopping-wait-timer/`,
-    lastmod: '2026-06-04',
+    lastmod: '2026-06-05',
     changefreq: 'monthly',
     priority: '0.85'
+  },
+  {
+    url: `${BASE_URL}/founder-story/`,
+    lastmod: '2026-06-05',
+    changefreq: 'monthly',
+    priority: '0.75'
   },
   {
     url: `${BASE_URL}/privacy`,

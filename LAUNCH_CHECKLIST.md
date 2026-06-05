@@ -1,102 +1,55 @@
-# ImpulseLog Landing Page - Launch Checklist
+# ImpulseLog Website Marketing Checklist
 
-## 🔴 CRITICAL - Must Update Before Launch
+This checklist covers the website tasks that support search traffic, App Store conversion, and launch attribution.
 
-### 1. App Store URLs
-**Current placeholders to replace:**
-- `https://apps.apple.com/app/impulselog` (appears in 4+ locations)
+## Current Status
 
-**Locations to update:**
-- Line 77: Hero CTA button
-- Line 417: Final CTA button  
-- Line 486: Floating CTA button
-- QR code generation in script.js
+- App Store URL is live: `https://apps.apple.com/us/app/impulse-log/id6747727094`
+- Website hosting is Vercel from the GitHub `main` branch.
+- Google Analytics 4 is installed.
+- App Store CTA clicks are tracked with the `app_store_click` event.
+- App Store links receive campaign tokens through `ct`.
+- Sitemap is generated at `https://www.impulselog.com/sitemap.xml`.
+- Focused SEO pages are live for:
+  - `/impulse-spending-app/`
+  - `/adhd-spending-tracker/`
+  - `/shopping-wait-timer/`
+  - `/founder-story/`
 
-**How to get real URL:**
-1. Submit app to App Store Connect
-2. Get actual App Store URL (format: `https://apps.apple.com/us/app/impulselog/idXXXXXXXXXX`)
-3. Replace all placeholder URLs
+## Before Each Marketing Push
 
-### 2. Apple Smart App Banner
-**Current placeholder:**
-- Line 16: `<meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">`
+- [ ] Confirm the latest GitHub commit deployed successfully on Vercel.
+- [ ] Open the live homepage and each focused SEO page on desktop and iPhone Safari.
+- [ ] Click one App Store CTA from each major page and confirm the App Store opens.
+- [ ] Check GA4 Realtime for `app_store_click` after clicking a CTA.
+- [ ] Confirm `https://www.impulselog.com/sitemap.xml` includes new static pages.
+- [ ] Inspect new or changed URLs in Google Search Console.
 
-**How to fix:**
-1. Get your actual App ID from App Store Connect (just the numbers)
-2. Replace `YOUR_APP_ID` with actual ID
+## Search Console Follow-Through
 
-### 3. Legal Documents
-**Need to add dates to:**
-- `/privacy.html` - Replace `[DATE]` with actual date
-- `/terms.html` - Replace `[DATE]` and `[JURISDICTION]`
+- [ ] Submit or resubmit `https://www.impulselog.com/sitemap.xml`.
+- [ ] Inspect these URLs after deployment:
+  - `https://www.impulselog.com/`
+  - `https://www.impulselog.com/impulse-spending-app/`
+  - `https://www.impulselog.com/adhd-spending-tracker/`
+  - `https://www.impulselog.com/shopping-wait-timer/`
+  - `https://www.impulselog.com/founder-story/`
+- [ ] Review the last 3 months of Search Console queries.
+- [ ] Prioritize rewrites for pages with high impressions and low click-through rate.
 
-## 🟡 IMPORTANT - Should Complete Before Launch
+## App Store Connect Follow-Through
 
-### 4. Favicon Files
-**Status:** SVG favicon created ✅, PNG files need generation ❌
+- [ ] Review App Analytics campaign data after traffic begins landing on the campaign-tagged links.
+- [ ] If available, add the App Store Connect provider token to `APP_STORE_PROVIDER_TOKEN` in `script.js` so campaign attribution is cleaner.
+- [ ] Create custom product pages for the main intent clusters:
+  - Impulse spending app
+  - ADHD spending tracker
+  - Shopping wait timer
+  - Shopping lists and store planning
 
-**Todo:**
-1. Use favicon generator (realfavicongenerator.net)
-2. Generate proper PNG files in `/assets/icons/`
-3. Test on different browsers
+## Content Priorities
 
-### 5. Analytics & Tracking
-**Missing:**
-- Google Analytics 4
-- Conversion tracking
-- Heat mapping (optional)
-
-### 6. Performance Optimizations
-**Completed:** ✅
-- Image optimization (73% size reduction)
-- Lazy loading implemented
-- QR code generation working
-
-## 🟢 NICE TO HAVE - Future Improvements
-
-### 7. Email Collection
-**Decision:** Removed Android waitlist ✅
-**Alternative:** Could add general newsletter signup
-
-### 8. SEO Enhancements
-- Add structured data markup
-- Create sitemap.xml
-- Add Open Graph images
-
-### 9. Security
-- Add Content Security Policy headers
-- Implement HTTPS headers
-
-## Quick Reference - File Locations
-
-```
-landing-page/
-├── index.html              # Main landing page
-├── privacy.html            # Privacy policy 
-├── terms.html              # Terms of service
-├── script.js               # JavaScript (QR code generation)
-├── styles.css              # All styles
-└── assets/
-    ├── images/             # Optimized screenshots
-    └── icons/              # Favicon files (needs completion)
-```
-
-## Final Testing Checklist
-
-Before going live:
-- [ ] Test on iPhone Safari
-- [ ] Test on desktop browsers
-- [ ] Verify all App Store links work
-- [ ] Check QR code scans correctly
-- [ ] Test Privacy/Terms pages load
-- [ ] Verify all images load properly
-- [ ] Test responsive design on mobile
-
-## Hosting Options
-
-**Recommended:**
-- Vercel (free tier, custom domain)
-- Netlify (free tier, forms)
-- Firebase Hosting (already using Firebase)
-
-**Current setup:** Express.js dev server (localhost only)
+- [ ] Refresh the highest-impression blog posts before writing large batches of new posts.
+- [ ] Add direct product CTAs inside top blog posts where they naturally fit.
+- [ ] Use the founder story page as the trust link for outreach, press, social profiles, and creator partnerships.
+- [ ] Keep copy focused on the user outcome: almost-buys, saved money, wait timers, shopping lists, mood/place patterns, and ADHD-friendly momentum.
