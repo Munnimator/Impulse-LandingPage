@@ -15,13 +15,17 @@ This site is automatically deployed to Vercel from the `main` branch.
 ## 📁 Project Structure
 
 ```
-├── index.html           # Main landing page
-├── privacy.html         # Privacy policy
-├── terms.html          # Terms of service  
-├── script.js           # JavaScript functionality
-├── styles.css          # All styling
-├── vercel.json         # Vercel deployment config
-├── LAUNCH_CHECKLIST.md # Production deployment checklist
+├── index.html            # Main landing page
+├── blog.html             # Blog archive template
+├── blog-post.html        # Blog post template
+├── api/                  # Vercel blog and sitemap functions
+├── privacy.html          # Privacy policy
+├── terms.html            # Terms of service
+├── script.js             # Shared browser behavior
+├── styles.css            # Shared landing-page styling
+├── vercel.json           # Vercel routes and security headers
+├── test/                 # Node test suite
+├── LAUNCH_CHECKLIST.md   # Production deployment checklist
 └── assets/
     ├── images/         # Optimized app screenshots
     └── icons/          # Favicon files
@@ -30,7 +34,7 @@ This site is automatically deployed to Vercel from the `main` branch.
 ## ✨ Features
 
 - **Responsive design** - Works on all devices
-- **Optimized images** - 73% size reduction for fast loading
+- **Current app screenshots** - Lazy-loaded below the initial viewport
 - **QR code generation** - Dynamic App Store QR codes
 - **Lazy loading** - Images load as needed
 - **SEO optimized** - Meta tags, Open Graph, structured data
@@ -38,20 +42,22 @@ This site is automatically deployed to Vercel from the `main` branch.
 
 ## 🔧 Local Development
 
-To run locally, simply serve the static files:
+Install dependencies and run the local server:
 
 ```bash
-# Using Python
-python3 -m http.server 8000
-
-# Using Node.js
-npx serve .
-
-# Using PHP
-php -S localhost:8000
+npm ci
+npm run dev
 ```
 
-Then visit `http://localhost:8000`
+Then visit `http://localhost:3000`.
+
+Run automated checks with:
+
+```bash
+npm test
+```
+
+Blog API routes require the Firebase and webhook variables documented in `.env.example` and `BLOG_SETUP.md`.
 
 ## 📱 App Integration
 
@@ -59,7 +65,7 @@ This landing page is designed for the ImpulseLog iOS app:
 
 - **App Repo:** [ImpulseLog iOS App](https://github.com/Munnimator/ImpulseLog)
 - **Backend:** Railway + Firebase Functions
-- **App Store:** (Coming soon)
+- **App Store:** [Impulse Log](https://apps.apple.com/us/app/impulse-log/id6747727094)
 
 ## 🛠 Technologies
 
@@ -67,32 +73,11 @@ This landing page is designed for the ImpulseLog iOS app:
 - **CSS3** - Custom properties, Grid, Flexbox
 - **Vanilla JavaScript** - No frameworks
 - **Vercel** - Hosting and deployment
-- **Google Fonts** - Inter font family
+- **Google Fonts** - Atkinson Hyperlegible
 
-## 📊 Performance
+## 📊 Analytics
 
-- **Lighthouse Score:** 95+ on all metrics
-- **Image Optimization:** WebP with PNG fallbacks
-- **Caching:** Static assets cached for 1 year
-- **CDN:** Global edge caching via Vercel
-
-## 🚨 Before App Store Launch
-
-Replace these placeholders:
-
-1. **App Store URLs** (4 locations):
-   - Current: `https://apps.apple.com/app/impulselog`
-   - Replace with: Actual App Store URL
-
-2. **Apple App ID** (1 location):
-   - Current: `YOUR_APP_ID`
-   - Replace with: Actual numeric App ID
-
-3. **Legal Documents**:
-   - Add dates to privacy.html and terms.html
-   - Add jurisdiction to terms.html
-
-See `LAUNCH_CHECKLIST.md` for complete details.
+Google Analytics 4 is loaded through `assets/js/analytics.js`. App Store links include campaign metadata and emit an `app_store_click` event.
 
 ## 📞 Contact
 

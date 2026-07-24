@@ -37,9 +37,8 @@
     <meta name="theme-color" content="#8B5CF6">
     
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-700.woff2" as="font" type="font/woff2" crossorigin>
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css?v=4">
@@ -314,10 +313,10 @@
                     <!-- Launch badges -->
                     <div class="launch-badges" aria-label="ImpulseLog launch recognition">
                         <a class="launch-badge-link" href="https://www.producthunt.com/products/impulselog?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-impulselog" target="_blank" rel="nofollow noopener noreferrer" aria-label="View ImpulseLog on Product Hunt">
-                            <img class="launch-badge-image product-hunt-badge-image" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1020472&theme=light&t=1759149592475" alt="ImpulseLog on Product Hunt" width="250" height="54" />
+                            <img class="launch-badge-image product-hunt-badge-image" src="/assets/icons/product-hunt-featured.svg" alt="ImpulseLog on Product Hunt" width="250" height="54" />
                         </a>
                         <a class="launch-badge-link" href="https://startupbase.io/products/impulselog?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-light" target="_blank" rel="noopener noreferrer" aria-label="View ImpulseLog featured on StartupBase">
-                            <img class="launch-badge-image startupbase-badge-image" src="https://statics.startupbase.io/site/badges/featured-on-sb.svg" alt="Featured on StartupBase" width="206" height="55" />
+                            <img class="launch-badge-image startupbase-badge-image" src="/assets/icons/startupbase-featured.svg" alt="Featured on StartupBase" width="206" height="55" />
                         </a>
                     </div>
                 </div>
@@ -481,7 +480,7 @@
                         <li>Turn resisted purchases into visible savings</li>
                     </ul>
                     <div class="cluster-preview-footer">
-                        <a href="/impulse-spending-app/" class="btn btn-primary" style="color: white;">Learn more</a>
+                        <a href="/impulse-spending-app/" class="btn btn-primary" style="color: white;" aria-label="Learn more about the impulse spending app">Learn more</a>
                     </div>
                 </article>
 
@@ -495,7 +494,7 @@
                         <li>Rewards that reinforce consistency</li>
                     </ul>
                     <div class="cluster-preview-footer">
-                        <a href="/adhd-spending-tracker/" class="btn btn-primary" style="color: white;">Learn more</a>
+                        <a href="/adhd-spending-tracker/" class="btn btn-primary" style="color: white;" aria-label="Learn more about the ADHD spending tracker">Learn more</a>
                     </div>
                 </article>
 
@@ -509,7 +508,7 @@
                         <li>Reflect later with more context</li>
                     </ul>
                     <div class="cluster-preview-footer">
-                        <a href="/shopping-wait-timer/" class="btn btn-primary" style="color: white;">Learn more</a>
+                        <a href="/shopping-wait-timer/" class="btn btn-primary" style="color: white;" aria-label="Learn more about the shopping wait timer">Learn more</a>
                     </div>
                 </article>
             </div>
@@ -913,7 +912,7 @@
                 
                 <div class="footer-links">
                     <div class="link-group">
-                        <h4>Product</h4>
+                        <h3>Product</h3>
                         <a href="#features">Features</a>
                         <a href="#pricing">Pricing</a>
                         <a href="#download">Download</a>
@@ -923,7 +922,7 @@
                     </div>
                     
                     <div class="link-group">
-                        <h4>Company</h4>
+                        <h3>Company</h3>
                         <a href="/founder-story/">Founder Story</a>
                         <a href="/privacy">Privacy Policy</a>
                         <a href="/terms">Terms of Service</a>
@@ -931,7 +930,7 @@
                     </div>
                     
                     <div class="link-group">
-                        <h4>Connect</h4>
+                        <h3>Connect</h3>
                         <a href="mailto:support@impulselog.com">support@impulselog.com</a>
                     </div>
                 </div>

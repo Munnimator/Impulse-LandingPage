@@ -1,3 +1,19 @@
+@font-face {
+    font-family: 'Atkinson Hyperlegible';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/assets/fonts/atkinson-hyperlegible-400.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Atkinson Hyperlegible';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/assets/fonts/atkinson-hyperlegible-700.woff2') format('woff2');
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -105,7 +121,7 @@ p {
     font-weight: 600;
     text-decoration: none;
     border-radius: var(--radius-lg);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     cursor: pointer;
     border: none;
     gap: var(--space-xs);
@@ -193,7 +209,11 @@ p {
 .mobile-menu-toggle {
     display: none;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 4px;
+    width: 44px;
+    height: 44px;
     background: none;
     border: none;
     cursor: pointer;
@@ -204,7 +224,23 @@ p {
     width: 24px;
     height: 2px;
     background: var(--text-primary);
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-menu.active {
+    display: block;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 .mobile-menu {
@@ -369,13 +405,15 @@ p {
     align-items: center;
     min-height: 700px;
     position: relative;
+    overflow: hidden;
+    overflow: clip;
 }
 
 .screenshot-wrapper {
     position: absolute;
     opacity: 0;
     transform: scale(0.8) translateX(100px);
-    transition: all 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
     pointer-events: none;
 }
 
@@ -429,21 +467,31 @@ p {
 }
 
 .nav-dot {
-    width: 12px;
-    height: 12px;
+    position: relative;
+    width: 44px;
+    height: 44px;
     border-radius: var(--radius-full);
-    background: var(--border);
+    background: transparent;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.nav-dot.active {
-    width: 40px;
+.nav-dot::after {
+    content: '';
+    position: absolute;
+    inset: 16px;
+    border-radius: var(--radius-full);
+    background: var(--border);
+    transition: inset 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-dot.active::after {
+    inset-inline: 2px;
     background: var(--gradient-accent);
 }
 
-.nav-dot:hover {
+.nav-dot:hover::after,
+.nav-dot:focus-visible::after {
     background: var(--primary-light);
 }
 
@@ -873,7 +921,7 @@ p {
     object-position: center;
     border-radius: 12px;
     opacity: 0.9;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     background: rgba(255, 255, 255, 0.1);
     padding: 8px;
@@ -951,7 +999,7 @@ p {
     gap: var(--space-xl);
 }
 
-.link-group h4 {
+.link-group h3 {
     color: white;
     margin-bottom: var(--space-md);
 }
@@ -975,6 +1023,10 @@ p {
     color: rgba(255, 255, 255, 0.7);
 }
 
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
 /* Floating CTA */
 .floating-cta {
     position: fixed;
@@ -983,7 +1035,7 @@ p {
     z-index: 900;
     opacity: 0;
     transform: translateY(100px);
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .floating-cta.visible {
@@ -1077,6 +1129,25 @@ p {
     .calc-inputs {
         grid-template-columns: 1fr;
     }
+
+    .calculator-card {
+        padding: var(--space-md);
+    }
+
+    .calc-results {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-sm);
+    }
+
+    .result-item {
+        min-width: 0;
+        padding: var(--space-sm);
+    }
+
+    .result-value {
+        font-size: clamp(1.5rem, 7vw, var(--font-size-3xl));
+        overflow-wrap: anywhere;
+    }
     
     /* Pricing */
     .pricing-grid {
@@ -1153,8 +1224,26 @@ p {
     }
 }
 
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.pulse {
+    animation: pulse 0.6s ease-out;
+}
+
 .fade-in {
     animation: fadeIn 0.6s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* Utility Classes */

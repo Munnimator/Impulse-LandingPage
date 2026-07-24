@@ -37,9 +37,9 @@ You need to set these environment variables in your Vercel project settings:
    - Copy the `private_key` value from the JSON
    - **Important**: The value should include `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`
 
-3. **SEOBOT_API_KEY** (optional - already set in code)
-   - Default: `a6d118e9-7e6f-4770-b8aa-350c1a047a9e`
-   - Change this if you want a different API key
+3. **SEOBOT_API_KEY**
+   - Store the existing webhook key in Vercel
+   - Use the same value in SEObot as the `x-api-key` header
 
 ### How to Set Environment Variables in Vercel:
 
@@ -82,7 +82,7 @@ POST
 **Headers:**
 Add one custom header:
 - Header Name: `x-api-key`
-- Header Value: `a6d118e9-7e6f-4770-b8aa-350c1a047a9e`
+- Header Value: `<your-seobot-api-key-from-vercel-env>`
 
 **Request Body Format:** JSON
 
@@ -170,7 +170,7 @@ blogPosts/
 ```bash
 curl -X POST https://www.impulselog.com/api/blog-webhook \
   -H "Content-Type: application/json" \
-  -H "x-api-key: a6d118e9-7e6f-4770-b8aa-350c1a047a9e" \
+  -H "x-api-key: <your-seobot-api-key-from-vercel-env>" \
   -d '{
     "headline": "Test Blog Post",
     "html": "<p>This is a test blog post.</p>",
@@ -186,7 +186,7 @@ curl -X POST https://www.impulselog.com/api/blog-webhook \
 ```bash
 curl -X POST https://www.impulselog.com/api/blog-webhook \
   -H "Content-Type: application/json" \
-  -H "x-api-key: a6d118e9-7e6f-4770-b8aa-350c1a047a9e" \
+  -H "x-api-key: <your-seobot-api-key-from-vercel-env>" \
   -d '{
     "title": "Test Blog Post",
     "content": "<p>This is a test blog post.</p>",

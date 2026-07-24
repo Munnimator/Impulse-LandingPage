@@ -1,40 +1,32 @@
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
 // Mobile Menu Toggle
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
 
-mobileMenuToggle?.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    mobileMenuToggle.classList.toggle('active');
-});
+function setMobileMenuState(isOpen) {
+    if (!mobileMenuToggle || !mobileMenu) return;
+
+    mobileMenu.classList.toggle('active', isOpen);
+    mobileMenuToggle.classList.toggle('active', isOpen);
+    mobileMenuToggle.setAttribute('aria-expanded', String(isOpen));
+}
+
+if (mobileMenuToggle && mobileMenu) {
+    if (!mobileMenu.id) mobileMenu.id = 'mobile-navigation';
+    mobileMenuToggle.setAttribute('aria-controls', mobileMenu.id);
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    mobileMenuToggle.addEventListener('click', () => {
+        setMobileMenuState(!mobileMenu.classList.contains('active'));
+    });
+}
 
 // Close mobile menu when clicking a link
 document.querySelectorAll('.mobile-menu a').forEach(link => {
     link.addEventListener('click', () => {
-        mobileMenu.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
+        setMobileMenuState(false);
     });
 });
-
-// Show mobile menu when active
-const style = document.createElement('style');
-style.textContent = `
-    .mobile-menu.active {
-        display: block;
-    }
-    
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-`;
-document.head.appendChild(style);
 
 // Smooth Scrolling
 function scrollToSection(sectionId) {
@@ -44,7 +36,7 @@ function scrollToSection(sectionId) {
         const sectionTop = section.offsetTop - navHeight;
         window.scrollTo({
             top: sectionTop,
-            behavior: 'smooth'
+            behavior: prefersReducedMotion.matches ? 'auto' : 'smooth'
         });
     }
 }
@@ -132,16 +124,20 @@ instrumentAppStoreLinks();
 // Floating CTA on Scroll
 const floatingCta = document.getElementById('floating-cta');
 
-window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+if (floatingCta) {
+    let scrollUpdateQueued = false;
 
-    // Show floating CTA after scrolling past hero
-    if (scrollTop > 600) {
-        floatingCta?.classList.add('visible');
-    } else {
-        floatingCta?.classList.remove('visible');
-    }
-});
+    window.addEventListener('scroll', () => {
+        if (scrollUpdateQueued) return;
+        scrollUpdateQueued = true;
+
+        window.requestAnimationFrame(() => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            floatingCta.classList.toggle('visible', scrollTop > 600);
+            scrollUpdateQueued = false;
+        });
+    }, { passive: true });
+}
 
 // Interactive Calculator
 const impulsesPerWeek = document.getElementById('impulses-per-week');
@@ -170,21 +166,6 @@ function calculateSavings() {
         yearlySavings?.parentElement.classList.remove('pulse');
     }, 600);
 }
-
-// Add pulse animation style
-const pulseStyle = document.createElement('style');
-pulseStyle.textContent = `
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-    
-    .pulse {
-        animation: pulse 0.6s ease-out;
-    }
-`;
-document.head.appendChild(pulseStyle);
 
 // Listen for calculator input changes
 impulsesPerWeek?.addEventListener('input', calculateSavings);
@@ -223,30 +204,20 @@ const observerOptions = {
     rootMargin: '0px 0px -50px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
+if ('IntersectionObserver' in window && !prefersReducedMotion.matches) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
 
-// Observe all sections
-document.querySelectorAll('section').forEach(section => {
-    observer.observe(section);
-});
-
-// Add hover effects to cards
-document.querySelectorAll('.value-card, .pricing-card, .faq-item').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-4px)';
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
     });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
-});
+}
 
 // Prevent form submission on demo calculator
 document.querySelectorAll('form').forEach(form => {
@@ -262,78 +233,51 @@ const screenshotDots = document.querySelectorAll('.nav-dot');
 const screenshotWrappers = document.querySelectorAll('.screenshot-wrapper');
 
 function showScreenshot(screenNumber) {
-    // Remove active class from all
-    screenshotDots.forEach(dot => dot.classList.remove('active'));
-    screenshotWrappers.forEach(wrapper => wrapper.classList.remove('active'));
-    
-    // Add active class to selected
-    const selectedDot = document.querySelector(`.nav-dot[data-screen="${screenNumber}"]`);
-    const selectedWrapper = document.querySelector(`.screenshot-wrapper[data-screen="${screenNumber}"]`);
-    
-    if (selectedDot && selectedWrapper) {
-        selectedDot.classList.add('active');
-        selectedWrapper.classList.add('active');
-    }
+    screenshotDots.forEach(dot => {
+        const isActive = dot.dataset.screen === String(screenNumber);
+        dot.classList.toggle('active', isActive);
+        dot.setAttribute('aria-pressed', String(isActive));
+    });
+
+    screenshotWrappers.forEach(wrapper => {
+        const isActive = wrapper.dataset.screen === String(screenNumber);
+        wrapper.classList.toggle('active', isActive);
+        wrapper.setAttribute('aria-hidden', String(!isActive));
+        wrapper.toggleAttribute('inert', !isActive);
+    });
 }
 
-// Add click handlers to dots
-screenshotDots.forEach(dot => {
-    dot.addEventListener('click', () => {
-        currentScreen = Number(dot.getAttribute('data-screen'));
-        showScreenshot(currentScreen);
-    });
-});
+if (screenshotWrappers.length > 0) {
+    let currentScreen = 1;
+    const totalScreens = screenshotWrappers.length;
 
-// Auto-rotate screenshots every 5 seconds
-let currentScreen = 1;
-const totalScreens = screenshotWrappers.length || 1;
-
-let carouselInterval = setInterval(() => {
-    currentScreen = currentScreen >= totalScreens ? 1 : currentScreen + 1;
-    showScreenshot(currentScreen);
-}, 5000);
-
-// Pause carousel when page is not visible (prevents memory leak)
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        clearInterval(carouselInterval);
-    } else {
-        carouselInterval = setInterval(() => {
-            currentScreen = currentScreen >= totalScreens ? 1 : currentScreen + 1;
+    screenshotDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            currentScreen = Number(dot.dataset.screen);
             showScreenshot(currentScreen);
-        }, 5000);
-    }
-});
+        });
+    });
 
-// Touch/swipe support for mobile
-let touchStartX = null;
-const screenshotContainer = document.querySelector('.screenshot-container');
+    let touchStartX = null;
+    const screenshotContainer = document.querySelector('.screenshot-container');
 
-screenshotContainer?.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-});
+    screenshotContainer?.addEventListener('touchstart', (event) => {
+        touchStartX = event.touches[0].clientX;
+    }, { passive: true });
 
-screenshotContainer?.addEventListener('touchend', (e) => {
-    if (!touchStartX) return;
-    
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-    
-    if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-            // Swipe left - next
-            currentScreen = currentScreen >= totalScreens ? 1 : currentScreen + 1;
-        } else {
-            // Swipe right - previous
-            currentScreen = currentScreen <= 1 ? totalScreens : currentScreen - 1;
+    screenshotContainer?.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+
+        const diff = touchStartX - event.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            currentScreen = diff > 0
+                ? (currentScreen >= totalScreens ? 1 : currentScreen + 1)
+                : (currentScreen <= 1 ? totalScreens : currentScreen - 1);
+            showScreenshot(currentScreen);
         }
-        showScreenshot(currentScreen);
-    }
-    
-    touchStartX = null;
-});
 
-// Console Easter Egg
-console.log('%c💰 ImpulseLog', 'font-size: 24px; font-weight: bold; color: #8B5CF6;');
-console.log('%cBuilding better spending habits, one impulse at a time.', 'font-size: 14px; color: #6B7280;');
-console.log('%cInterested in joining our team? Email us at careers@impulselog.com', 'font-size: 12px; color: #10B981;');
+        touchStartX = null;
+    }, { passive: true });
+
+    showScreenshot(currentScreen);
+}
