@@ -1,0 +1,24 @@
+# ImpulseLog
+
+> ImpulseLog is an iPhone app that helps people pause impulse purchases, log resisted purchases and almost-buys, spot spending patterns, and build savings habits through wait timers, goals, streaks, and ADHD-friendly gamification.
+
+ImpulseLog is a financial wellness and behavior-change tool. It is not a bank, budgeting service, financial adviser, or medical service.
+
+## Primary pages
+
+- [Homepage](https://www.impulselog.com/): Product overview, features, pricing, FAQs, and App Store link.
+- [Impulse spending app](https://www.impulselog.com/impulse-spending-app/): How ImpulseLog supports intentional purchase decisions.
+- [ADHD spending tracker](https://www.impulselog.com/adhd-spending-tracker/): ADHD-friendly spending-awareness features.
+- [Shopping wait timer](https://www.impulselog.com/shopping-wait-timer/): Purchase pause and wait-timer workflow.
+- [Founder story](https://www.impulselog.com/founder-story/): Why ImpulseLog was created.
+- [Blog](https://www.impulselog.com/blog): Articles about impulse spending, ADHD-friendly money habits, shopping psychology, and saving.
+- [Privacy policy](https://www.impulselog.com/privacy)
+- [Terms of service](https://www.impulselog.com/terms)
+
+## Official product
+
+- [Impulse Log: ADHD Finances on the App Store](https://apps.apple.com/us/app/impulse-log/id6747727094)
+
+## Contact
+
+- Email: support@impulselog.com
