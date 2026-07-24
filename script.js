@@ -279,14 +279,14 @@ function showScreenshot(screenNumber) {
 // Add click handlers to dots
 screenshotDots.forEach(dot => {
     dot.addEventListener('click', () => {
-        const screenNumber = dot.getAttribute('data-screen');
-        showScreenshot(screenNumber);
+        currentScreen = Number(dot.getAttribute('data-screen'));
+        showScreenshot(currentScreen);
     });
 });
 
 // Auto-rotate screenshots every 5 seconds
 let currentScreen = 1;
-const totalScreens = screenshotWrappers.length || 6; // Dynamic count from DOM
+const totalScreens = screenshotWrappers.length || 1;
 
 let carouselInterval = setInterval(() => {
     currentScreen = currentScreen >= totalScreens ? 1 : currentScreen + 1;

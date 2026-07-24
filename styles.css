@@ -421,9 +421,11 @@ p {
 
 .screenshot-nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-sm);
     margin-top: var(--space-3xl);
+    padding-inline: var(--space-md);
 }
 
 .nav-dot {
