@@ -285,6 +285,45 @@ p {
     color: var(--text-secondary);
 }
 
+.launch-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.launch-badge-link {
+    display: inline-flex;
+    border-radius: var(--radius-md);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.launch-badge-link:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+}
+
+.launch-badge-link:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--primary) 40%, transparent);
+    outline-offset: 3px;
+}
+
+.launch-badge-image {
+    display: block;
+    width: auto;
+    max-width: 100%;
+}
+
+.product-hunt-badge-image {
+    height: 54px;
+}
+
+.startupbase-badge-image {
+    height: 55px;
+}
+
 .hero-image {
     display: flex;
     justify-content: center;
