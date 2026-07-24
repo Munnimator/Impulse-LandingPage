@@ -22,16 +22,6 @@
     <!-- Canonical URL -->
     <link rel="canonical" id="canonical-url" href="">
 
-    <!-- Immediate canonical/og:url fallback (runs before any content loads) -->
-    <script>
-        (function() {
-            // Use origin + pathname to exclude query parameters (e.g., utm_source)
-            const currentUrl = window.location.origin + window.location.pathname;
-            document.getElementById('canonical-url').setAttribute('href', currentUrl);
-            document.getElementById('og-url').setAttribute('content', currentUrl);
-        })();
-    </script>
-
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -165,6 +155,48 @@
             margin: 1.5rem 0;
         }
 
+        .post-body iframe {
+            width: 100%;
+            max-width: 100%;
+            min-height: 360px;
+            border: 0;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .post-body table {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .post-body th,
+        .post-body td {
+            padding: 0.75rem;
+            border: 1px solid #E5E7EB;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .post-body blockquote {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border: 1px solid #DDD6FE;
+            border-radius: 8px;
+            background: #F5F3FF;
+        }
+
+        .post-body figure {
+            margin: 1.5rem 0;
+        }
+
+        .post-body figcaption {
+            color: #6B7280;
+            font-size: 0.875rem;
+            text-align: center;
+        }
+
         .post-tags {
             display: flex;
             flex-wrap: wrap;
@@ -290,7 +322,9 @@
             flex: 1;
         }
 
-        .sidebar-post h4 {
+        .sidebar-post h4,
+        .sidebar-post strong {
+            display: block;
             font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
@@ -414,8 +448,8 @@
         <a href="/blog" class="btn btn-primary" style="color: white; margin-top: 1rem;">Back to Blog</a>
     </div>
 
-    <!-- Post Content (hidden until loaded) -->
-    <div id="post-wrapper" style="display: none;">
+    <!-- Post Content (server-rendered in production; client fallback for the static template) -->
+    <main id="post-wrapper" data-server-rendered="false" style="display: none;">
         <!-- Post Header -->
         <section class="post-header">
             <div class="container">
@@ -464,7 +498,7 @@
                 </aside>
             </div>
         </section>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -561,6 +595,12 @@
 
         // Load and display blog post
         async function loadBlogPost() {
+            const postWrapper = document.getElementById('post-wrapper');
+            if (postWrapper?.dataset.serverRendered === 'true') {
+                document.getElementById('loading-state').hidden = true;
+                return;
+            }
+
             const slug = getSlugFromURL();
 
             if (!slug) {
@@ -605,7 +645,17 @@
                     ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling', 'target'],
                     ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|tel):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i
                 });
-                document.getElementById('post-body').innerHTML = cleanContent;
+                const contentContainer = document.createElement('div');
+                contentContainer.innerHTML = cleanContent;
+                contentContainer.querySelectorAll('h1').forEach((heading) => {
+                    const replacement = document.createElement('h2');
+                    replacement.innerHTML = heading.innerHTML;
+                    for (const attribute of heading.attributes) {
+                        replacement.setAttribute(attribute.name, attribute.value);
+                    }
+                    heading.replaceWith(replacement);
+                });
+                document.getElementById('post-body').replaceChildren(...contentContainer.childNodes);
 
                 // Tags
                 if (post.tags && post.tags.length > 0) {

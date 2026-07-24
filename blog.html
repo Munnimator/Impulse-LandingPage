@@ -145,6 +145,13 @@
             cursor: pointer;
         }
 
+        .blog-card-link {
+            display: block;
+            height: 100%;
+            color: inherit;
+            text-decoration: none;
+        }
+
         .blog-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
@@ -254,6 +261,32 @@
             opacity: 0.5;
         }
 
+        .blog-pagination {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            color: #6B7280;
+        }
+
+        .blog-pagination > :last-child {
+            justify-self: end;
+        }
+
+        .pagination-link {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            color: #6D28D9;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .pagination-link:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             .blog-hero h1 {
                 font-size: 2rem;
@@ -316,6 +349,7 @@
         <a href="https://apps.apple.com/us/app/impulse-log/id6747727094" class="btn btn-primary" style="color: white;">Download App</a>
     </div>
 
+    <main>
     <!-- Blog Hero -->
     <section class="blog-hero">
         <div class="container">
@@ -380,6 +414,7 @@
             <div id="blog-grid" class="blog-grid" style="display: none;"></div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -481,6 +516,10 @@
             const errorState = document.getElementById('error-state');
             const emptyState = document.getElementById('empty-state');
             const blogGrid = document.getElementById('blog-grid');
+            if (blogGrid?.dataset.serverRendered === 'true') {
+                if (loadingState) loadingState.hidden = true;
+                return;
+            }
             const filters = getBlogFilters();
 
             try {

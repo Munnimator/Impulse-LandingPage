@@ -1,269 +1,72 @@
-/**
- * Vercel Edge Function for Blog Posts
- *
- * This function intercepts all /blog/:slug requests and dynamically injects
- * ALL SEO metadata into the HTML BEFORE it reaches crawlers.
- *
- * This fixes:
- * - Google "Duplicate, Google chose different canonical" errors
- * - Unique title/description per post for proper indexing
- * - Structured data (JSON-LD) for rich search results
- * - X/Twitter and social media sharing metadata
- *
- * Architecture:
- * - Runs at Vercel's edge network (server-side)
- * - Fetches blog post data from the shared server API
- * - Injects all SEO metadata server-side before crawlers see HTML
- * - Maintains the SPA architecture for client-side interactivity
- */
+import { getPublishedPostBySlug, getPublishedPostSummaries } from '../_lib/blog-data.js';
+import { renderBlogPostDocument, renderNotFoundDocument } from '../_lib/blog-render.js';
+import { getRequestOrigin } from '../_lib/request-origin.js';
 
-// Configure this function to run on Vercel's Edge Runtime
-export const config = {
-  runtime: 'edge',
-};
-
-/**
- * Escape HTML special characters to prevent XSS
- */
-function escapeHtml(text) {
-  if (!text) return '';
-  return String(text)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;');
+function firstQueryValue(value) {
+  return Array.isArray(value) ? value[0] : value;
 }
 
-/**
- * Escape for JSON-LD (escape quotes and control characters)
- */
-function escapeJsonLd(text) {
-  if (!text) return '';
-  return String(text)
-    .replace(/\\/g, '\\\\')
-    .replace(/"/g, '\\"')
-    .replace(/\n/g, '\\n')
-    .replace(/\r/g, '\\r')
-    .replace(/\t/g, '\\t');
+function getSlug(req) {
+  const querySlug = firstQueryValue(req.query?.slug);
+  if (typeof querySlug === 'string' && querySlug.trim()) return querySlug.trim();
+
+  const pathname = new URL(req.url || '/', 'https://www.impulselog.com').pathname;
+  const parts = pathname.split('/').filter(Boolean);
+  return parts.at(-1) || '';
 }
 
-/**
- * Generate Article JSON-LD structured data
- */
-function generateArticleJsonLd(post, canonicalUrl) {
-  const title = escapeJsonLd(post.seoTitle || post.title || '');
-  const description = escapeJsonLd(post.seoDescription || post.excerpt || '');
-  const image = post.featuredImage || 'https://www.impulselog.com/assets/images/social-preview.png';
+async function getTemplate(req) {
+  const response = await fetch(new URL('/blog-post.html', getRequestOrigin(req)));
+  if (!response.ok) throw new Error(`Blog template request failed: ${response.status}`);
+  return response.text();
+}
 
-  let datePublished = new Date().toISOString();
-  if (post.publishedAt) {
-    datePublished = post.publishedAt;
+function setHtmlHeaders(res, cacheControl) {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', cacheControl);
+  res.setHeader('Vary', 'Accept-Encoding');
+  res.setHeader('X-Blog-Renderer', 'server');
+}
+
+export default async function handler(req, res) {
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    res.setHeader('Allow', 'GET, HEAD');
+    return res.status(405).send('Method not allowed');
   }
 
-  const authorName = escapeJsonLd(post.author?.name || 'ImpulseLog Team');
+  const slug = getSlug(req);
+  if (!slug || slug === 'blog') return res.redirect(308, '/blog');
 
-  return `<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "${title}",
-  "description": "${description}",
-  "image": "${image}",
-  "url": "${canonicalUrl}",
-  "datePublished": "${datePublished}",
-  "dateModified": "${datePublished}",
-  "author": {
-    "@type": "Person",
-    "name": "${authorName}"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "ImpulseLog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.impulselog.com/assets/images/ImpulseLog-logo.png"
-    }
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "${canonicalUrl}"
-  }
-}
-</script>`;
-}
-
-/**
- * Fetch blog post data from the server API by slug
- * This keeps the edge route aligned with the same data source used by
- * the sitemap and the client-side blog listing.
- * Returns parsed post object or null if not found
- */
-async function getBlogPostData(origin, slug) {
   try {
-    const apiUrl = new URL('/api/blog-posts', origin);
-    apiUrl.searchParams.set('slug', slug);
-
-    const response = await fetch(apiUrl.toString(), {
-      headers: {
-        'Accept': 'application/json',
-      },
-    });
-
-    if (response.status === 404) {
-      return null;
-    }
-
-    if (!response.ok) {
-      throw new Error(`Blog API query failed: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data?.post || null;
-
-  } catch (error) {
-    console.error('Error fetching blog post:', error);
-    throw error;
-  }
-}
-
-/**
- * Main Edge Function handler
- */
-export default async function handler(request) {
-  try {
-    const url = new URL(request.url);
-
-    // Extract the slug from the URL path
-    const pathParts = url.pathname.split('/').filter(Boolean);
-    const slug = pathParts[pathParts.length - 1];
-
-    if (!slug || slug === 'blog') {
-      return fetch(new URL('/blog.html', url.origin));
-    }
-
-    // Fetch the full blog post data from the shared blog API
-    const post = await getBlogPostData(url.origin, slug);
+    const [template, post] = await Promise.all([
+      getTemplate(req),
+      getPublishedPostBySlug(slug),
+    ]);
 
     if (!post) {
-      // Return 404 if post doesn't exist
-      return new Response('Blog post not found', {
-        status: 404,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'X-Edge-Function': 'blog-post',
-          'X-Post-Status': 'not-found',
-        },
-      });
+      setHtmlHeaders(res, 'public, max-age=0, s-maxage=60');
+      res.setHeader('X-Robots-Tag', 'noindex');
+      res.setHeader('X-Post-Status', 'not-found');
+      const html = renderNotFoundDocument(template);
+      return res.status(404).send(req.method === 'HEAD' ? '' : html);
     }
 
-    // Fetch the blog-post.html template
-    const templateUrl = new URL('/blog-post.html', url.origin);
-    const templateResponse = await fetch(templateUrl.toString());
-
-    if (!templateResponse.ok) {
-      console.error('Failed to fetch blog-post.html:', templateResponse.status);
-      return new Response('Blog post template not found', { status: 500 });
-    }
-
-    let html = await templateResponse.text();
-
-    // Construct URLs and metadata
-    const canonicalUrl = `https://www.impulselog.com/blog/${slug}`;
-    const title = escapeHtml(post.seoTitle || post.title || 'Blog Post');
-    const description = escapeHtml(post.seoDescription || post.excerpt || '');
-    const ogImage = post.featuredImage || 'https://www.impulselog.com/assets/images/social-preview.png';
-
-    // === INJECT TITLE TAG ===
-    html = html.replace(
-      /<title[^>]*>.*?<\/title>/i,
-      `<title id="page-title">${title} - ImpulseLog</title>`
-    );
-
-    // === INJECT META DESCRIPTION ===
-    html = html.replace(
-      /<meta\s+name="description"[^>]*>/i,
-      `<meta name="description" id="page-description" content="${description}">`
-    );
-
-    // === INJECT CANONICAL URL ===
-    html = html.replace(
-      /<link\s+([^>]*?\s)?rel="canonical"([^>]*?)>/gi,
-      `<link rel="canonical" id="canonical-url" href="${canonicalUrl}">`
-    );
-
-    // === INJECT OG TAGS ===
-    html = html.replace(
-      /<meta\s+property="og:title"[^>]*>/i,
-      `<meta property="og:title" id="og-title" content="${title}">`
-    );
-    html = html.replace(
-      /<meta\s+property="og:description"[^>]*>/i,
-      `<meta property="og:description" id="og-description" content="${description}">`
-    );
-    html = html.replace(
-      /<meta\s+property="og:url"[^>]*>/i,
-      `<meta property="og:url" id="og-url" content="${canonicalUrl}">`
-    );
-    html = html.replace(
-      /<meta\s+property="og:image"[^>]*>/i,
-      `<meta property="og:image" id="og-image" content="${ogImage}">`
-    );
-
-    // === INJECT TWITTER TAGS ===
-    html = html.replace(
-      /<meta\s+name="twitter:title"[^>]*>/i,
-      `<meta name="twitter:title" id="twitter-title" content="${title}">`
-    );
-    html = html.replace(
-      /<meta\s+name="twitter:description"[^>]*>/i,
-      `<meta name="twitter:description" id="twitter-description" content="${description}">`
-    );
-    html = html.replace(
-      /<meta\s+name="twitter:image"[^>]*>/i,
-      `<meta name="twitter:image" id="twitter-image" content="${ogImage}">`
-    );
-
-    // === INJECT JSON-LD STRUCTURED DATA ===
-    const jsonLd = generateArticleJsonLd(post, canonicalUrl);
-    html = html.replace('</head>', `${jsonLd}\n</head>`);
-
-    // Return the modified HTML with proper headers
-    return new Response(html, {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/html; charset=utf-8',
-        'Cache-Control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
-        'X-Edge-Function': 'blog-post',
-        'X-Canonical-Injected': canonicalUrl,
-        'X-Post-Status': 'validated',
-        'X-Post-Title': title.substring(0, 50),
-      },
+    const recentPosts = await getPublishedPostSummaries({
+      limit: 4,
+      excludeSlug: post.slug,
     });
+    const html = renderBlogPostDocument(template, post, recentPosts.slice(0, 3));
 
+    setHtmlHeaders(res, 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600');
+    res.setHeader('X-Post-Status', 'server-rendered');
+    res.setHeader('X-Canonical-Injected', `https://www.impulselog.com/blog/${encodeURIComponent(post.slug)}`);
+    return res.status(200).send(req.method === 'HEAD' ? '' : html);
   } catch (error) {
-    console.error('Edge Function error:', error);
-
-    // Fallback: return the original template without injection
-    try {
-      const url = new URL(request.url);
-      const fallbackResponse = await fetch(new URL('/blog-post.html', url.origin));
-      const fallbackHtml = await fallbackResponse.text();
-
-      return new Response(fallbackHtml, {
-        status: 200,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'public, max-age=300',
-          'X-Edge-Function': 'blog-post',
-          'X-Post-Status': 'fallback-error',
-        },
-      });
-    } catch (fallbackError) {
-      return new Response('Internal Server Error', {
-        status: 500,
-        headers: { 'Content-Type': 'text/plain' },
-      });
-    }
+    console.error('Blog render failed:', error);
+    setHtmlHeaders(res, 'private, no-store');
+    res.setHeader('Retry-After', '60');
+    res.setHeader('X-Robots-Tag', 'noindex');
+    res.setHeader('X-Post-Status', 'render-error');
+    return res.status(503).send(req.method === 'HEAD' ? '' : 'Blog post temporarily unavailable');
   }
 }
