@@ -82,5 +82,7 @@ test('monthly and annual pricing stay consistent across the hero and plan detail
   assert.match(html, /"price":\s*"29\.00"/);
   assert.doesNotMatch(html, /29\.99/);
   assert.match(styles, /\.hero-stats\s*\{[^}]*grid-template-columns:\s*repeat\(4,/s);
+  assert.match(styles, /\.hero-stats\s*\{[^}]*column-gap:\s*0;[^}]*justify-items:\s*center;/s);
+  assert.match(styles, /\.stat\s*\{[^}]*align-items:\s*center;[^}]*text-align:\s*center;/s);
   assert.match(styles, /@media\s*\(max-width:\s*768px\)[\s\S]*\.hero-stats\s*\{[^}]*grid-template-columns:\s*repeat\(2,/s);
 });
