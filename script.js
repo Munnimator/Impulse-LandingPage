@@ -231,6 +231,10 @@ document.querySelectorAll('form').forEach(form => {
 // Screenshot Carousel
 const screenshotDots = document.querySelectorAll('.nav-dot');
 const screenshotWrappers = document.querySelectorAll('.screenshot-wrapper');
+const screenshotCarousel = document.querySelector('.screenshots-carousel');
+const carouselPlayback = document.querySelector('.carousel-playback');
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+const CAROUSEL_AUTOPLAY_DELAY = 5000;
 
 function showScreenshot(screenNumber) {
     screenshotDots.forEach(dot => {
@@ -250,11 +254,59 @@ function showScreenshot(screenNumber) {
 if (screenshotWrappers.length > 0) {
     let currentScreen = 1;
     const totalScreens = screenshotWrappers.length;
+    let autoplayTimer = null;
+    let isCarouselVisible = !('IntersectionObserver' in window);
+    let isPointerPaused = false;
+    let isFocusPaused = false;
+    let isPausedByUser = false;
+
+    const clearAutoplay = () => {
+        if (autoplayTimer !== null) {
+            window.clearTimeout(autoplayTimer);
+            autoplayTimer = null;
+        }
+    };
+
+    const canAutoplay = () => (
+        !reducedMotionQuery.matches
+        && !document.hidden
+        && isCarouselVisible
+        && !isPointerPaused
+        && !isFocusPaused
+        && !isPausedByUser
+    );
+
+    const scheduleAutoplay = () => {
+        clearAutoplay();
+        if (!canAutoplay()) return;
+
+        autoplayTimer = window.setTimeout(() => {
+            currentScreen = currentScreen >= totalScreens ? 1 : currentScreen + 1;
+            showScreenshot(currentScreen);
+            scheduleAutoplay();
+        }, CAROUSEL_AUTOPLAY_DELAY);
+    };
+
+    const updatePlaybackControl = () => {
+        if (!carouselPlayback) return;
+
+        carouselPlayback.hidden = reducedMotionQuery.matches;
+        carouselPlayback.setAttribute(
+            'aria-label',
+            isPausedByUser ? 'Resume automatic screenshot rotation' : 'Pause automatic screenshot rotation'
+        );
+
+        const label = carouselPlayback.querySelector('.carousel-playback-label');
+        const icon = carouselPlayback.querySelector('.carousel-playback-icon');
+        if (label) label.textContent = isPausedByUser ? 'Play' : 'Pause';
+        if (icon) icon.textContent = isPausedByUser ? '▶' : 'Ⅱ';
+    };
 
     screenshotDots.forEach(dot => {
         dot.addEventListener('click', () => {
             currentScreen = Number(dot.dataset.screen);
             showScreenshot(currentScreen);
+            scheduleAutoplay();
         });
     });
 
@@ -262,6 +314,7 @@ if (screenshotWrappers.length > 0) {
     const screenshotContainer = document.querySelector('.screenshot-container');
 
     screenshotContainer?.addEventListener('touchstart', (event) => {
+        clearAutoplay();
         touchStartX = event.touches[0].clientX;
     }, { passive: true });
 
@@ -277,7 +330,66 @@ if (screenshotWrappers.length > 0) {
         }
 
         touchStartX = null;
+        scheduleAutoplay();
     }, { passive: true });
 
+    screenshotCarousel?.addEventListener('mouseenter', () => {
+        isPointerPaused = true;
+        clearAutoplay();
+    });
+
+    screenshotCarousel?.addEventListener('mouseleave', () => {
+        isPointerPaused = false;
+        scheduleAutoplay();
+    });
+
+    screenshotCarousel?.addEventListener('focusin', (event) => {
+        if (event.target === carouselPlayback && !isPausedByUser) return;
+        isFocusPaused = true;
+        clearAutoplay();
+    });
+
+    screenshotCarousel?.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+            const focusedElement = document.activeElement;
+            isFocusPaused = Boolean(
+                screenshotCarousel.contains(focusedElement)
+                && focusedElement !== carouselPlayback
+            );
+            scheduleAutoplay();
+        }, 0);
+    });
+
+    carouselPlayback?.addEventListener('click', () => {
+        isPausedByUser = !isPausedByUser;
+        isFocusPaused = false;
+        updatePlaybackControl();
+        scheduleAutoplay();
+    });
+
+    document.addEventListener('visibilitychange', scheduleAutoplay);
+
+    const handleReducedMotionChange = () => {
+        updatePlaybackControl();
+        scheduleAutoplay();
+    };
+
+    if (typeof reducedMotionQuery.addEventListener === 'function') {
+        reducedMotionQuery.addEventListener('change', handleReducedMotionChange);
+    } else {
+        reducedMotionQuery.addListener(handleReducedMotionChange);
+    }
+
+    if ('IntersectionObserver' in window && screenshotCarousel) {
+        const carouselObserver = new IntersectionObserver(([entry]) => {
+            isCarouselVisible = entry.isIntersecting;
+            scheduleAutoplay();
+        }, { threshold: 0.2 });
+
+        carouselObserver.observe(screenshotCarousel);
+    }
+
     showScreenshot(currentScreen);
+    updatePlaybackControl();
+    scheduleAutoplay();
 }

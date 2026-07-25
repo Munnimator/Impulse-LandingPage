@@ -414,7 +414,7 @@ p {
     position: absolute;
     opacity: 0;
     transform: scale(0.8) translateX(100px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     pointer-events: none;
 }
 
@@ -494,6 +494,41 @@ p {
 .nav-dot:hover::after,
 .nav-dot:focus-visible::after {
     background: var(--primary-light);
+}
+
+.carousel-playback {
+    min-width: 92px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding-inline: var(--space-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    background: var(--background);
+    color: var(--text-secondary);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.carousel-playback:hover {
+    border-color: var(--primary-light);
+    color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.carousel-playback:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--primary) 35%, transparent);
+    outline-offset: 3px;
+}
+
+.carousel-playback-icon {
+    width: 1rem;
+    line-height: 1;
+    text-align: center;
 }
 
 /* Value Props Section */

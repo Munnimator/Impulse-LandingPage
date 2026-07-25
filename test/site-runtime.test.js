@@ -25,13 +25,27 @@ test('site pages use the self-hosted accessibility font', async () => {
   assert.match(styles, /atkinson-hyperlegible-700\.woff2/);
 });
 
-test('shared runtime exposes menu and carousel state without automatic rotation', async () => {
+test('shared runtime exposes menu and accessible carousel state', async () => {
   const script = await readFile('script.js', 'utf8');
 
   assert.match(script, /aria-expanded/);
   assert.match(script, /aria-pressed/);
   assert.match(script, /aria-hidden/);
-  assert.doesNotMatch(script, /setInterval\s*\(/);
+});
+
+test('carousel automatically rotates all screenshots with accessible pause conditions', async () => {
+  const [html, script] = await Promise.all([
+    readFile('index.html', 'utf8'),
+    readFile('script.js', 'utf8'),
+  ]);
+
+  assert.equal((html.match(/class="screenshot-wrapper(?: active)?"/g) || []).length, 10);
+  assert.match(html, /class="carousel-playback"/);
+  assert.match(script, /CAROUSEL_AUTOPLAY_DELAY\s*=\s*5000/);
+  assert.match(script, /window\.setTimeout/);
+  assert.match(script, /prefers-reduced-motion:\s*reduce/);
+  assert.match(script, /visibilitychange/);
+  assert.match(script, /IntersectionObserver/);
 });
 
 test('reduced-motion and minimum touch targets are defined', async () => {
