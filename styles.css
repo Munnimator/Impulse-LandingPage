@@ -187,9 +187,9 @@ p {
 
 .logo-icon {
     display: inline-block;
-    flex: 0 0 28px;
-    width: 28px;
-    height: 28px;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
     border-radius: var(--radius);
     background: url('/assets/images/impulselog-app-icon.png') center / cover no-repeat;
     overflow: hidden;

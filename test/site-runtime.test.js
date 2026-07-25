@@ -96,7 +96,7 @@ test('shared wordmarks use the new optimized app icon', async () => {
   ]);
 
   assert.ok(icon.length > 0);
-  assert.match(styles, /\.logo-icon\s*\{[^}]*impulselog-app-icon\.png[^}]*\}/s);
+  assert.match(styles, /\.logo-icon\s*\{[^}]*width:\s*36px;[^}]*height:\s*36px;[^}]*impulselog-app-icon\.png[^}]*\}/s);
   assert.match(styles, /\.logo-icon svg\s*\{[^}]*display:\s*none;/s);
   assert.match(html, /"logo":\s*"https:\/\/www\.impulselog\.com\/assets\/images\/impulselog-app-icon\.png"/);
 });
