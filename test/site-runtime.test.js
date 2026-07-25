@@ -87,3 +87,16 @@ test('monthly and annual pricing stay consistent across the hero and plan detail
   assert.match(styles, /\.stat\s*\{[^}]*align-items:\s*center;[^}]*text-align:\s*center;/s);
   assert.match(styles, /@media\s*\(max-width:\s*768px\)[\s\S]*\.hero-stats\s*\{[^}]*grid-template-columns:\s*repeat\(2,/s);
 });
+
+test('shared wordmarks use the new optimized app icon', async () => {
+  const [html, styles, icon] = await Promise.all([
+    readFile('index.html', 'utf8'),
+    readFile('styles.css', 'utf8'),
+    readFile('assets/images/impulselog-app-icon.png'),
+  ]);
+
+  assert.ok(icon.length > 0);
+  assert.match(styles, /\.logo-icon\s*\{[^}]*impulselog-app-icon\.png[^}]*\}/s);
+  assert.match(styles, /\.logo-icon svg\s*\{[^}]*display:\s*none;/s);
+  assert.match(html, /"logo":\s*"https:\/\/www\.impulselog\.com\/assets\/images\/impulselog-app-icon\.png"/);
+});

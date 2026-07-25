@@ -186,7 +186,17 @@ p {
 }
 
 .logo-icon {
-    font-size: var(--font-size-2xl);
+    display: inline-block;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius);
+    background: url('/assets/images/impulselog-app-icon.png') center / cover no-repeat;
+    overflow: hidden;
+}
+
+.logo-icon svg {
+    display: none;
 }
 
 .nav-links {
