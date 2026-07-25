@@ -69,3 +69,18 @@ test('screenshot carousel reserves breathing room around the complete phone fram
   assert.match(styles, /\.screenshot-container\s*\{[^}]*min-height:\s*840px;/s);
   assert.match(styles, /@media\s*\(max-width:\s*768px\)[\s\S]*\.screenshot-container\s*\{[^}]*min-height:\s*735px;/s);
 });
+
+test('monthly and annual pricing stay consistent across the hero and plan details', async () => {
+  const [html, styles] = await Promise.all([
+    readFile('index.html', 'utf8'),
+    readFile('styles.css', 'utf8'),
+  ]);
+
+  assert.match(html, /\$4\.99\/mo/);
+  assert.match(html, /\$29\.00\/yr/);
+  assert.match(html, /<span class="amount">\$29\.00<\/span>/);
+  assert.match(html, /"price":\s*"29\.00"/);
+  assert.doesNotMatch(html, /29\.99/);
+  assert.match(styles, /\.hero-stats\s*\{[^}]*grid-template-columns:\s*repeat\(4,/s);
+  assert.match(styles, /@media\s*\(max-width:\s*768px\)[\s\S]*\.hero-stats\s*\{[^}]*grid-template-columns:\s*repeat\(2,/s);
+});
