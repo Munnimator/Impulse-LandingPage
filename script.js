@@ -256,8 +256,6 @@ if (screenshotWrappers.length > 0) {
     const totalScreens = screenshotWrappers.length;
     let autoplayTimer = null;
     let isCarouselVisible = !('IntersectionObserver' in window);
-    let isPointerPaused = false;
-    let isFocusPaused = false;
     let isPausedByUser = false;
 
     const clearAutoplay = () => {
@@ -271,8 +269,6 @@ if (screenshotWrappers.length > 0) {
         !reducedMotionQuery.matches
         && !document.hidden
         && isCarouselVisible
-        && !isPointerPaused
-        && !isFocusPaused
         && !isPausedByUser
     );
 
@@ -333,36 +329,8 @@ if (screenshotWrappers.length > 0) {
         scheduleAutoplay();
     }, { passive: true });
 
-    screenshotCarousel?.addEventListener('mouseenter', () => {
-        isPointerPaused = true;
-        clearAutoplay();
-    });
-
-    screenshotCarousel?.addEventListener('mouseleave', () => {
-        isPointerPaused = false;
-        scheduleAutoplay();
-    });
-
-    screenshotCarousel?.addEventListener('focusin', (event) => {
-        if (event.target === carouselPlayback && !isPausedByUser) return;
-        isFocusPaused = true;
-        clearAutoplay();
-    });
-
-    screenshotCarousel?.addEventListener('focusout', () => {
-        window.setTimeout(() => {
-            const focusedElement = document.activeElement;
-            isFocusPaused = Boolean(
-                screenshotCarousel.contains(focusedElement)
-                && focusedElement !== carouselPlayback
-            );
-            scheduleAutoplay();
-        }, 0);
-    });
-
     carouselPlayback?.addEventListener('click', () => {
         isPausedByUser = !isPausedByUser;
-        isFocusPaused = false;
         updatePlaybackControl();
         scheduleAutoplay();
     });

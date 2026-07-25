@@ -33,7 +33,7 @@ test('shared runtime exposes menu and accessible carousel state', async () => {
   assert.match(script, /aria-hidden/);
 });
 
-test('carousel automatically rotates all screenshots with accessible pause conditions', async () => {
+test('carousel rotates every five seconds unless explicitly paused', async () => {
   const [html, script] = await Promise.all([
     readFile('index.html', 'utf8'),
     readFile('script.js', 'utf8'),
@@ -46,6 +46,7 @@ test('carousel automatically rotates all screenshots with accessible pause condi
   assert.match(script, /prefers-reduced-motion:\s*reduce/);
   assert.match(script, /visibilitychange/);
   assert.match(script, /IntersectionObserver/);
+  assert.doesNotMatch(script, /mouseenter|isPointerPaused|isFocusPaused/);
 });
 
 test('reduced-motion and minimum touch targets are defined', async () => {
