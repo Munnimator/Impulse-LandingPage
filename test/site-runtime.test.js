@@ -48,3 +48,10 @@ test('hero phone preserves the complete screenshot aspect ratio', async () => {
   assert.match(styles, /\.phone-mockup\s*\{[^}]*height:\s*auto;/s);
   assert.match(styles, /\.phone-mockup img\s*\{[^}]*height:\s*auto;[^}]*object-fit:\s*contain;/s);
 });
+
+test('screenshot carousel reserves breathing room around the complete phone frame', async () => {
+  const styles = await readFile('styles.css', 'utf8');
+
+  assert.match(styles, /\.screenshot-container\s*\{[^}]*min-height:\s*840px;/s);
+  assert.match(styles, /@media\s*\(max-width:\s*768px\)[\s\S]*\.screenshot-container\s*\{[^}]*min-height:\s*735px;/s);
+});

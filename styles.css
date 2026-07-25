@@ -404,7 +404,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 700px;
+    min-height: 840px;
     position: relative;
     overflow: hidden;
     overflow: clip;
@@ -1197,7 +1197,7 @@ p {
     }
     
     .screenshot-container {
-        min-height: 650px;
+        min-height: 735px;
     }
     
     /* Floating CTA */
