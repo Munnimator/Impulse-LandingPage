@@ -41,3 +41,10 @@ test('reduced-motion and minimum touch targets are defined', async () => {
   assert.match(styles, /\.nav-dot\s*\{[^}]*width:\s*44px;[^}]*height:\s*44px;/s);
   assert.match(styles, /\.mobile-menu-toggle\s*\{[^}]*width:\s*44px;[^}]*height:\s*44px;/s);
 });
+
+test('hero phone preserves the complete screenshot aspect ratio', async () => {
+  const styles = await readFile('styles.css', 'utf8');
+
+  assert.match(styles, /\.phone-mockup\s*\{[^}]*height:\s*auto;/s);
+  assert.match(styles, /\.phone-mockup img\s*\{[^}]*height:\s*auto;[^}]*object-fit:\s*contain;/s);
+});

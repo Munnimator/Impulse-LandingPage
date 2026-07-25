@@ -367,7 +367,7 @@ p {
 
 .phone-mockup {
     width: 320px;
-    height: 680px;
+    height: auto;
     background: #1a1a1a;
     border-radius: 40px;
     padding: 8px;
@@ -380,9 +380,10 @@ p {
 }
 
 .phone-mockup img {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     border-radius: 32px;
     background: white;
 }
@@ -1111,7 +1112,6 @@ p {
     
     .phone-mockup {
         width: 280px;
-        height: 595px;
     }
     
     /* Value Props */
