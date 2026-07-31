@@ -65,7 +65,7 @@ This landing page is designed for the ImpulseLog iOS app:
 
 - **App Repo:** [ImpulseLog iOS App](https://github.com/Munnimator/ImpulseLog)
 - **Backend:** Railway + Firebase Functions
-- **App Store:** [Impulse Log](https://apps.apple.com/us/app/impulse-log/id6747727094)
+- **App Store:** [Impulse Log](https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094)
 
 ## 🛠 Technologies
 

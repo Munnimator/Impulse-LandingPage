@@ -5,14 +5,14 @@ const BLOG_COLLECTION = 'blogPosts';
 const BASE_URL = 'https://www.impulselog.com';
 
 const STATIC_PAGES = [
-  { url: `${BASE_URL}/` },
-  { url: `${BASE_URL}/blog` },
-  { url: `${BASE_URL}/impulse-spending-app/` },
-  { url: `${BASE_URL}/adhd-spending-tracker/` },
-  { url: `${BASE_URL}/shopping-wait-timer/` },
-  { url: `${BASE_URL}/founder-story/` },
-  { url: `${BASE_URL}/privacy` },
-  { url: `${BASE_URL}/terms` },
+  { url: `${BASE_URL}/`, lastmod: '2026-07-31' },
+  { url: `${BASE_URL}/blog`, lastmod: '2026-07-31' },
+  { url: `${BASE_URL}/impulse-spending-app/`, lastmod: '2026-07-31' },
+  { url: `${BASE_URL}/adhd-spending-tracker/`, lastmod: '2026-07-31' },
+  { url: `${BASE_URL}/shopping-wait-timer/`, lastmod: '2026-07-31' },
+  { url: `${BASE_URL}/founder-story/`, lastmod: '2026-07-28' },
+  { url: `${BASE_URL}/privacy`, lastmod: '2026-07-28' },
+  { url: `${BASE_URL}/terms`, lastmod: '2026-07-28' },
 ];
 
 export default async function handler(_req, res) {

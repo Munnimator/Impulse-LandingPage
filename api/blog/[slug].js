@@ -1,6 +1,6 @@
 import { getPublishedPostBySlug, getPublishedPostSummaries } from '../_lib/blog-data.js';
 import { renderBlogPostDocument, renderNotFoundDocument } from '../_lib/blog-render.js';
-import { getRequestOrigin } from '../_lib/request-origin.js';
+import { getBlogPostTemplate } from '../_lib/templates.js';
 
 function firstQueryValue(value) {
   return Array.isArray(value) ? value[0] : value;
@@ -13,12 +13,6 @@ function getSlug(req) {
   const pathname = new URL(req.url || '/', 'https://www.impulselog.com').pathname;
   const parts = pathname.split('/').filter(Boolean);
   return parts.at(-1) || '';
-}
-
-async function getTemplate(req) {
-  const response = await fetch(new URL('/blog-post.html', getRequestOrigin(req)));
-  if (!response.ok) throw new Error(`Blog template request failed: ${response.status}`);
-  return response.text();
 }
 
 function setHtmlHeaders(res, cacheControl) {
@@ -39,7 +33,7 @@ export default async function handler(req, res) {
 
   try {
     const [template, post] = await Promise.all([
-      getTemplate(req),
+      getBlogPostTemplate(),
       getPublishedPostBySlug(slug),
     ]);
 

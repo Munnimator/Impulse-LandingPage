@@ -9,10 +9,11 @@
   "scripts": {
     "dev": "node dev-server.js",
     "serve": "npx serve -p 3001",
-    "test": "node --test"
+    "test": "node --test",
+    "submit:indexnow": "node scripts/submit-indexnow.js"
   },
   "dependencies": {
     "firebase-admin": "^14.2.0",
-    "sanitize-html": "^2.17.6"
+    "sanitize-html": "2.17.5"
   }
 }

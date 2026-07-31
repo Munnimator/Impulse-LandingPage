@@ -5,6 +5,20 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+# ChatGPT search discovery. GPTBot is separate and controls potential
+# foundation-model training; public marketing content is intentionally allowed.
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+
 # Sitemap location
 Sitemap: https://www.impulselog.com/sitemap.xml
 

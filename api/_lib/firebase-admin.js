@@ -1,8 +1,15 @@
-import admin from 'firebase-admin';
+import {
+  cert,
+  getApp,
+  getApps,
+  initializeApp,
+} from 'firebase-admin/app';
+import { initializeFirestore } from 'firebase-admin/firestore';
 import { requireEnv } from './env.js';
 
 const FIREBASE_PROJECT_ID = 'impulsebuy-a64e2';
 const FIREBASE_DATABASE_URL = 'https://impulsebuy-a64e2.firebaseio.com';
+let firestoreInstance;
 
 function formatPrivateKey(key) {
   if (!key) return key;
@@ -24,12 +31,10 @@ function formatPrivateKey(key) {
 }
 
 function initializeFirebaseAdmin() {
-  if (admin.apps.length > 0) {
-    return;
-  }
+  if (getApps().length > 0) return getApp();
 
-  admin.initializeApp({
-    credential: admin.credential.cert({
+  return initializeApp({
+    credential: cert({
       projectId: FIREBASE_PROJECT_ID,
       clientEmail: requireEnv('FIREBASE_CLIENT_EMAIL'),
       privateKey: formatPrivateKey(requireEnv('FIREBASE_PRIVATE_KEY')),
@@ -39,10 +44,12 @@ function initializeFirebaseAdmin() {
 }
 
 export function getFirebaseAdmin() {
-  initializeFirebaseAdmin();
-  return admin;
+  return initializeFirebaseAdmin();
 }
 
 export function getFirestore() {
-  return getFirebaseAdmin().firestore();
+  if (!firestoreInstance) {
+    firestoreInstance = initializeFirestore(getFirebaseAdmin(), { preferRest: true });
+  }
+  return firestoreInstance;
 }

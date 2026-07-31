@@ -10,9 +10,20 @@ import {
 } from '../api/_lib/blog-render.js';
 import { generateSitemapXML } from '../api/_lib/sitemap-render.js';
 import { getRequestOrigin } from '../api/_lib/request-origin.js';
+import { getBlogArchiveTemplate, getBlogPostTemplate } from '../api/_lib/templates.js';
 
 const postTemplate = await readFile(new URL('../blog-post.html', import.meta.url), 'utf8');
 const archiveTemplate = await readFile(new URL('../blog.html', import.meta.url), 'utf8');
+
+test('serverless handlers can load bundled blog templates without a self-request', async () => {
+  const [loadedArchiveTemplate, loadedPostTemplate] = await Promise.all([
+    getBlogArchiveTemplate(),
+    getBlogPostTemplate(),
+  ]);
+
+  assert.match(loadedArchiveTemplate, /id="blog-grid"/);
+  assert.match(loadedPostTemplate, /id="post-body"/);
+});
 
 const post = {
   title: 'Pause Before Buying',
@@ -125,4 +136,13 @@ test('template fetch origin rejects arbitrary host headers', () => {
     'http://localhost:3000'
   );
   assert.equal(getRequestOrigin({ headers: { host: 'attacker.example' } }), 'https://www.impulselog.com');
+
+  const previousVercelUrl = process.env.VERCEL_URL;
+  try {
+    process.env.VERCEL_URL = '127.0.0.1:3018';
+    assert.equal(getRequestOrigin({ headers: {} }), 'http://127.0.0.1:3018');
+  } finally {
+    if (previousVercelUrl === undefined) delete process.env.VERCEL_URL;
+    else process.env.VERCEL_URL = previousVercelUrl;
+  }
 });

@@ -50,7 +50,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-const APP_STORE_BASE_URL = 'https://apps.apple.com/us/app/impulse-log/id6747727094';
+const APP_STORE_BASE_URL = 'https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094';
 const APP_STORE_PROVIDER_TOKEN = '';
 
 function sanitizeCampaignToken(value) {
@@ -67,9 +67,12 @@ function getPageCampaign() {
 }
 
 function buildCampaignToken(ctaLocation) {
-    const pagePart = getPageCampaign().slice(0, 22);
-    const ctaPart = sanitizeCampaignToken(ctaLocation).slice(0, 17);
-    return sanitizeCampaignToken(`${pagePart}_${ctaPart}`);
+    const attribution = window.__impulseLogAttribution || {};
+    const sourcePart = sanitizeCampaignToken(attribution.source || 'direct').slice(0, 8);
+    const campaignPart = sanitizeCampaignToken(attribution.campaign || 'none').slice(0, 8);
+    const pagePart = getPageCampaign().slice(0, 11);
+    const ctaPart = sanitizeCampaignToken(ctaLocation).slice(0, 9);
+    return sanitizeCampaignToken(`${sourcePart}_${campaignPart}_${pagePart}_${ctaPart}`);
 }
 
 function buildTrackedAppStoreUrl(campaign) {
@@ -112,6 +115,9 @@ function instrumentAppStoreLinks() {
                     page_path: window.location.pathname,
                     link_text: link.textContent.trim(),
                     cta_location: ctaLocation,
+                    traffic_source: window.__impulseLogAttribution?.source || 'direct',
+                    traffic_medium: window.__impulseLogAttribution?.medium || 'none',
+                    campaign_name: window.__impulseLogAttribution?.campaign || 'none',
                     transport_type: 'beacon'
                 });
             }

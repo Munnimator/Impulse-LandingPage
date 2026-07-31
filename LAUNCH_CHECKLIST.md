@@ -4,12 +4,14 @@ This checklist covers the website tasks that support search traffic, App Store c
 
 ## Current Status
 
-- App Store URL is live: `https://apps.apple.com/us/app/impulse-log/id6747727094`
+- App Store URL is live: `https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094`
 - Website hosting is Vercel from the GitHub `main` branch.
 - Google Analytics 4 is installed.
 - App Store CTA clicks are tracked with the `app_store_click` event.
 - App Store links receive campaign tokens through `ct`.
 - Sitemap is generated at `https://www.impulselog.com/sitemap.xml`.
+- Bing/Copilot URL discovery can be refreshed with `npm run submit:indexnow` after deployment.
+- The complete metadata, campaign, and platform plan is in `docs/discoverability-launch-plan.md`.
 - Focused SEO pages are live for:
   - `/impulse-spending-app/`
   - `/adhd-spending-tracker/`

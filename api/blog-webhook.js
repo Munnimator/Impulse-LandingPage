@@ -2,7 +2,8 @@
 // This endpoint receives blog post data from SEObot and saves it to Firebase
 
 import { requireEnv } from './_lib/env.js';
-import { getFirebaseAdmin, getFirestore } from './_lib/firebase-admin.js';
+import { Timestamp } from 'firebase-admin/firestore';
+import { getFirestore } from './_lib/firebase-admin.js';
 import { enforceWebhookSecurity } from './_lib/webhook-security.js';
 
 const BLOG_COLLECTION = 'blogPosts';
@@ -43,7 +44,6 @@ export default async function handler(req, res) {
     }
 
     const db = getFirestore();
-    const firebaseAdmin = getFirebaseAdmin();
     const body = req.body;
     if (!body || typeof body !== 'object') {
       return res.status(400).json({ error: 'Invalid request body' });
@@ -93,9 +93,9 @@ export default async function handler(req, res) {
     let publishedAt;
     if (body.publishedAt) {
       // Convert seobot's ISO string to Firestore Timestamp
-      publishedAt = firebaseAdmin.firestore.Timestamp.fromDate(new Date(body.publishedAt));
+      publishedAt = Timestamp.fromDate(new Date(body.publishedAt));
     } else if (body.published !== false) {
-      publishedAt = firebaseAdmin.firestore.Timestamp.now();
+      publishedAt = Timestamp.now();
     } else {
       publishedAt = null;
     }
@@ -116,8 +116,8 @@ export default async function handler(req, res) {
       category: category || null,
       published: body.published !== undefined ? body.published : true,
       publishedAt,
-      createdAt: firebaseAdmin.firestore.Timestamp.now(),
-      updatedAt: firebaseAdmin.firestore.Timestamp.now(),
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
       seoTitle: body.seoTitle || title,
       seoDescription: body.seoDescription || excerpt || content.replace(/<[^>]*>/g, '').substring(0, 160),
       readingTime,

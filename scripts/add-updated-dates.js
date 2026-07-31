@@ -11,8 +11,8 @@
  *   --dry-run  Show what would be updated without making changes
  */
 
-import admin from 'firebase-admin';
-import { readFileSync } from 'fs';
+import { cert, initializeApp } from 'firebase-admin/app';
+import { getFirestore, Timestamp } from 'firebase-admin/firestore';
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -58,8 +58,8 @@ function formatPrivateKey(key) {
 try {
   // Try to load from environment variables (production)
   if (process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) {
-    admin.initializeApp({
-      credential: admin.credential.cert({
+    initializeApp({
+      credential: cert({
         projectId: 'impulsebuy-a64e2',
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
         privateKey: formatPrivateKey(process.env.FIREBASE_PRIVATE_KEY),
@@ -77,7 +77,7 @@ try {
   process.exit(1);
 }
 
-const db = admin.firestore();
+const db = getFirestore();
 const BLOG_COLLECTION = 'blogPosts';
 
 /**
@@ -113,7 +113,7 @@ async function updateBlogPosts() {
     let errors = 0;
 
     // Get current timestamp
-    const now = admin.firestore.Timestamp.now();
+    const now = Timestamp.now();
 
     // Update each post
     for (const doc of snapshot.docs) {

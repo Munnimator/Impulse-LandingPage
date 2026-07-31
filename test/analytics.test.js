@@ -27,7 +27,12 @@ test('analytics client configures GA4 exactly once', async () => {
   const source = await readFile(new URL('../assets/js/analytics.js', import.meta.url), 'utf8');
 
   assert.match(source, /G-ZWRYLR73CY/);
-  assert.match(source, /window\.gtag\('config', measurementId\)/);
+  assert.match(source, /window\.gtag\('config', measurementId,/);
+  assert.match(source, /allow_google_signals: false/);
+  assert.match(source, /allow_ad_personalization_signals: false/);
+  assert.match(source, /window\.gtag\('event', 'landing_view'/);
+  assert.match(source, /chatgpt\.com/);
+  assert.match(source, /utm_campaign/);
   assert.match(source, /__impulseLogAnalyticsLoaded/);
 });
 
@@ -36,5 +41,8 @@ test('App Store clicks retain conversion metadata', async () => {
 
   assert.match(source, /window\.gtag\('event', 'app_store_click'/);
   assert.match(source, /cta_location: ctaLocation/);
+  assert.match(source, /traffic_source:/);
+  assert.match(source, /campaign_name:/);
   assert.match(source, /transport_type: 'beacon'/);
+  assert.match(source, /impulse-log-adhd-finances\/id6747727094/);
 });

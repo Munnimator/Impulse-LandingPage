@@ -4,6 +4,15 @@
 
 ImpulseLog is a financial wellness and behavior-change tool. It is not a bank, budgeting service, financial adviser, or medical service.
 
+## Product facts
+
+- Platform: iPhone with iOS 17 or later.
+- Core workflow: log an almost-buy, pause an unsure purchase, or record an intentional purchase.
+- Free features: core logging, wait timers, shopping lists, goals, streaks, daily challenges, basic insights, offline-friendly logging, and data export.
+- Optional Premium: $4.99 per month or $29.99 per year in the US App Store, with local pricing shown before purchase.
+- Premium features: weekly summaries, pattern detection, mood and place correlations, and personalized coaching insights based on the user's own logs.
+- Privacy position: no advertising inside the app and no sale of personal data.
+
 ## Primary pages
 
 - [Homepage](https://www.impulselog.com/): Product overview, features, pricing, FAQs, and App Store link.
@@ -17,7 +26,7 @@ ImpulseLog is a financial wellness and behavior-change tool. It is not a bank, b
 
 ## Official product
 
-- [Impulse Log: ADHD Finances on the App Store](https://apps.apple.com/us/app/impulse-log/id6747727094)
+- [Impulse Log: ADHD Finances on the App Store](https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094)
 
 ## Contact
 

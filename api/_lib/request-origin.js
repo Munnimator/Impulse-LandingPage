@@ -13,7 +13,11 @@ function isAllowedHost(host) {
 }
 
 export function getRequestOrigin(req) {
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  if (process.env.VERCEL_URL) {
+    const vercelHost = process.env.VERCEL_URL.trim().toLowerCase();
+    const localVercelHost = vercelHost.startsWith('localhost') || vercelHost.startsWith('127.0.0.1');
+    return `${localVercelHost ? 'http' : 'https'}://${vercelHost}`;
+  }
 
   const rawHost = firstHeaderValue(req.headers?.['x-forwarded-host']) || req.headers?.host;
   const host = typeof rawHost === 'string' ? rawHost.trim().toLowerCase() : '';

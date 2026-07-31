@@ -1,6 +1,6 @@
 import { getPublishedPostSummaries } from './_lib/blog-data.js';
 import { renderBlogArchiveDocument } from './_lib/blog-render.js';
-import { getRequestOrigin } from './_lib/request-origin.js';
+import { getBlogArchiveTemplate } from './_lib/templates.js';
 
 const PAGE_SIZE = 24;
 
@@ -20,12 +20,6 @@ function cleanPage(value) {
   return Math.min(parsed, 100);
 }
 
-async function getTemplate(req) {
-  const response = await fetch(new URL('/blog.html', getRequestOrigin(req)));
-  if (!response.ok) throw new Error(`Blog archive template request failed: ${response.status}`);
-  return response.text();
-}
-
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.setHeader('Allow', 'GET, HEAD');
@@ -38,7 +32,7 @@ export default async function handler(req, res) {
 
   try {
     const [template, posts] = await Promise.all([
-      getTemplate(req),
+      getBlogArchiveTemplate(),
       getPublishedPostSummaries({
         tag: tag || undefined,
         category: category || undefined,

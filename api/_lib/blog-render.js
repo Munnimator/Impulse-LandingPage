@@ -172,7 +172,7 @@ function buildArticleSchema(post, canonicalUrl, imageUrl) {
       name: 'ImpulseLog',
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_ORIGIN}/assets/images/ImpulseLog-logo.png`,
+        url: `${SITE_ORIGIN}/assets/images/ImpulseLog-logo.webp`,
       },
     },
     mainEntityOfPage: {
