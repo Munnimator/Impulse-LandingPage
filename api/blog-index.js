@@ -1,5 +1,6 @@
 import { getPublishedPostSummaries } from './_lib/blog-data.js';
 import { renderBlogArchiveDocument } from './_lib/blog-render.js';
+import { getArchiveRedirectTarget } from './_lib/blog-routing.js';
 import { getBlogArchiveTemplate } from './_lib/templates.js';
 
 const PAGE_SIZE = 24;
@@ -30,6 +31,13 @@ export default async function handler(req, res) {
   const tag = cleanFilter(req.query?.tag);
   const category = cleanFilter(req.query?.category);
 
+  const filterRedirect = getArchiveRedirectTarget({ tag, category });
+  if (filterRedirect) {
+    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300');
+    res.setHeader('X-Blog-Status', 'filter-retired');
+    return res.redirect(308, filterRedirect);
+  }
+
   try {
     const [template, posts] = await Promise.all([
       getBlogArchiveTemplate(),
@@ -41,9 +49,11 @@ export default async function handler(req, res) {
       }),
     ]);
 
-    if (page > 1 && posts.length === 0) {
-      res.setHeader('X-Robots-Tag', 'noindex');
-      return res.status(404).send('Blog page not found');
+    const pageRedirect = getArchiveRedirectTarget({ page, hasPosts: posts.length > 0 });
+    if (pageRedirect) {
+      res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300');
+      res.setHeader('X-Blog-Status', 'page-retired');
+      return res.redirect(308, pageRedirect);
     }
 
     const html = renderBlogArchiveDocument(template, posts, {

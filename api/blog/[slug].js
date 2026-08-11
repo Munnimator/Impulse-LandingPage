@@ -1,5 +1,10 @@
-import { getPublishedPostBySlug, getPublishedPostSummaries } from '../_lib/blog-data.js';
+import {
+  getPostPublicationStateBySlug,
+  getPublishedPostBySlug,
+  getPublishedPostSummaries,
+} from '../_lib/blog-data.js';
 import { renderBlogPostDocument, renderNotFoundDocument } from '../_lib/blog-render.js';
+import { getUnavailablePostRedirectTarget } from '../_lib/blog-routing.js';
 import { getBlogPostTemplate } from '../_lib/templates.js';
 
 function firstQueryValue(value) {
@@ -32,12 +37,18 @@ export default async function handler(req, res) {
   if (!slug || slug === 'blog') return res.redirect(308, '/blog');
 
   try {
-    const [template, post] = await Promise.all([
-      getBlogPostTemplate(),
-      getPublishedPostBySlug(slug),
-    ]);
+    const post = await getPublishedPostBySlug(slug);
 
     if (!post) {
+      const publicationState = await getPostPublicationStateBySlug(slug);
+      const retiredPostRedirect = getUnavailablePostRedirectTarget(publicationState);
+      if (retiredPostRedirect) {
+        res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300');
+        res.setHeader('X-Post-Status', 'retired');
+        return res.redirect(308, retiredPostRedirect);
+      }
+
+      const template = await getBlogPostTemplate();
       setHtmlHeaders(res, 'public, max-age=0, s-maxage=60');
       res.setHeader('X-Robots-Tag', 'noindex');
       res.setHeader('X-Post-Status', 'not-found');
@@ -45,10 +56,13 @@ export default async function handler(req, res) {
       return res.status(404).send(req.method === 'HEAD' ? '' : html);
     }
 
-    const recentPosts = await getPublishedPostSummaries({
-      limit: 4,
-      excludeSlug: post.slug,
-    });
+    const [template, recentPosts] = await Promise.all([
+      getBlogPostTemplate(),
+      getPublishedPostSummaries({
+        limit: 4,
+        excludeSlug: post.slug,
+      }),
+    ]);
     const html = renderBlogPostDocument(template, post, recentPosts.slice(0, 3));
 
     setHtmlHeaders(res, 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600');

@@ -658,8 +658,7 @@
                     const tagsContainer = document.getElementById('post-tags');
                     tagsContainer.replaceChildren();
                     post.tags.forEach((tagValue) => {
-                        const tag = document.createElement('a');
-                        tag.href = `/blog?tag=${encodeURIComponent(tagValue)}`;
+                        const tag = document.createElement('span');
                         tag.className = 'tag';
                         tag.textContent = tagValue;
                         tagsContainer.appendChild(tag);

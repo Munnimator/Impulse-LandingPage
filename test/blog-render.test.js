@@ -78,6 +78,8 @@ test('blog post rendering places complete crawlable content and schema in the re
   assert.match(html, /"dateModified":"2026-06-03T12:00:00.000Z"/);
   assert.match(html, /"@type":"FAQPage"/);
   assert.match(html, /href="\/blog\/related-article"/);
+  assert.match(html, /<span class="tag">ADHD<\/span>/);
+  assert.doesNotMatch(html, /href="\/blog\?tag=/);
   assert.doesNotMatch(html, /seobot\.example/);
   assert.doesNotMatch(html, /Post Not Found/);
   assert.doesNotMatch(html, /Loading blog post/);

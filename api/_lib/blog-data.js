@@ -62,6 +62,18 @@ export async function getPublishedPostBySlug(slug) {
   return serializePostDocument(snapshot.docs[0]);
 }
 
+export async function getPostPublicationStateBySlug(slug) {
+  const snapshot = await getFirestore()
+    .collection(BLOG_COLLECTION)
+    .where('slug', '==', slug)
+    .select('published')
+    .limit(1)
+    .get();
+
+  if (snapshot.empty) return 'missing';
+  return snapshot.docs[0].get('published') === true ? 'published' : 'unpublished';
+}
+
 export async function getPublishedPostSummaries({
   tag,
   category,

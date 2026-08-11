@@ -217,7 +217,7 @@ function renderTags(tags = []) {
 
   return tags
     .filter(tag => typeof tag === 'string' && tag.trim())
-    .map(tag => `<a class="tag" href="/blog?tag=${encodeURIComponent(tag)}">${escapeHtml(tag)}</a>`)
+    .map(tag => `<span class="tag">${escapeHtml(tag)}</span>`)
     .join('');
 }
 
