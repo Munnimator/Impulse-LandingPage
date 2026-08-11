@@ -24,6 +24,10 @@ ImpulseLog is a financial wellness and behavior-change tool. It is not a bank, b
 - [Privacy policy](https://www.impulselog.com/privacy)
 - [Terms of service](https://www.impulselog.com/terms)
 
+## Machine-readable facts
+
+- [Structured product facts](https://www.impulselog.com/ai-instructions.json): Current platform, pricing, privacy, positioning, and accuracy constraints.
+
 ## Official product
 
 - [Impulse Log: ADHD Finances on the App Store](https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094)

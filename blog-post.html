@@ -9,6 +9,7 @@
     <!-- Open Graph / Social Media -->
     <meta property="og:title" id="og-title" content="Blog Post - ImpulseLog">
     <meta property="og:description" id="og-description" content="Read our latest insights on impulse control and financial wellness.">
+    <meta property="og:site_name" content="ImpulseLog">
     <meta property="og:type" content="article">
     <meta property="og:url" id="og-url" content="">
     <meta property="og:image" id="og-image" content="https://www.impulselog.com/assets/images/social-preview.png">
@@ -538,6 +539,7 @@
                     <div class="link-group">
                         <h4>Connect</h4>
                         <a href="mailto:support@impulselog.com">support@impulselog.com</a>
+                        <a href="https://www.instagram.com/impulselog_app/" rel="me noopener">Instagram</a>
                     </div>
                 </div>
             </div>
@@ -590,7 +592,8 @@
         async function loadBlogPost() {
             const postWrapper = document.getElementById('post-wrapper');
             if (postWrapper?.dataset.serverRendered === 'true') {
-                document.getElementById('loading-state').hidden = true;
+                const loadingState = document.getElementById('loading-state');
+                if (loadingState) loadingState.hidden = true;
                 return;
             }
 

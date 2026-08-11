@@ -41,6 +41,27 @@ function renderJsonLd(value) {
   return `<script type="application/ld+json">${jsonForHtml(value)}</script>`;
 }
 
+function removePostFallbackStates(html) {
+  return html.replace(
+    /\s*<!-- Loading State -->[\s\S]*?<!-- Post Content \(server-rendered in production; client fallback for the static template\) -->/,
+    '\n\n    <!-- Post Content (server-rendered in production; client fallback for the static template) -->'
+  );
+}
+
+function removeArchiveFallbackStates(html, { keepEmptyState = false } = {}) {
+  if (keepEmptyState) {
+    return html.replace(
+      /\s*<!-- Loading State -->[\s\S]*?<!-- Empty State -->/,
+      '\n\n            <!-- Empty State -->'
+    );
+  }
+
+  return html.replace(
+    /\s*<!-- Loading State -->[\s\S]*?<!-- Blog Grid -->/,
+    '\n\n            <!-- Blog Grid -->'
+  );
+}
+
 function collectFaqSchema(html) {
   const faqSchemas = [];
   const withoutJsonLd = String(html || '').replace(
@@ -240,7 +261,7 @@ export function renderBlogPostDocument(template, post, recentPosts = []) {
   const modifiedDate = post.updatedAt || publishedDate;
   const authorName = post.author?.name || 'ImpulseLog Team';
 
-  let html = template;
+  let html = removePostFallbackStates(template);
   html = html.replace(/<title[^>]*>[\s\S]*?<\/title>/i, `<title id="page-title">${escapeHtml(pageTitle)}</title>`);
   html = replaceMetaContent(html, 'name=["\']description["\']', description);
   html = replaceMetaContent(html, 'property=["\']og:title["\']', post.seoTitle || post.title);
@@ -264,7 +285,6 @@ export function renderBlogPostDocument(template, post, recentPosts = []) {
     '<main id="post-wrapper" data-server-rendered="false" style="display: none;">',
     '<main id="post-wrapper" data-server-rendered="true">'
   );
-  html = html.replace('<div id="loading-state" class="loading-state">', '<div id="loading-state" class="loading-state" hidden>');
   html = html.replace('<span id="breadcrumb-title">Post</span>', `<span id="breadcrumb-title">${escapeHtml(post.title)}</span>`);
   html = html.replace('<h1 class="post-title" id="post-title-main"></h1>', `<h1 class="post-title" id="post-title-main">${escapeHtml(post.title)}</h1>`);
   html = html.replace(
@@ -354,7 +374,8 @@ export function renderBlogArchiveDocument(template, posts, options = {}) {
       ? `Showing posts in “${category}”`
       : '';
 
-  let html = template;
+  const hasVisiblePosts = visiblePosts.length > 0;
+  let html = removeArchiveFallbackStates(template, { keepEmptyState: !hasVisiblePosts });
   html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(pageTitle)}</title>`);
   html = replaceMetaContent(html, 'property=["\']og:url["\']', canonicalUrl);
   html = html.replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${canonicalUrl}">`);
@@ -379,7 +400,6 @@ export function renderBlogArchiveDocument(template, posts, options = {}) {
   }));
   html = html.replace('</head>', `${headExtras.join('\n')}\n</head>`);
 
-  html = html.replace('<div id="loading-state" class="loading-state">', '<div id="loading-state" class="loading-state" hidden>');
   html = html.replace(
     '<p id="blog-filter-label" class="filter-label" style="display: none;"></p>',
     filterText

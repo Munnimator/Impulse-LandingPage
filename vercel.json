@@ -4,6 +4,13 @@
       "includeFiles": "blog*.html"
     }
   },
+  "redirects": [
+    {
+      "source": "/about",
+      "destination": "/founder-story/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/sitemap.xml",

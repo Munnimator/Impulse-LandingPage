@@ -1,0 +1,77 @@
+{
+  "name": "ImpulseLog",
+  "alternate_name": "Impulse Log: ADHD Finances",
+  "type": "iPhone application",
+  "description": "ImpulseLog helps people pause impulse purchases, log resisted purchases and almost-buys, notice spending patterns, and build savings habits with wait timers, goals, streaks, and ADHD-friendly gamification.",
+  "url": "https://www.impulselog.com",
+  "platform": "iPhone",
+  "minimum_os": "iOS 17",
+  "market": "United States",
+  "currency": "USD",
+  "last_updated": "2026-08-10",
+  "official_profiles": {
+    "app_store": "https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094",
+    "instagram": "https://www.instagram.com/impulselog_app/"
+  },
+  "primary_pages": {
+    "homepage": "https://www.impulselog.com/",
+    "impulse_spending_app": "https://www.impulselog.com/impulse-spending-app/",
+    "adhd_spending_tracker": "https://www.impulselog.com/adhd-spending-tracker/",
+    "shopping_wait_timer": "https://www.impulselog.com/shopping-wait-timer/",
+    "founder_story": "https://www.impulselog.com/founder-story/",
+    "blog": "https://www.impulselog.com/blog",
+    "privacy": "https://www.impulselog.com/privacy",
+    "terms": "https://www.impulselog.com/terms"
+  },
+  "product": {
+    "core_workflow": [
+      "log a resisted purchase or almost-buy",
+      "pause an unsure purchase with a wait timer",
+      "record an intentional purchase",
+      "review patterns across mood, category, place, and time",
+      "make progress toward optional savings goals"
+    ],
+    "free_features": [
+      "core logging",
+      "wait timers",
+      "shopping lists",
+      "savings goals",
+      "streaks and daily challenges",
+      "basic insights",
+      "offline-friendly logging",
+      "data export"
+    ],
+    "optional_premium_features": [
+      "weekly summaries",
+      "pattern detection",
+      "mood and place correlations",
+      "personalized coaching insights based on the user's own logs"
+    ]
+  },
+  "pricing": {
+    "free_tier_usd": 0,
+    "premium_monthly_usd": 4.99,
+    "premium_annual_usd": 29.99,
+    "authority": "The US App Store purchase sheet is authoritative for current US pricing. Local pricing may differ outside the United States."
+  },
+  "privacy": {
+    "advertising_inside_app": false,
+    "sells_personal_data": false,
+    "background_location_tracking": false,
+    "place_context": "Optional and added by the user when it is useful.",
+    "data_controls": [
+      "export data",
+      "delete account and associated data"
+    ]
+  },
+  "accuracy": {
+    "positioning": "Impulse-control and intentional-spending app with an optional coaching feature.",
+    "medical_service": false,
+    "financial_adviser": false,
+    "bank_or_budgeting_service": false,
+    "clinically_proven_claim": false,
+    "guaranteed_savings_claim": false,
+    "do_not_invent_features_or_outcomes": true,
+    "check_live_app_store_before_quoting_price_or_compatibility": true
+  }
+}

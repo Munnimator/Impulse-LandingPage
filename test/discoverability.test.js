@@ -26,6 +26,12 @@ test('homepage metadata matches current product facts', async () => {
   assert.ok(schemaEntities.length >= 4);
   assert.ok(schemaEntities.some(schema => ['MobileApplication', 'SoftwareApplication'].includes(schema['@type'])));
   assert.ok(schemaEntities.some(schema => schema['@type'] === 'WebSite'));
+
+  const organization = schemaEntities.find(schema => schema['@type'] === 'Organization');
+  assert.ok(organization);
+  assert.equal(organization.founder?.['@id'], 'https://www.impulselog.com/founder-story/#founder');
+  assert.ok(organization.sameAs.includes('https://www.instagram.com/impulselog_app/'));
+  assert.match(html, /<meta property="og:site_name" content="ImpulseLog">/);
 });
 
 for (const [pagePath, canonical] of INTENT_PAGES) {
@@ -36,14 +42,17 @@ for (const [pagePath, canonical] of INTENT_PAGES) {
     assert.match(html, /\.webp/);
     assert.match(html, /width="660" height="1434"/);
     assert.match(html, /atkinson-hyperlegible-400\.woff2/);
+    assert.match(html, /<meta property="og:site_name" content="ImpulseLog">/);
+    assert.match(html, /https:\/\/www\.instagram\.com\/impulselog_app\//);
     assert.doesNotMatch(html, /SEO-planning|conversion leverage|Bridge from blog|The point of this page|Best connected content/i);
   });
 }
 
 test('public crawler controls support search engines and AI discovery', async () => {
-  const [robots, llms] = await Promise.all([
+  const [robots, llms, aiInstructions] = await Promise.all([
     readProjectFile('robots.txt'),
     readProjectFile('llms.txt'),
+    readProjectFile('ai-instructions.json'),
   ]);
 
   for (const crawler of ['OAI-SearchBot', 'ChatGPT-User', 'GPTBot']) {
@@ -53,6 +62,39 @@ test('public crawler controls support search engines and AI discovery', async ()
   assert.match(llms, /iOS 17/);
   assert.match(llms, /\$4\.99 per month/);
   assert.match(llms, /\$29\.99 per year/);
+  assert.match(llms, /ai-instructions\.json/);
+
+  const facts = JSON.parse(aiInstructions);
+  assert.equal(facts.name, 'ImpulseLog');
+  assert.equal(facts.platform, 'iPhone');
+  assert.equal(facts.currency, 'USD');
+  assert.equal(facts.pricing.premium_monthly_usd, 4.99);
+  assert.equal(facts.pricing.premium_annual_usd, 29.99);
+  assert.equal(facts.accuracy.medical_service, false);
+  assert.equal(facts.accuracy.clinically_proven_claim, false);
+  assert.equal(facts.accuracy.guaranteed_savings_claim, false);
+  assert.equal(facts.official_profiles.instagram, 'https://www.instagram.com/impulselog_app/');
+});
+
+test('founder story provides a connected person and organization entity', async () => {
+  const html = await readProjectFile('founder-story/index.html');
+  const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+    .map(([, json]) => JSON.parse(json));
+  const entities = schemas.flatMap(schema => schema['@graph'] || [schema]);
+
+  const founder = entities.find(schema => schema['@type'] === 'Person');
+  assert.equal(founder?.name, 'Brad Munn');
+  assert.equal(founder?.worksFor?.['@id'], 'https://www.impulselog.com/#organization');
+  assert.match(html, /https:\/\/www\.instagram\.com\/impulselog_app\//);
+});
+
+test('production routing keeps a single canonical founder story URL', async () => {
+  const config = JSON.parse(await readProjectFile('vercel.json'));
+  assert.ok(config.redirects.some(redirect => (
+    redirect.source === '/about' &&
+    redirect.destination === '/founder-story/' &&
+    redirect.permanent === true
+  )));
 });
 
 test('IndexNow configuration has a matching public verification key', async () => {

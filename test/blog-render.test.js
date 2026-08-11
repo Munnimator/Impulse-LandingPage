@@ -79,6 +79,8 @@ test('blog post rendering places complete crawlable content and schema in the re
   assert.match(html, /"@type":"FAQPage"/);
   assert.match(html, /href="\/blog\/related-article"/);
   assert.doesNotMatch(html, /seobot\.example/);
+  assert.doesNotMatch(html, /Post Not Found/);
+  assert.doesNotMatch(html, /Loading blog post/);
 });
 
 test('blog archive rendering provides real links, pagination, schema, and filter controls', () => {
@@ -98,6 +100,9 @@ test('blog archive rendering provides real links, pagination, schema, and filter
   assert.match(html, /href="\/blog\?page=2"/);
   assert.match(html, /"@type":"Blog"/);
   assert.doesNotMatch(html, /Article 25/);
+  assert.doesNotMatch(html, /Oops! Something went wrong/);
+  assert.doesNotMatch(html, /No blog posts yet/);
+  assert.doesNotMatch(html, /Loading blog posts/);
 
   const filtered = renderBlogArchiveDocument(archiveTemplate, posts.slice(0, 1), {
     page: 1,
@@ -107,6 +112,11 @@ test('blog archive rendering provides real links, pagination, schema, and filter
   assert.match(filtered, /<meta name="robots" content="noindex,follow">/);
   assert.match(filtered, /Showing posts tagged “ADHD”/);
   assert.match(filtered, /rel="canonical" href="https:\/\/www\.impulselog\.com\/blog"/);
+
+  const empty = renderBlogArchiveDocument(archiveTemplate, [], { page: 1, pageSize: 24 });
+  assert.match(empty, /No blog posts yet/);
+  assert.doesNotMatch(empty, /Oops! Something went wrong/);
+  assert.doesNotMatch(empty, /Loading blog posts/);
 });
 
 test('not-found rendering is noindex and disables the client fetch fallback', () => {
