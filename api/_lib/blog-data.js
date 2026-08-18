@@ -2,6 +2,10 @@ import { getFirestore } from './firebase-admin.js';
 
 const BLOG_COLLECTION = 'blogPosts';
 
+function isEditoriallyApproved(data) {
+  return data?.published === true && data?.editoriallyApproved === true;
+}
+
 function serializeTimestamp(value) {
   if (!value) return null;
   if (typeof value.toDate === 'function') return value.toDate().toISOString();
@@ -59,19 +63,21 @@ export async function getPublishedPostBySlug(slug) {
     .get();
 
   if (snapshot.empty) return null;
-  return serializePostDocument(snapshot.docs[0]);
+  const doc = snapshot.docs[0];
+  if (!isEditoriallyApproved(doc.data())) return null;
+  return serializePostDocument(doc);
 }
 
 export async function getPostPublicationStateBySlug(slug) {
   const snapshot = await getFirestore()
     .collection(BLOG_COLLECTION)
     .where('slug', '==', slug)
-    .select('published')
+    .select('published', 'editoriallyApproved')
     .limit(1)
     .get();
 
   if (snapshot.empty) return 'missing';
-  return snapshot.docs[0].get('published') === true ? 'published' : 'unpublished';
+  return isEditoriallyApproved(snapshot.docs[0].data()) ? 'published' : 'unpublished';
 }
 
 export async function getPublishedPostSummaries({
@@ -102,6 +108,8 @@ export async function getPublishedPostSummaries({
       'author',
       'tags',
       'category',
+      'published',
+      'editoriallyApproved',
       'publishedAt',
       'createdAt',
       'updatedAt',
@@ -110,12 +118,13 @@ export async function getPublishedPostSummaries({
       'seoDescription',
       'metaKeywords'
     )
-    .offset(safeOffset)
-    .limit(safeLimit + extraRows);
+    .limit(1000);
 
   const snapshot = await query.get();
-  let posts = snapshot.docs.map(serializePostDocument);
+  let posts = snapshot.docs
+    .filter(doc => isEditoriallyApproved(doc.data()))
+    .map(serializePostDocument);
 
   if (excludeSlug) posts = posts.filter(post => post.slug !== excludeSlug);
-  return posts.slice(0, safeLimit);
+  return posts.slice(safeOffset, safeOffset + safeLimit + extraRows).slice(0, safeLimit);
 }

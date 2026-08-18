@@ -4,164 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - ImpulseLog</title>
-    <meta name="description" content="ImpulseLog Privacy Policy - How we protect your personal, app, purchase, mood, and optional place context data.">
-
-    <!-- Canonical URL -->
+    <meta name="description" content="How ImpulseLog handles account, decision, mood, place, analytics, and optional Coach data.">
     <link rel="canonical" href="https://www.impulselog.com/privacy">
-
-    <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/assets/icons/favicon.svg">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
-    <meta name="theme-color" content="#8B5CF6">
-    
-    <!-- Fonts -->
-    <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-700.woff2" as="font" type="font/woff2" crossorigin>
-    
-    <!-- Styles -->
     <link rel="stylesheet" href="styles.css?v=4">
     <script defer src="/assets/js/analytics.js"></script>
-    
     <style>
-        .legal-page {
-            max-width: 800px;
-            margin: 100px auto;
-            padding: 0 var(--space-md);
-        }
-        
-        .legal-content {
-            line-height: 1.7;
-        }
-        
-        .legal-content h2 {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .legal-content p, .legal-content li {
-            margin-bottom: 1rem;
-        }
-        
-        .legal-content ul {
-            margin-left: 1.5rem;
-        }
-        
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            color: var(--primary);
-            text-decoration: none;
-            margin-bottom: 2rem;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
+        .legal-page { max-width: 800px; margin: 100px auto; padding: 0 var(--space-md); }
+        .legal-content { line-height: 1.7; }
+        .legal-content h2 { margin-top: 2rem; margin-bottom: 1rem; color: var(--primary); }
+        .legal-content p, .legal-content li { margin-bottom: 1rem; }
+        .legal-content ul { margin-left: 1.5rem; }
+        .back-link { display: inline-flex; color: var(--primary); text-decoration: none; margin-bottom: 2rem; }
+        .back-link:hover { text-decoration: underline; }
+        .legal-contact { padding: 1.25rem; border-radius: 1rem; background: var(--surface-subtle, #f5f3ff); }
     </style>
 </head>
 <body>
-    <div class="legal-page">
+    <main class="legal-page">
         <a href="/" class="back-link">← Back to ImpulseLog</a>
-        
-        <div class="legal-content">
+        <article class="legal-content">
             <h1>Privacy Policy</h1>
-            <p><strong>Last updated: July 24, 2026</strong></p>
-            
-            <p>ImpulseLog ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.</p>
-            
-            <h2>Information We Collect</h2>
-            <p><strong>Personal Information:</strong></p>
+            <p><strong>Last updated: August 18, 2026</strong></p>
+            <p>TheLocalLookoutLLC owns and operates ImpulseLog. This policy explains how information is handled when you use the iPhone app or ImpulseLog website.</p>
+
+            <h2>Information you provide</h2>
             <ul>
-                <li>Apple ID information (when you sign in with Apple)</li>
-                <li>Email address (if provided)</li>
-                <li>Profile information you choose to add</li>
-            </ul>
-            
-            <p><strong>Financial Data:</strong></p>
-            <ul>
-                <li>Impulse purchase amounts you log</li>
-                <li>Savings goals and progress</li>
-                <li>Spending categories and descriptions</li>
-                <li>Mood data (optional)</li>
-                <li>Notes and reflection details you choose to add</li>
+                <li><strong>Account:</strong> email, display name, and authentication information provided through Firebase Authentication or Sign in with Apple.</li>
+                <li><strong>Decisions and goals:</strong> saved, bought, and pending decisions; amounts; categories; dates; notes; necessity reflections; lists; goals; and manual “Available after essentials” totals. ImpulseLog does not connect to your bank for that estimate.</li>
+                <li><strong>Mood and context:</strong> optional moods, journal entries, context tags, and user-confirmed store or place information.</li>
+                <li><strong>App progress:</strong> settings, milestones, streaks, XP, daily challenges, onboarding state, and Coach preferences.</li>
+                <li><strong>Subscription:</strong> product, status, and billing-period information received from Apple. We do not store payment card details.</li>
             </ul>
 
-            <p><strong>Optional Place Context:</strong></p>
-            <ul>
-                <li>Place names or store names you choose to attach to a save, purchase, or shopping list</li>
-                <li>Coarse location information used to suggest nearby places when you explicitly request it</li>
-                <li>Shopping list place context and recent shopping-list history stored for app functionality</li>
-            </ul>
-            
-            <p><strong>Usage Data:</strong></p>
-            <ul>
-                <li>App usage statistics</li>
-                <li>Feature interactions</li>
-                <li>Error logs and crash reports</li>
-            </ul>
+            <h2>Location</h2>
+            <p>You can type a place manually or tap Nearby to ask iOS and Apple MapKit for suggestions. Location is requested only when you tap Nearby. ImpulseLog does not track location in the background and does not intentionally store continuous location history, routes, or precise coordinates in your decision history.</p>
 
-            <p><strong>Website Analytics:</strong></p>
+            <h2>Coach processing</h2>
+            <p>Fixed app rules calculate totals and outcomes, apply observation thresholds, and select a coaching method. On eligible Coach surfaces, OpenAI GPT may express that selected plan in natural language. We minimize submitted information and remove direct account identifiers where practical. GPT does not calculate savings, invent correlations, select a different method, or make payment and entitlement decisions.</p>
+            <p>If personal coaching is enabled, ImpulseLog may keep a derived profile based on completed outcomes, broad mood and context, reflection selections, and challenge preferences. It excludes journal text, purchase notes, item names, exact amounts, full addresses, and coordinates. You can inspect, reset, or pause this memory in Settings.</p>
+
+            <h2>Analytics and attribution</h2>
+            <p>We collect pseudonymous feature and acquisition events, crash diagnostics, and performance measurements to improve reliability and understand which marketing brings people to ImpulseLog. App analytics excludes purchase descriptions, mood or journal content, place names, addresses, and coaching messages. You can disable product analytics in Settings.</p>
+            <p>For eligible ad campaigns, iOS may send an Apple-managed, delayed aggregate conversion tier through Apple's attribution systems. ImpulseLog does not attach an advertising identifier, user identifier, purchase amount, mood, goal, item, note, location, or coaching content to that signal.</p>
+            <p>Website analytics may collect pages viewed, referring source, campaign parameters, browser/device details, approximate geography, and App Store link clicks. Website analytics does not receive your in-app account content, and our configuration disables ad-personalization signals.</p>
+
+            <h2>How we use information</h2>
+            <p>We use information to operate and secure the app, synchronize account data across supported iPhones, show the records and progress you create, provide optional Coach and Nearby features, manage Premium access, answer support requests, diagnose problems, and improve product and marketing performance. We do not sell personal information.</p>
+
+            <h2>Service providers</h2>
             <ul>
-                <li>Pages viewed, referring source, and campaign parameters</li>
-                <li>Browser, device, and approximate geographic information</li>
-                <li>Website interactions, including clicks that open the App Store</li>
+                <li><strong>Google Firebase:</strong> authentication, database, analytics, crash diagnostics, and performance monitoring.</li>
+                <li><strong>OpenAI:</strong> eligible natural-language Coach wording using minimized context.</li>
+                <li><strong>Apple:</strong> Sign in with Apple, App Store and subscription processing, MapKit place suggestions, and privacy-preserving ad attribution.</li>
+                <li><strong>Google Analytics:</strong> website traffic and marketing-page engagement.</li>
             </ul>
-            <p>We use Google Analytics to understand website traffic and improve our marketing pages. Website analytics does not receive your ImpulseLog financial entries, mood logs, notes, or other in-app account content. Our website configuration disables Google signals and ad-personalization signals, and our custom attribution event groups referrals into broad source categories.</p>
-            
-            <h2>How We Use Your Information</h2>
-            <ul>
-                <li>Provide and maintain app functionality</li>
-                <li>Generate personalized insights for Premium users</li>
-                <li>Track your progress and achievements</li>
-                <li>Help identify mood, category, and place patterns in your own logs</li>
-                <li>Improve app performance and features</li>
-                <li>Provide customer support</li>
-            </ul>
-            
-            <h2>Data Security</h2>
-            <p>We implement industry-standard security measures:</p>
-            <ul>
-                <li>HTTPS encryption for secure data transmission</li>
-                <li>Firebase-managed storage and authentication infrastructure</li>
-                <li>Operational safeguards designed to limit unnecessary access</li>
-                <li>We do not sell your personal information</li>
-            </ul>
-            
-            <h2>Your Rights</h2>
-            <p>You have the right to:</p>
-            <ul>
-                <li>Access your personal data</li>
-                <li>Export your data</li>
-                <li>Delete your account and all data</li>
-                <li>Choose whether to add optional place context</li>
-                <li>Choose whether to use optional Premium insights</li>
-            </ul>
-            
-            <h2>Data Retention</h2>
-            <p>We retain your data only as long as necessary to provide our services. You can delete your account at any time from the app settings.</p>
-            
-            <h2>Third-Party Services</h2>
-            <p>We use the following third-party services:</p>
-            <ul>
-                <li><strong>Firebase (Google):</strong> Database and authentication</li>
-                <li><strong>Google Analytics:</strong> Website traffic and marketing-page engagement</li>
-                <li><strong>Insight processing provider:</strong> Optional Premium insights</li>
-                <li><strong>Apple:</strong> App Store, Apple Sign-In, and Apple Maps/MapKit place lookup features</li>
-            </ul>
-            
-            <h2>Children's Privacy</h2>
-            <p>Our app is not intended for children under 13. We do not knowingly collect personal information from children under 13.</p>
-            
-            <h2>Changes to This Policy</h2>
-            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy in the app and updating the "last updated" date.</p>
-            
-            <h2>Contact Us</h2>
-            <p>If you have questions about this Privacy Policy, please contact us at:</p>
-            <p><strong>Email:</strong> support@impulselog.com</p>
-        </div>
-    </div>
+            <p>We may also disclose information when required by law, to protect rights and safety, or as part of a business transfer. Provider privacy policies and applicable processing terms govern their handling of information.</p>
+
+            <h2>Storage and security</h2>
+            <p>Account data is stored using Firebase services and protected with encryption in transit and at rest. The app also uses iOS app storage and Firestore offline caching for selected pending operations. No system is completely immune from risk, but we use authentication controls, request validation, rate limiting, and abuse monitoring.</p>
+
+            <h2>Your choices and rights</h2>
+            <p>You can skip optional mood, Coach, Nearby, and place-context features; disable product analytics; reset or pause Coach memory; correct information in the app; and export selected data as CSV or JSON from Settings. Depending on where you live, you may also have legal rights to access, correct, delete, or receive a copy of personal information.</p>
+
+            <h2>Retention and deletion</h2>
+            <p>We retain account data while your account is active and as needed to provide the Service. You can permanently delete your account and app data from Settings. Deleting your ImpulseLog account does not cancel an Apple subscription; subscriptions must be managed separately through Apple. Limited records may remain when required by law, and de-identified analytics may be retained.</p>
+
+            <h2>International processing and children</h2>
+            <p>Information may be processed in countries other than your own, subject to applicable safeguards. ImpulseLog is not intended for children under 13, and we do not knowingly collect personal information from children under 13.</p>
+
+            <h2>Changes and contact</h2>
+            <p>We may update this policy and will update the date above and provide notice of material changes when appropriate.</p>
+            <div class="legal-contact">
+                <p><strong>TheLocalLookoutLLC</strong><br>Owner and operator of ImpulseLog<br><a href="mailto:support@impulselog.com">support@impulselog.com</a></p>
+                <p>ImpulseLog is an online-only service; there is no public storefront or walk-in location.</p>
+            </div>
+        </article>
+    </main>
 </body>
 </html>

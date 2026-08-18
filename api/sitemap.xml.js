@@ -25,6 +25,7 @@ export default async function handler(_req, res) {
 
     const blogPages = snapshot.docs
       .map(doc => doc.data())
+      .filter(post => post.editoriallyApproved === true)
       .filter(post => typeof post.slug === 'string' && post.slug.trim())
       .map(post => ({
         url: `${BASE_URL}/blog/${encodeURIComponent(post.slug)}`,

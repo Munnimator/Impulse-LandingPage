@@ -89,17 +89,6 @@ export default async function handler(req, res) {
       category = category.title;
     }
 
-    // Handle publishedAt - use seobot's timestamp if provided
-    let publishedAt;
-    if (body.publishedAt) {
-      // Convert seobot's ISO string to Firestore Timestamp
-      publishedAt = Timestamp.fromDate(new Date(body.publishedAt));
-    } else if (body.published !== false) {
-      publishedAt = Timestamp.now();
-    } else {
-      publishedAt = null;
-    }
-
     // Prepare blog post data
     const postData = {
       title,
@@ -114,8 +103,15 @@ export default async function handler(req, res) {
       },
       tags,
       category: category || null,
-      published: body.published !== undefined ? body.published : true,
-      publishedAt,
+      // Third-party drafts never publish directly. A human review must set both
+      // published and editoriallyApproved in Firestore after verifying every claim.
+      published: false,
+      editoriallyApproved: false,
+      requestedPublication: body.published !== false,
+      requestedPublishedAt: body.publishedAt
+        ? Timestamp.fromDate(new Date(body.publishedAt))
+        : null,
+      publishedAt: null,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
       seoTitle: body.seoTitle || title,
@@ -146,7 +142,7 @@ export default async function handler(req, res) {
         success: true,
         id: docId,
         slug,
-        message: 'Blog post updated successfully',
+        message: 'Blog draft updated and queued for editorial review',
       });
     } else {
       // Create new post
@@ -157,7 +153,7 @@ export default async function handler(req, res) {
         success: true,
         id: docId,
         slug,
-        message: 'Blog post created successfully',
+        message: 'Blog draft created and queued for editorial review',
       });
     }
 
