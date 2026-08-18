@@ -8,13 +8,14 @@ const publicPages = [
   'adhd-spending-tracker/index.html',
   'shopping-wait-timer/index.html',
   'founder-story/index.html',
+  'blog.html',
   'privacy.html',
   'terms.html',
   'ai-instructions.json',
 ];
 
 const copy = (await Promise.all(publicPages.map(path => readFile(path, 'utf8')))).join('\n');
-const productPages = (await Promise.all(publicPages.slice(0, 5).map(path => readFile(path, 'utf8')))).join('\n');
+const productPages = (await Promise.all(publicPages.slice(0, 6).map(path => readFile(path, 'utf8')))).join('\n');
 
 test('public copy stays within the shipped product claim set', () => {
   for (const unsupportedClaim of [
