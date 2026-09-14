@@ -20,6 +20,7 @@ const productPages = (await Promise.all(publicPages.slice(0, 6).map(path => read
 test('public copy stays within the shipped product claim set', () => {
   for (const unsupportedClaim of [
     /weekly summaries?/i,
+    /advanced decision filters/i,
     /priority support/i,
     /unlimited (?:impulse )?tracking/i,
     /data export (?:features )?(?:is|are )?(?:available )?with Premium/i,
@@ -35,8 +36,14 @@ test('public copy stays within the shipped product claim set', () => {
 });
 
 test('canonical entitlements and operator are present', () => {
+  assert.match(copy, /one personalized Coach sample/i);
+  assert.match(copy, /fresh weekly Coach reviews/i);
   assert.match(copy, /6-month and all-time comparisons/i);
+  assert.match(copy, /up to one year of mood history/i);
   assert.match(copy, /CSV\/JSON data export/i);
+  assert.match(copy, /Share to Pause/i);
+  assert.match(copy, /widgets/i);
+  assert.match(copy, /ImpulseLog: Pause Impulse Buys/i);
   assert.match(copy, /TheLocalLookoutLLC owns and operates ImpulseLog/i);
 });
 

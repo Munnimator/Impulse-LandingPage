@@ -56,7 +56,7 @@
           "@type": "MobileApplication",
           "@id": "https://www.impulselog.com/#app",
           "name": "ImpulseLog",
-          "alternateName": "Impulse Log: ADHD Finances",
+          "alternateName": "ImpulseLog: Pause Impulse Buys",
           "applicationCategory": "FinanceApplication",
           "operatingSystem": "iOS 17.0 or later",
           "description": "ImpulseLog helps you log resisted purchases, pause unsure buys, plan shopping lists, spot mood and place patterns, and build streaks that make saving feel rewarding.",
@@ -72,21 +72,21 @@
                 "name": "Free Plan",
                 "price": "0",
                 "priceCurrency": "USD",
-                "description": "Core logging, wait timers, shopping lists, goals, streaks, daily challenges, short-term analytics, offline-friendly logging, and CSV/JSON export"
+                "description": "Saved, bought, and pending decision logging; Impulse Rescue; wait timers; shopping lists and sessions; goals; milestones; streaks; XP; daily challenges; 7-day and 4-week Insights; 14-day mood history; one personalized Coach sample after enough completed decisions; offline-friendly logging; and CSV/JSON export"
               },
               {
                 "@type": "Offer",
                 "name": "Premium Plan - Monthly",
                 "price": "4.99",
                 "priceCurrency": "USD",
-                "description": "Deeper Coach pattern reviews, 6-month and all-time comparisons, mood/place/category/impulse associations, and advanced decision filters"
+                "description": "Fresh weekly Coach reviews, saved review and check-in history, deeper Coach pattern reviews, 6-month and all-time comparisons, up to one year of mood history, and deeper mood/place/category/impulse patterns"
               },
               {
                 "@type": "Offer",
                 "name": "Premium Plan - Annual",
                 "price": "29.99",
                 "priceCurrency": "USD",
-                "description": "Optional Premium insights billed annually"
+                "description": "Fresh weekly Coach reviews, saved review and check-in history, deeper Coach pattern reviews, 6-month and all-time comparisons, up to one year of mood history, and deeper mood/place/category/impulse patterns"
               }
             ]
           },
@@ -106,7 +106,10 @@
             "Works offline",
             "Export your data",
             "Achievements, streaks, and daily challenges",
-            "Optional Premium insights"
+            "One personalized Coach sample review for free",
+            "Fresh weekly Coach reviews with Premium",
+            "Home and Lock Screen widgets",
+            "Share to Pause from the iOS share sheet"
           ],
           "softwareRequirements": "Requires iOS 17.0 or later. Designed for iPhone.",
           "provider": {
@@ -128,8 +131,8 @@
           "hasPart": [
             {
               "@type": "CreativeWork",
-              "name": "Premium Insights",
-              "description": "Personalized analysis of mood, place, and spending patterns"
+              "name": "Coach Reviews",
+              "description": "One personalized sample review for free, with fresh weekly reviews and longer-history patterns available through Premium"
             },
             {
               "@type": "CreativeWork",
@@ -197,7 +200,7 @@
               "name": "How does the mood tracking work?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "You can log mood, notes, place context, and purchase decisions. Premium adds deeper Coach pattern reviews, longer-term comparisons, context associations, and advanced decision filters."
+                "text": "You can log mood, notes, place context, and purchase decisions. Free includes 14 days of mood history and one personalized Coach sample after enough completed decisions. Premium adds up to one year of mood history, fresh weekly Coach reviews, longer-term comparisons, and deeper context patterns."
               }
             },
             {
@@ -308,7 +311,7 @@
                         An ADHD-friendly pause for the moment you almost buy.
                     </h1>
                     <p class="hero-subtitle" itemprop="description">
-                        Log resisted purchases, pause unsure buys, plan shopping lists, and spot the moods and places that shape your spending.
+                        Log resisted purchases, pause unsure buys, plan shopping lists, and notice which moods and places often appear around your decisions.
                     </p>
                     <div class="hero-cta">
                         <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary btn-large" style="color: white;">
@@ -404,7 +407,7 @@
                         </svg>
                     </div>
                     <h3>Quick Logging</h3>
-                    <p>Log what you almost bought in seconds, with optional notes, mood, category, and place context.</p>
+                    <p>Log what you almost bought in seconds, or use Share to Pause from another app. Add notes, mood, category, and place context only when useful.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -422,8 +425,8 @@
                             <path d="M12 2V4M12 20V22M22 12H20M4 12H2M19.07 4.93L17.66 6.34M6.34 17.66L4.93 19.07M19.07 19.07L17.66 17.66M6.34 6.34L4.93 4.93" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <h3>Premium Insights</h3>
-                    <p>Premium insights help you spot patterns between mood, place, context, and impulse decisions.</p>
+                    <h3>Try Coach Free</h3>
+                    <p>After enough completed decisions, get one personalized Coach sample with a practical next step and optional check-in. Premium adds fresh weekly reviews.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -446,8 +449,8 @@
                             <circle cx="18" cy="7" r="1" fill="#FFFFFF"/>
                         </svg>
                     </div>
-                    <h3>Place Patterns</h3>
-                    <p>Add optional place context so the app can help you notice which stores are routine, risky, or worth planning for.</p>
+                    <h3>Context &amp; Place Patterns</h3>
+                    <p>Add optional place context for free. Premium can compare repeated place patterns after you have enough history.</p>
                 </div>
                 <div class="value-card">
                     <div class="value-icon">
@@ -592,7 +595,7 @@
                     <div class="screenshot-wrapper" data-screen="6">
                         <div class="iphone-frame">
                             <img src="assets/images/mood-insights.webp" alt="Mood Patterns screen showing recent emotional check-ins and practical guidance" width="660" height="1434" loading="lazy" decoding="async">
-                            <div class="screen-label">Mood Pattern Analysis</div>
+                            <div class="screen-label">Mood Check-ins &amp; Guidance</div>
                         </div>
                     </div>
 
@@ -620,7 +623,7 @@
                     <div class="screenshot-wrapper" data-screen="10">
                         <div class="iphone-frame">
                             <img src="assets/images/analytics.webp" alt="Insights screen with savings over time and savings by category charts" width="660" height="1434" loading="lazy" decoding="async">
-                            <div class="screen-label">Detailed Analytics</div>
+                            <div class="screen-label">Decision Insights</div>
                         </div>
                     </div>
                 </div>
@@ -655,12 +658,12 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Catch the Urge</h3>
-                    <p>When a purchase starts feeling urgent, open ImpulseLog before checkout.</p>
+                    <p>When a purchase starts feeling urgent, open ImpulseLog or share the product link to it before checkout.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
                     <h3>Log, Pause, or Plan</h3>
-                    <p>Save it, put it on a wait timer, or start a shopping list before you walk into the store.</p>
+                    <p>Record it as not bought, put it on a wait timer, or start a shopping list before you walk into the store.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -704,7 +707,7 @@
                         </div>
                     </div>
                     
-                    <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary btn-large" style="color: white;">Start Saving Now</a>
+                    <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary btn-large" style="color: white;">Start Tracking Almost-Buys</a>
                 </div>
             </div>
         </div>
@@ -721,15 +724,15 @@
                     <h3>Free</h3>
                     <div class="price">
                         <span class="amount">$0</span>
-                        <span class="period">forever</span>
+                        <span class="period">core tools</span>
                     </div>
                     <ul class="features-list">
-                        <li>✓ Core logging and Impulse Ledger</li>
-                        <li>✓ Wait timers and shopping lists</li>
-                        <li>✓ Goals, streaks, and achievements</li>
-                        <li>✓ Daily ritual and daily challenges</li>
-                        <li>✓ Basic insights and analytics</li>
-                        <li>✓ Export data and offline logging</li>
+                        <li>✓ Saved, bought, and pending decision logging</li>
+                        <li>✓ Impulse Rescue, wait timers, lists, and shopping sessions</li>
+                        <li>✓ Goals, milestones, streaks, XP, and daily challenges</li>
+                        <li>✓ 7-day and 4-week Insights plus 14-day mood history</li>
+                        <li>✓ One personalized Coach sample after enough completed decisions</li>
+                        <li>✓ CSV/JSON export and offline-friendly logging</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-secondary">Get Started</a>
                 </div>
@@ -742,10 +745,11 @@
                     </div>
                     <ul class="features-list">
                         <li>✓ Everything in Free</li>
+                        <li>✓ Fresh weekly Coach reviews</li>
+                        <li>✓ Saved review and check-in history</li>
                         <li>✓ Deeper Coach pattern reviews</li>
                         <li>✓ 6-month and all-time comparisons</li>
-                        <li>✓ Mood, place, category, and impulse associations</li>
-                        <li>✓ Advanced decision filters</li>
+                        <li>✓ Up to one year of mood history and deeper context patterns</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
                 </div>
@@ -762,10 +766,11 @@
                     </div>
                     <ul class="features-list">
                         <li>✓ Everything in Free</li>
+                        <li>✓ Fresh weekly Coach reviews</li>
+                        <li>✓ Saved review and check-in history</li>
                         <li>✓ Deeper Coach pattern reviews</li>
                         <li>✓ 6-month and all-time comparisons</li>
-                        <li>✓ Mood, place, category, and impulse associations</li>
-                        <li>✓ Advanced decision filters</li>
+                        <li>✓ Up to one year of mood history and deeper context patterns</li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
                 </div>
@@ -786,7 +791,7 @@
                 
                 <div class="faq-item">
                     <h3>How does the mood tracking work?</h3>
-                    <p>You can log mood, notes, category, and optional place context with resisted purchases or pending decisions. Premium adds deeper Coach pattern reviews, longer-term comparisons, context associations, and advanced decision filters.</p>
+                    <p>You can log mood, notes, category, and optional place context with resisted purchases or pending decisions. Free includes 14 days of mood history and one personalized Coach sample after enough completed decisions. Premium adds up to one year of mood history, fresh weekly Coach reviews, longer-term comparisons, and deeper context patterns.</p>
                 </div>
                 
                 <div class="faq-item">
@@ -802,6 +807,11 @@
                 <div class="faq-item">
                     <h3>Does ImpulseLog track my location all the time?</h3>
                     <p>No. Place context is optional and used when you choose to add a place to a save, purchase, or shopping list. It is designed to help you understand store patterns, not to run background tracking.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Can I try Coach before subscribing?</h3>
+                    <p>Yes. After you record enough completed decisions, you can use one personalized Coach sample with a practical next step and optional check-in. Premium adds fresh weekly reviews and longer-history patterns.</p>
                 </div>
                 
             </div>
@@ -842,8 +852,8 @@
                             <path d="M15 9L9 15M9 9L15 15" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <h3>No Ads, Ever</h3>
-                    <p>We make money from subscriptions, not your attention</p>
+                    <h3>No Ads in the App</h3>
+                    <p>We make money from subscriptions, not your attention.</p>
                 </div>
                 <div class="trust-item">
                     <div class="trust-icon">

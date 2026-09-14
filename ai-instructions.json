@@ -1,6 +1,6 @@
 {
   "name": "ImpulseLog",
-  "alternate_name": "Impulse Log: ADHD Finances",
+  "alternate_name": "ImpulseLog: Pause Impulse Buys",
   "type": "iPhone application",
   "description": "ImpulseLog helps people pause impulse purchases, log resisted purchases and almost-buys, notice spending patterns, and build savings habits with wait timers, goals, streaks, and ADHD-friendly gamification.",
   "url": "https://www.impulselog.com",
@@ -8,7 +8,7 @@
   "minimum_os": "iOS 17",
   "market": "United States",
   "currency": "USD",
-  "last_updated": "2026-08-18",
+  "last_updated": "2026-09-14",
   "official_profiles": {
     "app_store": "https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094",
     "instagram": "https://www.instagram.com/impulselog_app/"
@@ -26,26 +26,33 @@
   "product": {
     "core_workflow": [
       "log a resisted purchase or almost-buy",
+      "share a product link from another app to pause or record it",
       "pause an unsure purchase with a wait timer",
       "record an intentional purchase",
       "review patterns across mood, category, place, and time",
       "make progress toward optional savings goals"
     ],
     "free_features": [
-      "core logging",
-      "wait timers",
-      "shopping lists",
-      "savings goals",
-      "streaks and daily challenges",
-      "basic insights",
+      "saved, bought, and pending decision logging",
+      "Impulse Rescue and wait timers",
+      "reusable shopping lists and sessions",
+      "optional mood, place, notes, and categories",
+      "goals, milestones, streaks, XP, and daily challenges",
+      "7-day and 4-week Insights",
+      "14-day mood history",
+      "one personalized Coach sample review after enough completed decisions",
+      "home-screen widgets",
+      "Share to Pause from the iOS Share Sheet",
       "offline-friendly logging",
-      "data export"
+      "CSV/JSON data export"
     ],
     "optional_premium_features": [
+      "fresh weekly Coach reviews with a practical next step and optional check-in",
+      "saved review and check-in history",
       "deeper Coach pattern reviews based on the user's decision history",
       "6-month and all-time decision comparisons",
-      "mood, place, category, and impulse associations",
-      "advanced filters for reviewing decisions"
+      "up to one year of mood history",
+      "deeper mood, place, category, and impulse patterns"
     ]
   },
   "pricing": {
@@ -59,6 +66,8 @@
     "sells_personal_data": false,
     "background_location_tracking": false,
     "place_context": "Optional and added by the user when it is useful.",
+    "share_extension": "Reads and saves only item details and links the user explicitly shares.",
+    "coach_history": "May retain generated reviews, chosen next steps, optional check-in timing, and follow-up responses for the signed-in account.",
     "data_controls": [
       "export data",
       "delete account and associated data"
