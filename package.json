@@ -13,7 +13,7 @@
     "submit:indexnow": "node scripts/submit-indexnow.js"
   },
   "dependencies": {
-    "firebase-admin": "^14.2.0",
+    "firebase-admin": "^14.4.0",
     "sanitize-html": "2.17.5"
   }
 }
