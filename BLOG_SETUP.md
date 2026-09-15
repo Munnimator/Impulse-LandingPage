@@ -2,7 +2,7 @@
 
 ## Overview
 
-This blog infrastructure allows SEObot to automatically publish blog posts to your ImpulseLog website via a webhook API endpoint.
+SEObot submits unpublished drafts via the webhook. A human must review each article and set both `published` and `editoriallyApproved` to true before it appears publicly. Incoming webhooks cannot overwrite approved articles.
 
 ## Architecture
 
@@ -16,7 +16,7 @@ This blog infrastructure allows SEObot to automatically publish blog posts to yo
 1. `/api/blog-webhook.js` - Vercel serverless function for receiving SEObot posts
 2. `/blog.html` - Blog listing page
 3. `/blog-post.html` - Individual blog post template
-4. `/assets/js/firebase-blog.js` - Firebase integration for client-side data fetching
+4. `/api/_lib/blog-render.js` - Server-side rendering and allowlist sanitization
 5. `vercel.json` - Clean URL configuration
 6. Updated `sitemap.xml` with blog URL
 7. Updated `index.html` navigation with blog link
@@ -38,7 +38,7 @@ You need to set these environment variables in your Vercel project settings:
    - **Important**: The value should include `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`
 
 3. **SEOBOT_API_KEY**
-   - Store the existing webhook key in Vercel
+   - Generate a unique random webhook secret and store it in Vercel
    - Use the same value in SEObot as the `x-api-key` header
 
 ### How to Set Environment Variables in Vercel:
@@ -46,7 +46,7 @@ You need to set these environment variables in your Vercel project settings:
 1. Go to your Vercel project dashboard
 2. Click "Settings" → "Environment Variables"
 3. Add each variable with its value
-4. Make sure to select "Production", "Preview", and "Development" environments
+4. Use separate credentials and a test Firebase project for non-production environments when possible
 5. Redeploy your site after adding variables
 
 ## Getting Firebase Service Account Credentials
@@ -62,6 +62,26 @@ You need to set these environment variables in your Vercel project settings:
    - `private_key` → Use for `FIREBASE_PRIVATE_KEY`
 
 ## SEObot Configuration
+
+### Security limits and rotation
+
+- Only JSON objects are accepted; total serialized size is limited to 512 KiB.
+- HTML and Markdown are each limited to 200,000 characters, titles to 300,
+  slugs to 200, and tags to 30. Slugs use lowercase letters, digits and hyphens.
+- Image/avatar URLs must use HTTPS. Optional date fields must be ISO timestamps.
+- Valid authenticated requests share a Firestore transaction-backed limit of
+  30 per minute across instances. Rejections return 429 with `Retry-After`.
+- Approved or published articles return 409 instead of being overwritten.
+- Rotate the webhook secret in SEObot and Vercel together, redeploy, then
+  verify an authorized draft submission. Never paste secret values into logs,
+  screenshots, issues, or Git. Do not resolve an exposure alert until checked.
+- Firebase public web API keys are not server credentials. Before restricting
+  shared keys, inventory app consumers. Private service-account keys are secrets;
+  rotate them across every consumer before revoking the old key.
+
+The `uuid` override pins the patched CommonJS-compatible 11.1.1 release for
+Google's older gaxios dependency, which uses its parameterless `v4()` API.
+Remove this override once the upstream dependency resolves a patched release.
 
 ### In SEObot Dashboard:
 

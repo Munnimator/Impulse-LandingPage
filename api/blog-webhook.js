@@ -5,6 +5,8 @@ import { requireEnv } from './_lib/env.js';
 import { Timestamp } from 'firebase-admin/firestore';
 import { getFirestore } from './_lib/firebase-admin.js';
 import { enforceWebhookSecurity } from './_lib/webhook-security.js';
+import { validateWebhookBody } from './_lib/webhook-validation.js';
+import { consumeSharedWebhookLimit, updateUnapprovedDraft } from './_lib/webhook-store.js';
 
 const BLOG_COLLECTION = 'blogPosts';
 
@@ -34,6 +36,7 @@ function generateSlug(title) {
 export default async function handler(req, res) {
   // Only accept POST requests
   if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
@@ -43,10 +46,16 @@ export default async function handler(req, res) {
       return res.status(securityCheck.status).json(securityCheck.body);
     }
 
-    const db = getFirestore();
     const body = req.body;
-    if (!body || typeof body !== 'object') {
-      return res.status(400).json({ error: 'Invalid request body' });
+    const validation = validateWebhookBody(body, req.headers?.['content-length']);
+    if (!validation.ok) {
+      return res.status(validation.status).json({ error: validation.error });
+    }
+    const db = getFirestore();
+    const quota = await consumeSharedWebhookLimit(db);
+    if (!quota.allowed) {
+      res.setHeader('Retry-After', String(quota.retryAfter));
+      return res.status(429).json({ error: 'Rate limit exceeded' });
     }
 
     // Map seobot field names to internal format (with backward compatibility)
@@ -133,10 +142,10 @@ export default async function handler(req, res) {
     if (!existingPostQuery.empty) {
       // Update existing post
       docId = existingPostQuery.docs[0].id;
-      await db.collection(BLOG_COLLECTION).doc(docId).update({
-        ...postData,
-        createdAt: existingPostQuery.docs[0].data().createdAt, // Preserve original creation date
-      });
+      const updated = await updateUnapprovedDraft(db, db.collection(BLOG_COLLECTION).doc(docId), postData);
+      if (!updated) {
+        return res.status(409).json({ error: 'Approved articles cannot be replaced through the webhook' });
+      }
 
       return res.status(200).json({
         success: true,
@@ -158,7 +167,7 @@ export default async function handler(req, res) {
     }
 
   } catch (error) {
-    console.error('Error processing blog post:', error);
+    console.error('Error processing blog post', { code: error.code || 'unknown' });
     return res.status(500).json({ error: 'Failed to process blog post' });
   }
 }

@@ -1,0 +1,10 @@
+.github
+test
+security_best_practices_report.md
+*.md
+dev-server*.js
+* 2.html
+scripts
+.env*
+output
+.playwright-cli

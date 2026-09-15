@@ -49,6 +49,15 @@ const post = {
   readingTime: 6,
 };
 
+test('replacement-string tokens cannot reinsert unsanitized template fragments', () => {
+  const hostile = { ...post, title: '$& $` $\'', seoTitle: '$& $` $\'', seoDescription: '$& $` $\'',
+    author: { name: '$& $` $\'' }, content: '<p>$& $` $\'</p>', tags: ['$& $` $\''] };
+  const html = renderBlogPostDocument(postTemplate, hostile);
+  assert.equal((html.match(/<!DOCTYPE html>/gi) || []).length, 1);
+  assert.match(html, /<h1 class="post-title" id="post-title-main">\$&amp; \$` \$&#x27;<\/h1>/);
+  assert.match(html, /<p>\$&amp; \$` \$'<\/p>/);
+});
+
 test('article sanitizer preserves useful media and removes executable markup', () => {
   const result = sanitizeArticleContent(post.content);
 

@@ -27,5 +27,5 @@ test('Firebase Admin integration uses the modular SDK surface', () => {
 });
 
 test('server renderer pins the Vercel-compatible sanitizer release', () => {
-  assert.equal(packageConfig.dependencies['sanitize-html'], '2.17.5');
+  assert.equal(packageConfig.dependencies['sanitize-html'], '2.17.7');
 });

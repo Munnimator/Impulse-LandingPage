@@ -243,9 +243,9 @@ function replaceMetaContent(html, selectorPattern, content) {
     new RegExp(`<meta\\s+${selectorPattern}[^>]*>`, 'i'),
     match => {
       if (/\scontent=["'][^"']*["']/i.test(match)) {
-        return match.replace(/\scontent=["'][^"']*["']/i, ` content="${escapeHtml(content)}"`);
+        return match.replace(/\scontent=["'][^"']*["']/i, () => ` content="${escapeHtml(content)}"`);
       }
-      return match.replace(/>$/, ` content="${escapeHtml(content)}">`);
+      return match.replace(/>$/, () => ` content="${escapeHtml(content)}">`);
     }
   );
 }
@@ -262,7 +262,7 @@ export function renderBlogPostDocument(template, post, recentPosts = []) {
   const authorName = post.author?.name || 'ImpulseLog Team';
 
   let html = removePostFallbackStates(template);
-  html = html.replace(/<title[^>]*>[\s\S]*?<\/title>/i, `<title id="page-title">${escapeHtml(pageTitle)}</title>`);
+  html = html.replace(/<title[^>]*>[\s\S]*?<\/title>/i, () => `<title id="page-title">${escapeHtml(pageTitle)}</title>`);
   html = replaceMetaContent(html, 'name=["\']description["\']', description);
   html = replaceMetaContent(html, 'property=["\']og:title["\']', post.seoTitle || post.title);
   html = replaceMetaContent(html, 'property=["\']og:description["\']', description);
@@ -271,7 +271,7 @@ export function renderBlogPostDocument(template, post, recentPosts = []) {
   html = replaceMetaContent(html, 'name=["\']twitter:title["\']', post.seoTitle || post.title);
   html = replaceMetaContent(html, 'name=["\']twitter:description["\']', description);
   html = replaceMetaContent(html, 'name=["\']twitter:image["\']', imageUrl);
-  html = html.replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>/i, `<link rel="canonical" id="canonical-url" href="${canonicalUrl}">`);
+  html = html.replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>/i, () => `<link rel="canonical" id="canonical-url" href="${canonicalUrl}">`);
 
   const articleMeta = [
     publishedDate ? `<meta property="article:published_time" content="${escapeHtml(publishedDate)}">` : '',
@@ -279,29 +279,29 @@ export function renderBlogPostDocument(template, post, recentPosts = []) {
     renderJsonLd(buildArticleSchema(post, canonicalUrl, imageUrl)),
     ...faqSchemas.map(renderJsonLd),
   ].filter(Boolean).join('\n');
-  html = html.replace('</head>', `${articleMeta}\n</head>`);
+  html = html.replace('</head>', () => `${articleMeta}\n</head>`);
 
   html = html.replace(
     '<main id="post-wrapper" data-server-rendered="false" style="display: none;">',
     '<main id="post-wrapper" data-server-rendered="true">'
   );
-  html = html.replace('<span id="breadcrumb-title">Post</span>', `<span id="breadcrumb-title">${escapeHtml(post.title)}</span>`);
-  html = html.replace('<h1 class="post-title" id="post-title-main"></h1>', `<h1 class="post-title" id="post-title-main">${escapeHtml(post.title)}</h1>`);
+  html = html.replace('<span id="breadcrumb-title">Post</span>', () => `<span id="breadcrumb-title">${escapeHtml(post.title)}</span>`);
+  html = html.replace('<h1 class="post-title" id="post-title-main"></h1>', () => `<h1 class="post-title" id="post-title-main">${escapeHtml(post.title)}</h1>`);
   html = html.replace(
     '<span id="post-date"></span>',
-    `<time id="post-date" datetime="${escapeHtml(publishedDate)}">${escapeHtml(formatDisplayDate(publishedDate))}</time>`
+    () => `<time id="post-date" datetime="${escapeHtml(publishedDate)}">${escapeHtml(formatDisplayDate(publishedDate))}</time>`
   );
-  html = html.replace('<span id="post-author"></span>', `<span id="post-author">By ${escapeHtml(authorName)}</span>`);
-  html = html.replace('<span id="post-reading-time"></span>', `<span id="post-reading-time">${escapeHtml(post.readingTime || 5)} min read</span>`);
+  html = html.replace('<span id="post-author"></span>', () => `<span id="post-author">By ${escapeHtml(authorName)}</span>`);
+  html = html.replace('<span id="post-reading-time"></span>', () => `<span id="post-reading-time">${escapeHtml(post.readingTime || 5)} min read</span>`);
   html = html.replace(
     '<div id="featured-image-container"></div>',
-    post.featuredImage
+    () => post.featuredImage
       ? `<div id="featured-image-container"><img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(post.title)}" class="post-featured-image" width="1200" height="630" decoding="async"></div>`
       : '<div id="featured-image-container"></div>'
   );
-  html = html.replace('<div class="post-body" id="post-body"></div>', `<div class="post-body" id="post-body">${articleHtml}</div>`);
-  html = html.replace('<div class="post-tags" id="post-tags"></div>', `<div class="post-tags" id="post-tags">${renderTags(post.tags)}</div>`);
-  html = html.replace('<div id="recent-posts"></div>', `<div id="recent-posts">${renderRecentPosts(recentPosts)}</div>`);
+  html = html.replace('<div class="post-body" id="post-body"></div>', () => `<div class="post-body" id="post-body">${articleHtml}</div>`);
+  html = html.replace('<div class="post-tags" id="post-tags"></div>', () => `<div class="post-tags" id="post-tags">${renderTags(post.tags)}</div>`);
+  html = html.replace('<div id="recent-posts"></div>', () => `<div id="recent-posts">${renderRecentPosts(recentPosts)}</div>`);
 
   return html;
 }
@@ -376,9 +376,9 @@ export function renderBlogArchiveDocument(template, posts, options = {}) {
 
   const hasVisiblePosts = visiblePosts.length > 0;
   let html = removeArchiveFallbackStates(template, { keepEmptyState: !hasVisiblePosts });
-  html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(pageTitle)}</title>`);
+  html = html.replace(/<title>[\s\S]*?<\/title>/i, () => `<title>${escapeHtml(pageTitle)}</title>`);
   html = replaceMetaContent(html, 'property=["\']og:url["\']', canonicalUrl);
-  html = html.replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${canonicalUrl}">`);
+  html = html.replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>/i, () => `<link rel="canonical" href="${canonicalUrl}">`);
 
   const headExtras = [];
   if (filtered) headExtras.push('<meta name="robots" content="noindex,follow">');
@@ -398,11 +398,11 @@ export function renderBlogArchiveDocument(template, posts, options = {}) {
       ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
     })),
   }));
-  html = html.replace('</head>', `${headExtras.join('\n')}\n</head>`);
+  html = html.replace('</head>', () => `${headExtras.join('\n')}\n</head>`);
 
   html = html.replace(
     '<p id="blog-filter-label" class="filter-label" style="display: none;"></p>',
-    filterText
+    () => filterText
       ? `<p id="blog-filter-label" class="filter-label">${escapeHtml(filterText)}</p>`
       : '<p id="blog-filter-label" class="filter-label" hidden></p>'
   );
@@ -415,7 +415,7 @@ export function renderBlogArchiveDocument(template, posts, options = {}) {
     const pagination = renderPagination({ page, hasNextPage, tag, category });
     html = html.replace(
       '<div id="blog-grid" class="blog-grid" style="display: none;"></div>',
-      `<div id="blog-grid" class="blog-grid" data-server-rendered="true">${cards}</div>${pagination}`
+      () => `<div id="blog-grid" class="blog-grid" data-server-rendered="true">${cards}</div>${pagination}`
     );
   }
 

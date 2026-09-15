@@ -55,6 +55,8 @@ function consumeRateLimit(ip) {
   const existing = rateLimitState.get(bucketKey);
 
   if (!existing || (now - existing.windowStart) >= windowMs) {
+    // Bound memory even when an unauthenticated caller varies forwarding headers.
+    if (rateLimitState.size >= 10000) rateLimitState.delete(rateLimitState.keys().next().value);
     const nextState = { windowStart: now, count: 1 };
     rateLimitState.set(bucketKey, nextState);
     return {
@@ -93,7 +95,7 @@ function setRateLimitHeaders(res, rateLimit) {
 
 function isJsonRequest(req) {
   const contentType = getHeaderValue(req, 'content-type');
-  return typeof contentType === 'string' && contentType.toLowerCase().includes('application/json');
+  return typeof contentType === 'string' && contentType.split(';')[0].trim().toLowerCase() === 'application/json';
 }
 
 export function enforceWebhookSecurity(req, res, expectedApiKey) {
