@@ -16,12 +16,13 @@
         if (!document.referrer) return 'direct';
         try {
             const hostname = new URL(document.referrer).hostname.toLowerCase();
-            if (hostname.endsWith('chatgpt.com') || hostname.endsWith('openai.com')) return 'chatgpt';
-            if (hostname.includes('google.')) return 'google';
-            if (hostname.includes('bing.')) return 'bing';
-            if (hostname.endsWith('facebook.com') || hostname.endsWith('instagram.com')) return 'meta';
-            if (hostname.endsWith('reddit.com')) return 'reddit';
-            if (hostname.endsWith('producthunt.com')) return 'product_hunt';
+            const matchesDomain = domain => hostname === domain || hostname.endsWith(`.${domain}`);
+            if (matchesDomain('chatgpt.com') || matchesDomain('openai.com')) return 'chatgpt';
+            if (['google.com', 'google.ca', 'google.co.uk', 'google.com.au', 'google.de', 'google.fr'].some(matchesDomain)) return 'google';
+            if (matchesDomain('bing.com')) return 'bing';
+            if (matchesDomain('facebook.com') || matchesDomain('instagram.com')) return 'meta';
+            if (matchesDomain('reddit.com')) return 'reddit';
+            if (matchesDomain('producthunt.com')) return 'product_hunt';
             if (hostname === window.location.hostname) return 'internal';
             return 'other_referral';
         } catch {

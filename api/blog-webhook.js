@@ -2,6 +2,7 @@
 // This endpoint receives blog post data from SEObot and saves it to Firebase
 
 import { requireEnv } from './_lib/env.js';
+import sanitizeHtml from 'sanitize-html';
 import { Timestamp } from 'firebase-admin/firestore';
 import { getFirestore } from './_lib/firebase-admin.js';
 import { enforceWebhookSecurity } from './_lib/webhook-security.js';
@@ -10,12 +11,16 @@ import { consumeSharedWebhookLimit, updateUnapprovedDraft } from './_lib/webhook
 
 const BLOG_COLLECTION = 'blogPosts';
 
+function articleText(content) {
+  return sanitizeHtml(content, { allowedTags: [], allowedAttributes: {} });
+}
+
 /**
  * Calculate reading time based on word count
  * Average reading speed: 200 words per minute
  */
 function calculateReadingTime(content) {
-  const text = content.replace(/<[^>]*>/g, ''); // Strip HTML tags
+  const text = articleText(content);
   const wordCount = text.split(/\s+/).filter(word => word.length > 0).length;
   return Math.ceil(wordCount / 200);
 }
@@ -102,7 +107,7 @@ export default async function handler(req, res) {
     const postData = {
       title,
       slug,
-      excerpt: excerpt || content.replace(/<[^>]*>/g, '').substring(0, 200) + '...',
+      excerpt: excerpt || articleText(content).substring(0, 200) + '...',
       content,
       markdown, // Store markdown version if provided by seobot
       featuredImage: featuredImage || null,
@@ -124,7 +129,7 @@ export default async function handler(req, res) {
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
       seoTitle: body.seoTitle || title,
-      seoDescription: body.seoDescription || excerpt || content.replace(/<[^>]*>/g, '').substring(0, 160),
+      seoDescription: body.seoDescription || excerpt || articleText(content).substring(0, 160),
       readingTime,
       // Store seobot-specific metadata if available
       ...(body.metaKeywords && { metaKeywords: body.metaKeywords }),

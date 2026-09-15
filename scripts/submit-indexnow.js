@@ -5,11 +5,11 @@ const KEY_LOCATION = `${SITE_ORIGIN}/${INDEXNOW_KEY}.txt`;
 
 function decodeXml(value) {
   return value
-    .replaceAll('&amp;', '&')
     .replaceAll('&lt;', '<')
     .replaceAll('&gt;', '>')
     .replaceAll('&quot;', '"')
-    .replaceAll('&apos;', "'");
+    .replaceAll('&apos;', "'")
+    .replaceAll('&amp;', '&');
 }
 
 function validateUrl(value) {

@@ -38,7 +38,7 @@ for (const [pagePath, canonical] of INTENT_PAGES) {
   test(`${pagePath} has a unique canonical and production-ready copy`, async () => {
     const html = await readProjectFile(pagePath);
 
-    assert.match(html, new RegExp(`rel="canonical" href="${canonical.replaceAll('.', '\\.')}`));
+    assert.ok(html.includes(`rel="canonical" href="${canonical}"`));
     assert.match(html, /\.webp/);
     assert.match(html, /width="660" height="1434"/);
     assert.match(html, /atkinson-hyperlegible-400\.woff2/);

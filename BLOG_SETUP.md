@@ -23,6 +23,11 @@ SEObot submits unpublished drafts via the webhook. A human must review each arti
 
 ## Environment Variables (Vercel)
 
+Set `NODE_OPTIONS=--experimental-require-module` in all Vercel environments.
+The patched sanitizer depends on ESM htmlparser2; Vercel disables Node 22's
+require(ESM) support unless this documented opt-in is enabled. Redeploy after
+changing this setting and verify `/blog`, not only the static homepage.
+
 You need to set these environment variables in your Vercel project settings:
 
 ### Required Variables:
