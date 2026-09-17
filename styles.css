@@ -312,7 +312,7 @@ p {
 
 .hero-stats {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 0;
     row-gap: var(--space-md);
     justify-items: center;
@@ -813,7 +813,7 @@ p {
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-lg);
     margin-top: var(--space-3xl);
     max-width: 1200px;
@@ -1312,3 +1312,46 @@ p {
 .mb-2 { margin-bottom: var(--space-md); }
 .mb-3 { margin-bottom: var(--space-lg); }
 .mb-4 { margin-bottom: var(--space-xl); }
+
+/* Short product journey, with optional detail kept out of the main path. */
+.coach-story { padding: var(--space-3xl) 0; background: var(--surface); }
+.coach-story-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: center; }
+.coach-story h2 { margin: 0 0 var(--space-md); }
+.coach-story p { color: var(--text-secondary); }
+.coach-story .btn { margin-top: var(--space-lg); }
+.coach-eyebrow { color: var(--primary-dark) !important; font-weight: 700; margin-bottom: var(--space-sm); }
+.coach-journey { padding-left: 1.5rem; }
+.coach-journey li { padding: 0 0 var(--space-lg) var(--space-sm); }
+.coach-journey li:last-child { padding-bottom: 0; }
+.coach-journey li::marker { color: var(--primary-dark); font-weight: 700; }
+.coach-journey h3 { margin-bottom: var(--space-xs); }
+.optional-calculator summary { cursor: pointer; font-weight: 700; padding: var(--space-md); min-height: 48px; }
+.optional-calculator summary:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+.founder-note { padding-top: var(--space-xl); padding-bottom: var(--space-xl); max-width: 760px; }
+.founder-note a { display: inline-block; padding: var(--space-sm) 0; min-height: 44px; }
+@media (max-width: 768px) {
+    .coach-story-layout { grid-template-columns: 1fr; gap: var(--space-xl); }
+    .value-card { text-align: left; padding: var(--space-lg); }
+    .value-icon { margin-bottom: var(--space-sm); }
+    .cluster-preview-card { padding: var(--space-lg); }
+    .how-it-works .steps { margin-top: var(--space-xl); gap: var(--space-lg); }
+    .how-it-works .step { text-align: left; padding-left: 3.75rem; }
+    .how-it-works .step-number { position: absolute; left: 0; top: 0; width: 44px; height: 44px; font-size: 1.25rem; }
+}
+
+.pricing-card.featured { transform: none; }
+.pricing-note { max-width: 760px; margin: var(--space-lg) auto 0; text-align: center; font-size: var(--font-size-sm); }
+.faq-item summary { cursor: pointer; font-size: var(--font-size-xl); font-weight: 700; min-height: 44px; }
+.faq-item summary:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+.faq-item[open] p { margin-top: var(--space-sm); }
+@media (max-width: 768px) {
+    main > section[class] { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+    .section-subtitle { margin-bottom: var(--space-xl); }
+    .pricing-grid { grid-template-columns: 1fr; margin-top: var(--space-xl); }
+    .pricing-card { padding: var(--space-lg); }
+    .faq-grid { gap: var(--space-lg); }
+}
+
+.practical-guide { max-width: 760px; padding-left: 1.5rem; margin: var(--space-lg) 0; }
+.practical-guide li { padding: 0 0 var(--space-lg) var(--space-sm); }
+.practical-guide li::marker { color: var(--primary-dark); font-weight: 700; }

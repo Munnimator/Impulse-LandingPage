@@ -33,7 +33,7 @@ test('shared runtime exposes menu and accessible carousel state', async () => {
   assert.match(script, /aria-hidden/);
 });
 
-test('carousel rotates every five seconds unless explicitly paused', async () => {
+test('carousel offers optional five-second playback and starts paused', async () => {
   const [html, script] = await Promise.all([
     readFile('index.html', 'utf8'),
     readFile('script.js', 'utf8'),
@@ -41,6 +41,7 @@ test('carousel rotates every five seconds unless explicitly paused', async () =>
 
   assert.equal((html.match(/class="screenshot-wrapper(?: active)?"/g) || []).length, 10);
   assert.match(html, /class="carousel-playback"/);
+  assert.match(script, /let isPausedByUser = true/);
   assert.match(script, /CAROUSEL_AUTOPLAY_DELAY\s*=\s*5000/);
   assert.match(script, /window\.setTimeout/);
   assert.match(script, /prefers-reduced-motion:\s*reduce/);
@@ -71,19 +72,19 @@ test('screenshot carousel reserves breathing room around the complete phone fram
   assert.match(styles, /@media\s*\(max-width:\s*768px\)[\s\S]*\.screenshot-container\s*\{[^}]*min-height:\s*735px;/s);
 });
 
-test('monthly and annual pricing stay consistent across the hero and plan details', async () => {
+test('monthly and annual prices stay consistent in the plan details and structured data', async () => {
   const [html, styles] = await Promise.all([
     readFile('index.html', 'utf8'),
     readFile('styles.css', 'utf8'),
   ]);
 
-  assert.match(html, /\$4\.99\/mo/);
-  assert.match(html, /\$29\.99\/yr/);
+  assert.match(html, /<span class="amount">\$4\.99<\/span>/);
+  assert.match(html, /"price":\s*"4\.99"/);
   assert.match(html, /<span class="period">per year<\/span>/);
   assert.match(html, /<span class="amount">\$29\.99<\/span>/);
   assert.match(html, /"price":\s*"29\.99"/);
   assert.doesNotMatch(html, /29\.00/);
-  assert.match(styles, /\.hero-stats\s*\{[^}]*grid-template-columns:\s*repeat\(4,/s);
+  assert.match(styles, /\.hero-stats\s*\{[^}]*grid-template-columns:\s*repeat\(2,/s);
   assert.match(styles, /\.hero-stats\s*\{[^}]*column-gap:\s*0;[^}]*justify-items:\s*center;/s);
   assert.match(styles, /\.stat\s*\{[^}]*align-items:\s*center;[^}]*text-align:\s*center;/s);
   assert.match(styles, /@media\s*\(max-width:\s*768px\)[\s\S]*\.hero-stats\s*\{[^}]*grid-template-columns:\s*repeat\(2,/s);

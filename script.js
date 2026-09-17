@@ -56,6 +56,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 const APP_STORE_BASE_URL = 'https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094';
 const APP_STORE_PROVIDER_TOKEN = '';
+// Approved page IDs copied from App Store Connect on September 17, 2026.
+const CUSTOM_PRODUCT_PAGES = Object.freeze({
+    'adhd-spending-tracker': 'd004977f-8431-4fac-b8d2-f0688fe3df79',
+    'shopping-wait-timer': 'd4097329-bdbc-4b6a-b0f5-6d9b0eb2245b',
+    'impulse-spending-app': '94cf4060-a1fd-4663-8c11-f81b048b1781',
+});
 
 function sanitizeCampaignToken(value) {
     return String(value || 'website')
@@ -83,6 +89,9 @@ function buildTrackedAppStoreUrl(campaign) {
     const url = new URL(APP_STORE_BASE_URL);
     url.searchParams.set('ct', sanitizeCampaignToken(campaign));
     url.searchParams.set('mt', '8');
+    const pageKey = window.location.pathname.replace(/^\/|\/$/g, '');
+    const productPage = CUSTOM_PRODUCT_PAGES[pageKey];
+    if (typeof productPage === 'string') url.searchParams.set('ppid', productPage);
 
     if (APP_STORE_PROVIDER_TOKEN) {
         url.searchParams.set('pt', APP_STORE_PROVIDER_TOKEN);
@@ -129,7 +138,12 @@ function instrumentAppStoreLinks() {
     });
 }
 
-instrumentAppStoreLinks();
+// The shared attribution client is deferred. Wait for it before freezing link tokens.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', instrumentAppStoreLinks, { once: true });
+} else {
+    instrumentAppStoreLinks();
+}
 
 // Floating CTA on Scroll
 const floatingCta = document.getElementById('floating-cta');
@@ -270,7 +284,7 @@ if (screenshotWrappers.length > 0) {
     const totalScreens = screenshotWrappers.length;
     let autoplayTimer = null;
     let isCarouselVisible = !('IntersectionObserver' in window);
-    let isPausedByUser = false;
+    let isPausedByUser = true;
 
     const clearAutoplay = () => {
         if (autoplayTimer !== null) {

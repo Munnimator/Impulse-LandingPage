@@ -8,7 +8,7 @@
   "minimum_os": "iOS 17",
   "market": "United States",
   "currency": "USD",
-  "last_updated": "2026-09-14",
+  "last_updated": "2026-09-17",
   "official_profiles": {
     "app_store": "https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094",
     "instagram": "https://www.instagram.com/impulselog_app/"
@@ -40,7 +40,7 @@
       "goals, milestones, streaks, XP, and daily challenges",
       "7-day and 4-week Insights",
       "14-day mood history",
-      "one personalized Coach sample review after enough completed decisions",
+      "one personalized Coach sample review after 3 completed decisions",
       "home-screen widgets",
       "Share to Pause from the iOS Share Sheet",
       "offline-friendly logging",

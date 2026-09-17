@@ -42,7 +42,7 @@
     <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-700.woff2" as="font" type="font/woff2" crossorigin>
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
 
     <!-- Google Analytics 4 -->
     <script defer src="/assets/js/analytics.js"></script>
@@ -72,7 +72,7 @@
                 "name": "Free Plan",
                 "price": "0",
                 "priceCurrency": "USD",
-                "description": "Saved, bought, and pending decision logging; Impulse Rescue; wait timers; shopping lists and sessions; goals; milestones; streaks; XP; daily challenges; 7-day and 4-week Insights; 14-day mood history; one personalized Coach sample after enough completed decisions; offline-friendly logging; and CSV/JSON export"
+                "description": "Saved, bought, and pending decision logging; Impulse Rescue; wait timers; shopping lists and sessions; goals; milestones; streaks; XP; daily challenges; 7-day and 4-week Insights; 14-day mood history; one personalized Coach sample after 3 completed decisions; offline-friendly logging; and CSV/JSON export"
               },
               {
                 "@type": "Offer",
@@ -200,7 +200,7 @@
               "name": "How does the mood tracking work?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "You can log mood, notes, place context, and purchase decisions. Free includes 14 days of mood history and one personalized Coach sample after enough completed decisions. Premium adds up to one year of mood history, fresh weekly Coach reviews, longer-term comparisons, and deeper context patterns."
+                "text": "You can log mood, notes, place context, and purchase decisions. Free includes 14 days of mood history and one personalized Coach sample after 3 completed decisions. Premium adds up to one year of mood history, fresh weekly Coach reviews, longer-term comparisons, and deeper context patterns."
               }
             },
             {
@@ -280,7 +280,7 @@
                     <a href="#how-it-works">How It Works</a>
                     <a href="#pricing">Pricing</a>
                     <a href="#faq">FAQ</a>
-                    <a href="https://www.impulselog.com/blog">Blog</a>
+                    <a href="#guides">Guides</a>
                     <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary btn-small" style="color: white;">Download</a>
                 </div>
                 <button class="mobile-menu-toggle" aria-label="Toggle menu">
@@ -298,7 +298,7 @@
         <a href="#how-it-works">How It Works</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
-        <a href="https://www.impulselog.com/blog">Blog</a>
+        <a href="#guides">Guides</a>
         <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary" style="color: white;">Download App</a>
     </div>
 
@@ -311,7 +311,7 @@
                         An ADHD-friendly pause for the moment you almost buy.
                     </h1>
                     <p class="hero-subtitle" itemprop="description">
-                        Log resisted purchases, pause unsure buys, plan shopping lists, and notice which moods and places often appear around your decisions.
+                        Save the almost-buy, take a pause, and choose what feels right. Make the money you chose not to spend visible.
                     </p>
                     <div class="hero-cta">
                         <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary btn-large" style="color: white;">
@@ -327,15 +327,7 @@
                     <div class="hero-stats">
                         <div class="stat">
                             <span class="stat-value">Free</span>
-                            <span class="stat-label">Start with core logging</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">$4.99/mo</span>
-                            <span class="stat-label">Premium insights</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">$29.99/yr</span>
-                            <span class="stat-label">Annual premium</span>
+                            <span class="stat-label">Pause and log for free</span>
                         </div>
                         <div class="stat">
                             <span class="stat-value">iPhone</span>
@@ -364,10 +356,37 @@
 
     <!-- Value Props Section -->
     <main role="main">
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works" aria-label="How to use ImpulseLog" itemscope itemtype="https://schema.org/HowTo">
+        <div class="container">
+            <h2 class="section-title">A little space before checkout</h2>
+            <p class="section-subtitle">Saw something you want? Start here. No daily catch-up required.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Save the almost-buy</h3>
+                    <p>When a purchase starts feeling urgent, open ImpulseLog or share the product link to it before checkout.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Give yourself a moment</h3>
+                    <p>Use Help me decide for a short reset, or choose a wait timer and come back when you are ready.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Record your choice</h3>
+                    <p>Bought it or skipped it? Log either outcome. See the money you chose not to spend, then check in later about how the choice felt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <section class="value-props" id="features" aria-label="Key features" itemscope itemtype="https://schema.org/ItemList">
         <div class="container">
-            <h2 class="section-title" itemprop="name">The ADHD-friendly savings loop</h2>
-            <p class="section-subtitle">Fast enough for the urge, visual enough to feel rewarding, structured enough to use every day.</p>
+            <h2 class="section-title" itemprop="name">Tools for your next shopping moment</h2>
+            <p class="section-subtitle">Start with a pause. Add structure when it helps.</p>
             
             <div class="value-grid">
                 <div class="value-card">
@@ -387,7 +406,7 @@
                             <path d="M8 6L10 12M14 12L16 6M6 8L10 12M14 12L18 8M8 18L10 12M14 12L16 18" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <h3>Dopamine-Friendly Progress</h3>
+                    <h3>Make small wins visible</h3>
                     <p>XP, levels, streaks, and achievements make the save feel concrete instead of invisible.</p>
                 </div>
                 <div class="value-card">
@@ -413,49 +432,6 @@
                     <div class="value-icon">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
-                                <radialGradient id="moodGradient" cx="50%" cy="50%">
-                                    <stop offset="0%" stop-color="#FDE047"/>
-                                    <stop offset="100%" stop-color="#F59E0B"/>
-                                </radialGradient>
-                            </defs>
-                            <circle cx="12" cy="12" r="8" fill="url(#moodGradient)" stroke="#F59E0B" stroke-width="1"/>
-                            <path d="M8 12C8 12 10 14 12 14C14 14 16 12 16 12" stroke="#1F2937" stroke-width="2" stroke-linecap="round"/>
-                            <circle cx="9" cy="9" r="1.5" fill="#1F2937"/>
-                            <circle cx="15" cy="9" r="1.5" fill="#1F2937"/>
-                            <path d="M12 2V4M12 20V22M22 12H20M4 12H2M19.07 4.93L17.66 6.34M6.34 17.66L4.93 19.07M19.07 19.07L17.66 17.66M6.34 6.34L4.93 4.93" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <h3>Try Coach Free</h3>
-                    <p>After enough completed decisions, get one personalized Coach sample with a practical next step and optional check-in. Premium adds fresh weekly reviews.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="chartGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#3B82F6"/>
-                                    <stop offset="100%" stop-color="#10B981"/>
-                                </linearGradient>
-                            </defs>
-                            <path d="M3 3V21H21" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M7 12L10 9L14 13L18 7" stroke="url(#chartGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle cx="7" cy="12" r="2.5" fill="#EF4444"/>
-                            <circle cx="10" cy="9" r="2.5" fill="#F59E0B"/>
-                            <circle cx="14" cy="13" r="2.5" fill="#8B5CF6"/>
-                            <circle cx="18" cy="7" r="2.5" fill="#10B981"/>
-                            <circle cx="7" cy="12" r="1" fill="#FFFFFF"/>
-                            <circle cx="10" cy="9" r="1" fill="#FFFFFF"/>
-                            <circle cx="14" cy="13" r="1" fill="#FFFFFF"/>
-                            <circle cx="18" cy="7" r="1" fill="#FFFFFF"/>
-                        </svg>
-                    </div>
-                    <h3>Context &amp; Place Patterns</h3>
-                    <p>Add optional place context for free. Premium can compare repeated place patterns after you have enough history.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
                                 <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stop-color="#FDE047"/>
                                     <stop offset="50%" stop-color="#F59E0B"/>
@@ -470,48 +446,36 @@
                     <h3>Reusable Shopping Lists</h3>
                     <p>Bring a short list into the store, reuse past lists, and keep off-list decisions visible.</p>
                 </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="mountainGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#059669"/>
-                                    <stop offset="70%" stop-color="#10B981"/>
-                                    <stop offset="100%" stop-color="#34D399"/>
-                                </linearGradient>
-                            </defs>
-                            <!-- Main mountain -->
-                            <path d="M3 20L10 8L16 12L21 20H3Z" fill="url(#mountainGradient)"/>
-                            <!-- Snow cap -->
-                            <path d="M10 8L13 11L16 12L13 10L10 8Z" fill="#FFFFFF" opacity="0.7"/>
-                            <!-- Flag pole -->
-                            <rect x="15.5" y="4" width="1" height="8" fill="#6B7280"/>
-                            <!-- Flag -->
-                            <path d="M16.5 4L20 6L16.5 8V4Z" fill="#EF4444"/>
-                        </svg>
-                    </div>
-                    <h3>Daily Challenges</h3>
-                    <p>Get quick wins from daily challenges and a simple daily ritual that keeps your savings goals visible and doable.</p>
-                </div>
             </div>
         </div>
     </section>
 
-    <section class="cluster-preview" aria-label="Explore ImpulseLog by use case">
+    <section class="coach-story" id="coach" aria-labelledby="coach-title">
+        <div class="container coach-story-layout">
+            <div>
+                <p class="coach-eyebrow">Your Coach review</p>
+                <h2 id="coach-title">One useful next step.<br>Then see how it went.</h2>
+                <p>Turn your recorded decisions into something you can try the next time an urge shows up.</p>
+                <a href="#pricing" class="btn btn-secondary">Compare Free and Premium</a>
+            </div>
+            <ol class="coach-journey">
+                <li><h3>Try a review free</h3><p>After 3 completed decisions, open Coach for one personalized sample. Bought and skipped purchases both count.</p></li>
+                <li><h3>Choose one next step</h3><p>Pick something from your review to try. An optional reminder can help you come back.</p></li>
+                <li><h3>Tell Coach how it went</h3><p>Check in after trying it. Premium adds a fresh review each week and saved review history to revisit.</p></li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="cluster-preview" id="guides" aria-label="Practical shopping guides">
         <div class="container">
-            <h2 class="section-title">Explore by Use Case</h2>
-            <p class="section-subtitle">Start with the workflow that matches the money habit you want to change first.</p>
+            <h2 class="section-title">Start with a familiar situation</h2>
+            <p class="section-subtitle">Choose a practical guide for the moment you are in.</p>
 
             <div class="cluster-preview-grid">
                 <article class="cluster-preview-card">
                     <span class="cluster-preview-label">Almost-buys</span>
-                    <h3>Impulse Spending App</h3>
+                    <h3>A late-night almost-buy</h3>
                     <p>For the moment you are about to buy and want a better next step than checkout.</p>
-                    <ul class="cluster-preview-list">
-                        <li>Log the urge and the amount</li>
-                        <li>Use a wait timer when the purchase feels urgent</li>
-                        <li>Record avoided spending and choose whether to assign it to a goal</li>
-                    </ul>
                     <div class="cluster-preview-footer">
                         <a href="/impulse-spending-app/" class="btn btn-primary" style="color: white;" aria-label="Learn more about the impulse spending app">Learn more</a>
                     </div>
@@ -519,13 +483,8 @@
 
                 <article class="cluster-preview-card">
                     <span class="cluster-preview-label">ADHD-friendly</span>
-                    <h3>ADHD Spending Tracker</h3>
+                    <h3>A shopping trip with a plan</h3>
                     <p>For people who need momentum, reminders, and visual progress more than spreadsheet discipline.</p>
-                    <ul class="cluster-preview-list">
-                        <li>Fast logging for split-attention moments</li>
-                        <li>Mood and notes for better self-awareness</li>
-                        <li>Rewards that reinforce consistency</li>
-                    </ul>
                     <div class="cluster-preview-footer">
                         <a href="/adhd-spending-tracker/" class="btn btn-primary" style="color: white;" aria-label="Learn more about the ADHD spending tracker">Learn more</a>
                     </div>
@@ -533,13 +492,8 @@
 
                 <article class="cluster-preview-card">
                     <span class="cluster-preview-label">Pause button</span>
-                    <h3>Shopping Wait Timer</h3>
+                    <h3>A sale that feels urgent</h3>
                     <p>For purchases that need a little space before they become transactions.</p>
-                    <ul class="cluster-preview-list">
-                        <li>Choose a delay that fits the decision</li>
-                        <li>Keep the item visible without buying now</li>
-                        <li>Reflect later with more context</li>
-                    </ul>
                     <div class="cluster-preview-footer">
                         <a href="/shopping-wait-timer/" class="btn btn-primary" style="color: white;" aria-label="Learn more about the shopping wait timer">Learn more</a>
                     </div>
@@ -639,36 +593,10 @@
                     <button class="nav-dot" data-screen="8" aria-label="View decision log screen"></button>
                     <button class="nav-dot" data-screen="9" aria-label="View purchase log screen"></button>
                     <button class="nav-dot" data-screen="10" aria-label="View analytics screen"></button>
-                    <button class="carousel-playback" type="button" aria-label="Pause automatic screenshot rotation">
-                        <span class="carousel-playback-icon" aria-hidden="true">Ⅱ</span>
-                        <span class="carousel-playback-label">Pause</span>
+                    <button class="carousel-playback" type="button" aria-label="Play automatic screenshot rotation">
+                        <span class="carousel-playback-icon" aria-hidden="true">▶</span>
+                        <span class="carousel-playback-label">Play</span>
                     </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="how-it-works" id="how-it-works" aria-label="How to use ImpulseLog" itemscope itemtype="https://schema.org/HowTo">
-        <div class="container">
-            <h2 class="section-title">How ImpulseLog Works</h2>
-            <p class="section-subtitle">A daily loop you can finish in under a minute</p>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Catch the Urge</h3>
-                    <p>When a purchase starts feeling urgent, open ImpulseLog or share the product link to it before checkout.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Log, Pause, or Plan</h3>
-                    <p>Record it as not bought, put it on a wait timer, or start a shopping list before you walk into the store.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Learn the Pattern</h3>
-                    <p>Review recorded avoided spending and notice which moods, categories, and places often appear around your decisions.</p>
                 </div>
             </div>
         </div>
@@ -677,6 +605,8 @@
     <!-- Interactive Calculator -->
     <section class="calculator-section">
         <div class="container">
+            <details class="optional-calculator">
+                <summary>What could your almost-buys add up to?</summary>
             <div class="calculator-card">
                 <h2>See Your Potential Savings</h2>
                 <p>See the value of the almost-buys you could track over time. This is an illustration, not a savings guarantee.</p>
@@ -710,6 +640,7 @@
                     <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary btn-large" style="color: white;">Start Tracking Almost-Buys</a>
                 </div>
             </div>
+            </details>
         </div>
     </section>
 
@@ -731,38 +662,23 @@
                         <li>✓ Impulse Rescue, wait timers, lists, and shopping sessions</li>
                         <li>✓ Goals, milestones, streaks, XP, and daily challenges</li>
                         <li>✓ 7-day and 4-week Insights plus 14-day mood history</li>
-                        <li>✓ One personalized Coach sample after enough completed decisions</li>
+                        <li>✓ One personalized Coach sample after 3 completed decisions</li>
                         <li>✓ CSV/JSON export and offline-friendly logging</li>
                     </ul>
-                    <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-secondary">Get Started</a>
-                </div>
-
-                <div class="pricing-card">
-                    <h3>Premium Monthly</h3>
-                    <div class="price">
-                        <span class="amount">$4.99</span>
-                        <span class="period">per month</span>
-                    </div>
-                    <ul class="features-list">
-                        <li>✓ Everything in Free</li>
-                        <li>✓ Fresh weekly Coach reviews</li>
-                        <li>✓ Saved review and check-in history</li>
-                        <li>✓ Deeper Coach pattern reviews</li>
-                        <li>✓ 6-month and all-time comparisons</li>
-                        <li>✓ Up to one year of mood history and deeper context patterns</li>
-                    </ul>
-                    <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
+                    <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-secondary" data-app-cta="free">Start free</a>
                 </div>
 
                 <div class="pricing-card featured">
-                    <div class="badge">Best Value</div>
-                    <h3>Premium Annual</h3>
+                    <h3>Premium</h3>
+                    <p>The same Premium features with either plan.</p>
+                    <div class="price"><span class="amount">$4.99</span> <span class="period">per month</span></div>
+                    <p>or</p>
                     <div class="price">
                         <span class="amount">$29.99</span>
                         <span class="period">per year</span>
                     </div>
                     <div class="savings-badge">
-                        Save 50% compared with twelve monthly payments
+                        Save 50% with annual billing compared with twelve monthly payments
                     </div>
                     <ul class="features-list">
                         <li>✓ Everything in Free</li>
@@ -772,9 +688,10 @@
                         <li>✓ 6-month and all-time comparisons</li>
                         <li>✓ Up to one year of mood history and deeper context patterns</li>
                     </ul>
-                    <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary" style="color: white;">Get Started</a>
+                    <a href="https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094" class="btn btn-primary" style="color: white;" data-app-cta="premium">Explore Premium in the app</a>
                 </div>
             </div>
+            <p class="pricing-note">US prices shown. Subscriptions renew automatically until canceled. Confirm local pricing and billing terms in the app before subscribing.</p>
         </div>
     </section>
 
@@ -784,35 +701,17 @@
             <h2 class="section-title">Frequently Asked Questions</h2>
             
             <div class="faq-grid">
-                <div class="faq-item">
-                    <h3>Is this just another budget app?</h3>
-                    <p>No. ImpulseLog is built for the moment before a purchase. It helps you pause, log, plan, and learn from almost-buys instead of only reviewing transactions after the fact.</p>
-                </div>
+                <details class="faq-item"><summary>Is this just another budget app?</summary><p>No. ImpulseLog is built for the moment before a purchase. It helps you pause, log, plan, and learn from almost-buys instead of only reviewing transactions after the fact.</p></details>
                 
-                <div class="faq-item">
-                    <h3>How does the mood tracking work?</h3>
-                    <p>You can log mood, notes, category, and optional place context with resisted purchases or pending decisions. Free includes 14 days of mood history and one personalized Coach sample after enough completed decisions. Premium adds up to one year of mood history, fresh weekly Coach reviews, longer-term comparisons, and deeper context patterns.</p>
-                </div>
+                <details class="faq-item"><summary>How does the mood tracking work?</summary><p>You can log mood, notes, category, and optional place context with resisted purchases or pending decisions. Free includes 14 days of mood history and one personalized Coach sample after 3 completed decisions. Premium adds up to one year of mood history, fresh weekly Coach reviews, longer-term comparisons, and deeper context patterns.</p></details>
                 
-                <div class="faq-item">
-                    <h3>Is my financial data secure?</h3>
-                    <p>We use encrypted connections, Firebase-managed infrastructure, and privacy-focused handling practices. We do not sell your data, and you can export or delete your data anytime.</p>
-                </div>
+                <details class="faq-item"><summary>Is my financial data secure?</summary><p>We use encrypted connections, Firebase-managed infrastructure, and privacy-focused handling practices. We do not sell your data, and you can export or delete your data anytime.</p></details>
                 
-                <div class="faq-item">
-                    <h3>What makes this different from Mint or YNAB?</h3>
-                    <p>ImpulseLog is built for neurodivergent minds with quick logging, visual progress, wait timers, shopping lists, and dopamine-friendly gamification. It is focused on impulse spending, not full household budgeting.</p>
-                </div>
+                <details class="faq-item"><summary>What makes this different from Mint or YNAB?</summary><p>ImpulseLog is built for neurodivergent minds with quick logging, visual progress, wait timers, shopping lists, and dopamine-friendly gamification. It is focused on impulse spending, not full household budgeting.</p></details>
                 
-                <div class="faq-item">
-                    <h3>Does ImpulseLog track my location all the time?</h3>
-                    <p>No. Place context is optional and used when you choose to add a place to a save, purchase, or shopping list. It is designed to help you understand store patterns, not to run background tracking.</p>
-                </div>
+                <details class="faq-item"><summary>Does ImpulseLog track my location all the time?</summary><p>No. Place context is optional and used when you choose to add a place to a save, purchase, or shopping list. It is designed to help you understand store patterns, not to run background tracking.</p></details>
 
-                <div class="faq-item">
-                    <h3>Can I try Coach before subscribing?</h3>
-                    <p>Yes. After you record enough completed decisions, you can use one personalized Coach sample with a practical next step and optional check-in. Premium adds fresh weekly reviews and longer-history patterns.</p>
-                </div>
+                <details class="faq-item"><summary>Can I try Coach before subscribing?</summary><p>Yes. After you record 3 completed decisions, you can use one personalized Coach sample with a practical next step and optional check-in. Premium adds fresh weekly reviews and longer-history patterns.</p></details>
                 
             </div>
         </div>
@@ -893,6 +792,11 @@
             </div>
         </div>
     </section>
+
+    <aside class="founder-note container" aria-label="About the founder">
+        <p><strong>Built by Brad Munn, founder and developer of ImpulseLog.</strong> A focused tool for the moment before a purchase, with room to log either outcome and learn at your own pace.</p>
+        <a href="/founder-story/">Meet the founder →</a>
+    </aside>
 
     <!-- Final CTA -->
     <section class="final-cta" id="download">
