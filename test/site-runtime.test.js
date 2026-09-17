@@ -39,7 +39,9 @@ test('carousel offers optional five-second playback and starts paused', async ()
     readFile('script.js', 'utf8'),
   ]);
 
-  assert.equal((html.match(/class="screenshot-wrapper(?: active)?"/g) || []).length, 10);
+  const screens = [...html.matchAll(/class="screenshot-wrapper(?: active)?" data-screen="(\d+)"/g)].map(match => match[1]);
+  const controls = [...html.matchAll(/class="nav-dot(?: active)?" data-screen="(\d+)"/g)].map(match => match[1]);
+  assert.deepEqual(controls, screens, 'Every genuine screen has a matching navigation control');
   assert.match(html, /class="carousel-playback"/);
   assert.match(script, /let isPausedByUser = true/);
   assert.match(script, /CAROUSEL_AUTOPLAY_DELAY\s*=\s*5000/);
