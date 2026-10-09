@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-09T03:22:15.143387+00:00",
+  "title": "Design System: ImpulseLog website",
+  "extensions": {
+    "colorMeta": {
+      "clay-ink": {
+        "role": "neutral",
+        "displayName": "Deep Navy",
+        "tonalRamp": [
+          "oklch(15% 0.05553 285.36)",
+          "oklch(26% 0.05553 285.36)",
+          "oklch(38% 0.05553 285.36)",
+          "oklch(49% 0.05553 285.36)",
+          "oklch(61% 0.05553 285.36)",
+          "oklch(72% 0.05553 285.36)",
+          "oklch(84% 0.05553 285.36)",
+          "oklch(95% 0.05553 285.36)"
+        ]
+      },
+      "clay-purple": {
+        "role": "primary",
+        "displayName": "Clay Violet",
+        "tonalRamp": [
+          "oklch(15% 0.20717 288.84)",
+          "oklch(26% 0.20717 288.84)",
+          "oklch(38% 0.20717 288.84)",
+          "oklch(49% 0.20717 288.84)",
+          "oklch(61% 0.20717 288.84)",
+          "oklch(72% 0.20717 288.84)",
+          "oklch(84% 0.20717 288.84)",
+          "oklch(95% 0.20717 288.84)"
+        ]
+      },
+      "primary-dark": {
+        "role": "primary",
+        "displayName": "Deep Violet",
+        "tonalRamp": [
+          "oklch(15% 0.18254 287.73)",
+          "oklch(26% 0.18254 287.73)",
+          "oklch(38% 0.18254 287.73)",
+          "oklch(49% 0.18254 287.73)",
+          "oklch(61% 0.18254 287.73)",
+          "oklch(72% 0.18254 287.73)",
+          "oklch(84% 0.18254 287.73)",
+          "oklch(95% 0.18254 287.73)"
+        ]
+      },
+      "primary-light": {
+        "role": "primary",
+        "displayName": "Light Violet",
+        "tonalRamp": [
+          "oklch(15% 0.11467 294.98)",
+          "oklch(26% 0.11467 294.98)",
+          "oklch(38% 0.11467 294.98)",
+          "oklch(49% 0.11467 294.98)",
+          "oklch(61% 0.11467 294.98)",
+          "oklch(72% 0.11467 294.98)",
+          "oklch(84% 0.11467 294.98)",
+          "oklch(95% 0.11467 294.98)"
+        ]
+      },
+      "clay-lavender": {
+        "role": "secondary",
+        "displayName": "Quiet Lavender",
+        "tonalRamp": [
+          "oklch(15% 0.03306 299.06)",
+          "oklch(26% 0.03306 299.06)",
+          "oklch(38% 0.03306 299.06)",
+          "oklch(49% 0.03306 299.06)",
+          "oklch(61% 0.03306 299.06)",
+          "oklch(72% 0.03306 299.06)",
+          "oklch(84% 0.03306 299.06)",
+          "oklch(95% 0.03306 299.06)"
+        ]
+      },
+      "clay-mint": {
+        "role": "secondary",
+        "displayName": "Progress Mint",
+        "tonalRamp": [
+          "oklch(15% 0.03759 169.08)",
+          "oklch(26% 0.03759 169.08)",
+          "oklch(38% 0.03759 169.08)",
+          "oklch(49% 0.03759 169.08)",
+          "oklch(61% 0.03759 169.08)",
+          "oklch(72% 0.03759 169.08)",
+          "oklch(84% 0.03759 169.08)",
+          "oklch(95% 0.03759 169.08)"
+        ]
+      },
+      "clay-yellow": {
+        "role": "tertiary",
+        "displayName": "Golden Clay",
+        "tonalRamp": [
+          "oklch(15% 0.13643 90.53)",
+          "oklch(26% 0.13643 90.53)",
+          "oklch(38% 0.13643 90.53)",
+          "oklch(49% 0.13643 90.53)",
+          "oklch(61% 0.13643 90.53)",
+          "oklch(72% 0.13643 90.53)",
+          "oklch(84% 0.13643 90.53)",
+          "oklch(95% 0.13643 90.53)"
+        ]
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Soft Paper",
+        "tonalRamp": [
+          "oklch(15% 0.00947 299.24)",
+          "oklch(26% 0.00947 299.24)",
+          "oklch(38% 0.00947 299.24)",
+          "oklch(49% 0.00947 299.24)",
+          "oklch(61% 0.00947 299.24)",
+          "oklch(72% 0.00947 299.24)",
+          "oklch(84% 0.00947 299.24)",
+          "oklch(95% 0.00947 299.24)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Lavender Surface",
+        "tonalRamp": [
+          "oklch(15% 0.02485 301.07)",
+          "oklch(26% 0.02485 301.07)",
+          "oklch(38% 0.02485 301.07)",
+          "oklch(49% 0.02485 301.07)",
+          "oklch(61% 0.02485 301.07)",
+          "oklch(72% 0.02485 301.07)",
+          "oklch(84% 0.02485 301.07)",
+          "oklch(95% 0.02485 301.07)"
+        ]
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Muted Plum",
+        "tonalRamp": [
+          "oklch(15% 0.05049 299.52)",
+          "oklch(26% 0.05049 299.52)",
+          "oklch(38% 0.05049 299.52)",
+          "oklch(49% 0.05049 299.52)",
+          "oklch(61% 0.05049 299.52)",
+          "oklch(72% 0.05049 299.52)",
+          "oklch(84% 0.05049 299.52)",
+          "oklch(95% 0.05049 299.52)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Lavender Border",
+        "tonalRamp": [
+          "oklch(15% 0.03658 299.66)",
+          "oklch(26% 0.03658 299.66)",
+          "oklch(38% 0.03658 299.66)",
+          "oklch(49% 0.03658 299.66)",
+          "oklch(61% 0.03658 299.66)",
+          "oklch(72% 0.03658 299.66)",
+          "oklch(84% 0.03658 299.66)",
+          "oklch(95% 0.03658 299.66)"
+        ]
+      },
+      "headline-accent": {
+        "role": "primary",
+        "displayName": "Headline Violet",
+        "tonalRamp": [
+          "oklch(15% 0.19400 289.97)",
+          "oklch(26% 0.19400 289.97)",
+          "oklch(38% 0.19400 289.97)",
+          "oklch(49% 0.19400 289.97)",
+          "oklch(61% 0.19400 289.97)",
+          "oklch(72% 0.19400 289.97)",
+          "oklch(84% 0.19400 289.97)",
+          "oklch(95% 0.19400 289.97)"
+        ]
+      },
+      "inverse-text": {
+        "role": "neutral",
+        "displayName": "Inverse Lavender",
+        "tonalRamp": [
+          "oklch(15% 0.02453 298.61)",
+          "oklch(26% 0.02453 298.61)",
+          "oklch(38% 0.02453 298.61)",
+          "oklch(49% 0.02453 298.61)",
+          "oklch(61% 0.02453 298.61)",
+          "oklch(72% 0.02453 298.61)",
+          "oklch(84% 0.02453 298.61)",
+          "oklch(95% 0.02453 298.61)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.88)",
+          "oklch(26% 0.00000 89.88)",
+          "oklch(38% 0.00000 89.88)",
+          "oklch(49% 0.00000 89.88)",
+          "oklch(61% 0.00000 89.88)",
+          "oklch(72% 0.00000 89.88)",
+          "oklch(84% 0.00000 89.88)",
+          "oklch(95% 0.00000 89.88)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Homepage hero headline; mobile scales are documented in DESIGN.md."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Fluid homepage section headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Rounded step-heading sample."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs and explanatory content."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Hero explanation with a 43ch measure."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Navigation and action labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "action",
+        "value": "0 5px 14px #33206321",
+        "purpose": "Primary buttons."
+      },
+      {
+        "name": "screenshot-device",
+        "value": "0 22px 42px #22163d25",
+        "purpose": "Homepage iPhone frames."
+      },
+      {
+        "name": "supporting-device",
+        "value": "0 18px 35px #261c4326",
+        "purpose": "Supporting-page device surfaces."
+      },
+      {
+        "name": "mobile-menu",
+        "value": "0 15px 25px #17143115",
+        "purpose": "Open mobile panel."
+      },
+      {
+        "name": "floating-action",
+        "value": "0 8px 22px #17143125",
+        "purpose": "Floating download control."
+      },
+      {
+        "name": "inverse-action",
+        "value": "0 6px 15px #25114530",
+        "purpose": "Light button on violet closing section."
+      }
+    ],
+    "motion": [
+      {
+        "name": "button-state",
+        "value": "background .2s ease, box-shadow .2s ease",
+        "purpose": "Button color/shadow states; no translation."
+      },
+      {
+        "name": "clay-settle",
+        "value": ".9s cubic-bezier(.16,1,.3,1) both",
+        "purpose": "One deliberate hover/focus settle: 0% translateY(0) rotate(0); 35% translateY(-12px) rotate(-2deg); 100% return to rest."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none; transition: none",
+        "purpose": "Disable hero sculpture animation and button transitions when reduced motion is requested."
+      },
+      {
+        "name": "entrance",
+        "value": "animation: none; opacity: 1; transform: none",
+        "purpose": "Suppress inherited generic entrance fades."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "tablet-navigation",
+        "value": "900px"
+      },
+      {
+        "name": "pricing-stack",
+        "value": "768px"
+      },
+      {
+        "name": "mobile",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main App Store download action.",
+      "html": "<a class=\"ds-btn-primary\" href=\"https://apps.apple.com/us/app/impulse-log-adhd-finances/id6747727094\">Download on App Store</a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:16px 32px;border-radius:14px;font-family:var(--font-sans,'Atkinson Hyperlegible',sans-serif);font-size:16px;font-weight:700;text-decoration:none;cursor:pointer;transition:background .2s ease,box-shadow .2s ease;background:var(--clay-purple,#6640cf);color:#fff;border:none;box-shadow:0 5px 14px #33206321}.ds-btn-primary:hover{background:var(--primary-dark,#5031ab);transform:none}.ds-btn-primary:focus-visible { outline: 3px solid #6840cc; outline-offset: 5px; }@media(prefers-reduced-motion:reduce){.ds-btn-primary{transition:none}}"
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "An outlined contextual action beside a primary download.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#how-it-works\">See How It Works</a>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:16px 32px;border-radius:14px;font-family:var(--font-sans,'Atkinson Hyperlegible',sans-serif);font-size:16px;font-weight:700;text-decoration:none;cursor:pointer;transition:background .2s ease,box-shadow .2s ease;background:transparent;color:var(--clay-ink,#171431);border:1px solid #a494c2;box-shadow:none}.ds-btn-secondary:hover{background:#ded3f4;transform:none}.ds-btn-secondary:focus-visible { outline: 3px solid #6840cc; outline-offset: 5px; }@media(prefers-reduced-motion:reduce){.ds-btn-secondary{transition:none}}"
+    },
+    {
+      "name": "Public navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Opaque navigation with a display wordmark, readable links, and a mobile menu target.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main\"><a class=\"ds-wordmark\" href=\"/\">ImpulseLog</a><div class=\"ds-nav-links\"><a href=\"/#pricing\">Pricing</a><a href=\"/blog\">Blog</a></div><button class=\"ds-menu\" aria-label=\"Toggle mobile menu\" aria-expanded=\"false\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M1 6h22M1 12h22M1 18h22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg></button></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;justify-content:space-between;height:80px;background:var(--background,#faf8ff);border-bottom:1px solid #dcd3ed;padding:0 24px}.ds-wordmark{font-family:var(--font-display,'Nunito Clay',sans-serif);font-size:26px;font-weight:900;letter-spacing:-.025em;color:var(--clay-ink,#171431);text-decoration:none}.ds-nav-links{display:flex;gap:24px}.ds-nav-links a{font-family:var(--font-sans,'Atkinson Hyperlegible',sans-serif);color:#463c59;font-weight:700;text-decoration:none;transition:color .3s ease}.ds-nav-links a:hover{color:var(--primary,#6640cf)}.ds-menu{display:none;width:44px;height:44px;border:none;background:none;color:var(--clay-ink,#171431);align-items:center;justify-content:center}.ds-wordmark:focus-visible { outline: 3px solid #6840cc; outline-offset: 5px; }.ds-nav-links a:focus-visible{outline:3px solid #6840cc;outline-offset:5px}.ds-menu:focus-visible { outline: 3px solid #6840cc; outline-offset: 5px; }@media(max-width:900px){.ds-nav-links{display:none}.ds-menu{display:flex}}@media(max-width:640px){.ds-nav{height:72px}.ds-wordmark{font-size:24px}}"
+    },
+    {
+      "name": "Calculator number field",
+      "kind": "input",
+      "refersTo": "calculator-input",
+      "description": "A labeled numeric input inside the optional calculator.",
+      "html": "<label class=\"ds-field-label\" for=\"ds-average-amount\">Average amount ($)</label><input class=\"ds-field\" id=\"ds-average-amount\" type=\"number\" min=\"0\" value=\"10\">",
+      "css": ".ds-field-label{display:block;font-family:var(--font-sans,'Atkinson Hyperlegible',sans-serif);font-weight:500;color:var(--text-secondary,#514765);margin-bottom:8px}.ds-field{width:100%;padding:16px;border:2px solid #b9a9d0;border-radius:8px;background:var(--background,#faf8ff);color:var(--clay-ink,#171431);font-size:18px;text-align:center;caret-color:var(--clay-purple,#6640cf)}.ds-field:focus-visible { outline: 3px solid #6840cc; outline-offset: 5px; }"
+    },
+    {
+      "name": "FAQ disclosure",
+      "kind": "custom",
+      "refersTo": "faq-disclosure",
+      "description": "A native expandable answer separated by a quiet divider.",
+      "html": "<details class=\"ds-faq\"><summary>Is this just another budget app?</summary><p>ImpulseLog is built for the moment before a purchase. It helps you pause, log, plan, and learn from almost-buys.</p></details>",
+      "css": ".ds-faq{padding:25px 0;border-bottom:1px solid #beb0d4;font-family:var(--font-sans,'Atkinson Hyperlegible',sans-serif);line-height:1.6}.ds-faq summary{cursor:pointer;font-size:20px;font-weight:700;min-height:44px;color:#251b3d}.ds-faq summary:focus-visible{outline:3px solid var(--primary,#6640cf);outline-offset:4px}.ds-faq p{color:var(--text-secondary,#514765);max-width:70ch;margin-bottom:16px}.ds-faq[open] p{margin-top:16px}"
+    },
+    {
+      "name": "Free pricing panel",
+      "kind": "card",
+      "refersTo": "pricing-free",
+      "description": "The lavender half of the joined Free/Premium comparison.",
+      "html": "<section class=\"ds-price-free\"><h3>Free</h3><p>Start free</p></section>",
+      "css": ".ds-price-free{padding:40px;background:#eee7fb;color:var(--clay-ink,#171431);border:none;border-radius:0;box-shadow:none;font-family:var(--font-sans,'Atkinson Hyperlegible',sans-serif)}.ds-price-free h3{font-family:var(--font-display,'Nunito Clay',sans-serif);font-size:30px;font-weight:900;letter-spacing:-.025em;margin:0 0 16px;line-height:1.2}.ds-price-free p{color:#473f55;line-height:1.6}@media(max-width:900px){.ds-price-free{padding:30px}}@media(max-width:640px){.ds-price-free{padding:28px}}"
+    },
+    {
+      "name": "Premium pricing panel",
+      "kind": "card",
+      "refersTo": "pricing-premium",
+      "description": "The mint half of the joined comparison; no elevated featured state.",
+      "html": "<section class=\"ds-price-premium\"><h3>Premium</h3><p>Explore Premium in the app</p></section>",
+      "css": ".ds-price-premium{padding:40px;background:#d5f3e7;color:var(--clay-ink,#171431);border:none;border-radius:0;box-shadow:none;font-family:var(--font-sans,'Atkinson Hyperlegible',sans-serif)}.ds-price-premium h3{font-family:var(--font-display,'Nunito Clay',sans-serif);font-size:30px;font-weight:900;letter-spacing:-.025em;margin:0 0 16px;line-height:1.2}.ds-price-premium p{color:#2c5043;line-height:1.6}@media(max-width:900px){.ds-price-premium{padding:30px}}@media(max-width:640px){.ds-price-premium{padding:28px}}"
+    },
+    {
+      "name": "Savings badge",
+      "kind": "chip",
+      "refersTo": "savings-badge",
+      "description": "A factual annual-plan pricing annotation.",
+      "html": "<span class=\"ds-savings-badge\">Annual plan</span>",
+      "css": ".ds-savings-badge{display:block;padding:8px 24px;border-radius:10px;background:#bfdfd0;color:#23483a;font-family:var(--font-sans,'Atkinson Hyperlegible',sans-serif);font-size:14px;font-weight:600;text-align:center;margin:16px 0 24px}"
+    },
+    {
+      "name": "Reading card",
+      "kind": "card",
+      "refersTo": "reading-card",
+      "description": "A flat bordered blog entry with rounded corners.",
+      "html": "<a class=\"ds-reading-card\" href=\"/blog\"><h2>Pause before buying</h2><p>Browse practical guides for the moment before checkout.</p></a>",
+      "css": ".ds-reading-card{display:block;padding:24px;border:1px solid var(--border,#d4cce6);border-radius:16px;background:var(--background,#faf8ff);box-shadow:none;color:inherit;text-decoration:none;transition:transform .2s ease,border-color .2s ease;font-family:var(--font-sans,'Atkinson Hyperlegible',sans-serif)}.ds-reading-card h2{font-family:var(--font-display,'Nunito Clay',sans-serif);font-size:1.35rem;font-weight:900;letter-spacing:-.025em;line-height:1.2;color:#111827;margin:0 0 8px}.ds-reading-card p{color:#4b5563;line-height:1.6;margin:0}.ds-reading-card:hover{transform:translateY(-3px);border-color:var(--border,#d4cce6)}.ds-reading-card:focus-visible { outline: 3px solid #6840cc; outline-offset: 5px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A pause you can almost touch.",
+    "overview": "The website carries the user-approved soft clay identity from ImpulseLog's App Store creative. Matte sculptures make the moment before a purchase tangible. Heavy rounded headlines and generous quiet space give the invitation to pause a friendly, direct voice; readable body type keeps the explanation grounded.\n\nLavender introductions, mint progress sections, deep navy reading passages, and violet download moments create rhythm across the public website. Conceptual clay artwork sits alongside genuine app screenshots. This system describes the marketing website only; it does not prescribe a new native app interface or a replacement app icon.",
+    "keyCharacteristics": [
+      "Matte clay sculptures with transparent surroundings and soft embedded shadows.",
+      "Self-hosted rounded Nunito display type with Atkinson Hyperlegible body text.",
+      "Broad tonal sections, quiet dividers, and restrained interface elevation.",
+      "Semantic headings, visible focus, native disclosures, and reduced-motion support."
+    ],
+    "rules": [
+      {
+        "name": "The Tonal Passage Rule",
+        "body": "Let section color carry the large-scale rhythm; avoid adding decorative gradients to the new clay system.",
+        "section": "colors"
+      },
+      {
+        "name": "The Real Text Rule",
+        "body": "Render headings, descriptions, and actions as semantic HTML text; clay images provide imagery rather than substitute interface copy.",
+        "section": "typography"
+      },
+      {
+        "name": "The Clay Depth Rule",
+        "body": "Keep sculpture depth in the artwork and interface depth selective; do not turn every content row into a raised card.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** use the approved clay artwork and preserve its matte material, transparent edges, and full silhouettes.",
+      "**Do** pair rounded Nunito display text with readable Atkinson body text.",
+      "**Do** let broad lavender, mint, navy, and violet passages establish rhythm.",
+      "**Do** show genuine app screens alongside conceptual illustrations and retain the existing app icon.",
+      "**Do** preserve semantic text, visible keyboard focus, native disclosures, readable contrast, and reduced-motion behavior."
+    ],
+    "donts": [
+      "**Don't** turn conceptual clay illustrations into fabricated app screenshots or product evidence.",
+      "**Don't** inherit unused legacy gradients as the new system's color or elevation rules.",
+      "**Don't** add decorative eyebrow labels or raise every content container into a card.",
+      "**Don't** loop the sculpture animation or restore generic entrance fades.",
+      "**Don't** treat this website system as authorization to redesign the native app or change product claims, pricing, or entitlements."
+    ]
+  }
+}

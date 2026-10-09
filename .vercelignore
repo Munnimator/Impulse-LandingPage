@@ -8,3 +8,6 @@ scripts
 .env*
 output
 .playwright-cli
+.impeccable
+assets/images/clay-2026/*.png
+!assets/images/clay-2026/social-preview.png

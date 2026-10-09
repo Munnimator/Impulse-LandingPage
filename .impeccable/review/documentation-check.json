@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-09T03:23:14.672629+00:00",
+  "status": "pass",
+  "scope": "Website design documentation; no product runtime verification performed by this pass.",
+  "filesWritten": [
+    "DESIGN.md",
+    ".impeccable/design.json",
+    ".impeccable/review/documentation-check.json"
+  ],
+  "checks": {
+    "canonicalSections": true,
+    "frontmatterGroups": true,
+    "componentTokenProperties": true,
+    "tokenReferences": true,
+    "sidecarSchemaVersion": true,
+    "extensionsOnly": true,
+    "metadataKeysMatchTokens": true,
+    "tonalRampEightSteps": true,
+    "componentReferences": true,
+    "scopedComponents": true,
+    "selfContainedComponents": true,
+    "narrativeNorthStar": true,
+    "narrativeListsVerbatim": true,
+    "paletteInFinalCSS": true,
+    "finalStylesheetOnAllPublicFiles": true,
+    "approvedArtworkPresent": true
+  },
+  "tokenReferenceCount": 19,
+  "componentCount": 9,
+  "tonalRampProvenance": "Documentation previews synthesized in OKLCH from canonical hex colors; these ramps are not claimed as implemented CSS tokens.",
+  "sourceHashes": {
+    "assets/css/clay-brand.css": "14b6cd7bd7a2158afbda52c856dfa01596ac5e93875e83c6db799e205a8beeb3",
+    "styles.css": "9a0ce9689fd509ad80b34e3dadeb90b4377249102e6ce5d65105400dbaba5950",
+    "PRODUCT.md": "c0782d229433f80a03e39d85bbcf3f960210673ccaa07354998559280e9b1163",
+    ".impeccable/surfaces/index-html.md": "63dfc9a550b622ed607ba518c6f9c48b3c9be8a0898f2180499e658b517b2cfa",
+    "DESIGN.md": "970851b936f13bba9453959ae0ce38aabff870b123aeb6d0a552e1956384eb4d",
+    ".impeccable/design.json": "d1abf3146436271b649369efd4e77795bc91be492dd1e0325596813cc5d1dfb8"
+  },
+  "notCanonized": "Unused legacy gradient/shadow declarations and incidental page-specific template styling remain beneath the final cascade. They are not adopted as the new reusable clay rules; source changes are outside this documentation boundary."
+}

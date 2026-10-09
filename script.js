@@ -203,23 +203,12 @@ calculateSavings();
 function generateQRCode() {
     const qrContainer = document.getElementById('qr-code');
     if (qrContainer) {
-        const appStoreUrl = buildTrackedAppStoreUrl(`${getPageCampaign()}_qr_code`);
-        
-        // Use Google Charts API to generate QR code
-        const qrCodeUrl = `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${encodeURIComponent(appStoreUrl)}&choe=UTF-8&chld=M|2`;
-        
-        qrContainer.innerHTML = `
-            <div style="width: 150px; height: 150px; background: white; border-radius: 8px; padding: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <img src="${qrCodeUrl}" alt="QR Code for App Store download" style="width: 100%; height: 100%; border-radius: 4px;">
-                <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; text-align: center; color: #6B7280; font-size: 12px;">
-                    QR Code<br>Coming Soon
-                </div>
-            </div>
-        `;
-        qrContainer.querySelector('img').addEventListener('error', event => {
-            event.target.style.display = 'none';
-            event.target.nextElementSibling.style.display = 'flex';
-        });
+        const image = document.createElement('img');
+        image.src = '/assets/icons/app-store-qr.svg';
+        image.alt = 'Scan to download ImpulseLog on the App Store';
+        image.width = 116;
+        image.height = 116;
+        qrContainer.replaceChildren(image);
     }
 }
 
